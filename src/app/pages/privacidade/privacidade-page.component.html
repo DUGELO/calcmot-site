@@ -1,0 +1,63 @@
+<app-page-hero
+  [eyebrow]="page.hero.eyebrow"
+  [title]="page.hero.title"
+  [lead]="page.hero.lead"
+  [points]="page.hero.points ?? []"
+/>
+
+@for (section of page.sections; track section.id) {
+  <app-page-section [section]="section" />
+
+  @if (section.id === 'controle') {
+    <section class="privacidade__autonomia section section--tight">
+      <div class="container">
+        <app-trust-strip
+          [items]="copy.trust.items"
+          [disclaimer]="copy.trust.disclaimer"
+        />
+        <p class="note">
+          O CalcMot é uma ferramenta independente e não possui vínculo oficial com plataformas de
+          transporte.
+        </p>
+      </div>
+    </section>
+  }
+}
+
+<section class="privacidade__contato section section--surface" aria-labelledby="contato-titulo">
+  <div class="container privacidade__contato-inner">
+    <div>
+      <p class="eyebrow">Contato</p>
+      <h2 id="contato-titulo">Falar sobre dados e permissões</h2>
+      <p class="lead">
+        Dúvidas sobre leitura, permissão ou histórico são atendidas pelo canal de suporte divulgado
+        na ficha do app na Play Store.
+      </p>
+    </div>
+
+    <div class="privacidade__contato-actions">
+      <app-cta-button
+        label="Ver a ficha do app na Play Store"
+        [href]="playStoreUrl"
+        [external]="true"
+        variant="secondary"
+      />
+
+      @if (supportEmail) {
+        <a class="link-more" [href]="'mailto:' + supportEmail">Enviar e-mail para o suporte</a>
+      }
+
+      <a class="link-more" href="/suporte">
+        Ver a página de suporte
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M9 4l4 4-4 4" /></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<app-cta-band
+  [title]="page.closing.title"
+  [description]="page.closing.description"
+  [secondaryLabel]="copy.finalCta.secondaryLabel"
+  [secondaryHref]="copy.finalCta.secondaryHref"
+/>

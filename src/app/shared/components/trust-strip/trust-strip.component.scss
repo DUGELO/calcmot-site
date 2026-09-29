@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+.trust {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+.trust__disclaimer {
+  margin: 10px 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1rem, 2.6vw, 1.12rem);
+  font-weight: 700;
+  line-height: 1.55;
+  max-width: 60ch;
+}

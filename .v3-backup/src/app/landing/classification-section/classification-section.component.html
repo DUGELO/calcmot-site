@@ -1,0 +1,27 @@
+<section id="classificacoes" class="section section--surface" aria-labelledby="classification-title">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="classification-title">{{ copy.title }}</h2>
+      <p>{{ copy.description }}</p>
+    </div>
+
+    <div class="classification-grid">
+      @for (item of copy.items; track item.label) {
+        <app-classification-badge
+          [label]="item.label"
+          [detail]="item.detail"
+          [tone]="item.tone"
+        />
+      }
+    </div>
+
+    <div class="classification-cta">
+      <app-cta-button
+        [label]="ctaLabel"
+        [href]="playStoreUrl"
+        [external]="true"
+      />
+    </div>
+  </div>
+</section>

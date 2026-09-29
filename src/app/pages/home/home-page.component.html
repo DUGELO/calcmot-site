@@ -1,0 +1,68 @@
+<app-hero />
+
+<app-product-proof
+  [eyebrow]="copy.productProof.eyebrow"
+  [title]="copy.productProof.title"
+  [description]="copy.productProof.description"
+  [note]="copy.productProof.note"
+  [image]="copy.productProof.image"
+  [alt]="copy.productProof.alt"
+/>
+
+<app-offer-comparison />
+
+<app-how-it-works />
+
+<app-classification-section />
+
+<section class="compat section section--surface" aria-labelledby="compatibilidade-titulo">
+  <div class="container compat__inner">
+    <div class="compat__content">
+      <p class="eyebrow">{{ copy.compatibility.eyebrow }}</p>
+      <h2 id="compatibilidade-titulo">{{ copy.compatibility.title }}</h2>
+      <p class="lead">{{ copy.compatibility.description }}</p>
+
+      <ul class="pill-row compat__apps">
+        @for (app of copy.compatibility.apps; track app) {
+          <li class="pill">{{ app }}</li>
+        }
+      </ul>
+
+      <p class="note">{{ copy.compatibility.note }}</p>
+    </div>
+
+    <div class="compat__aside">
+      <p class="eyebrow">{{ copy.trust.eyebrow }}</p>
+      <h3 class="compat__aside-title">{{ copy.trust.title }}</h3>
+      <p class="compat__promise">{{ copy.trust.disclaimer }}</p>
+      <p class="compat__limits">{{ copy.trust.limits }}</p>
+      <a class="link-more" [href]="copy.trust.linkHref">{{ copy.trust.linkLabel }} <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M9 4l4 4-4 4" /></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="faq-section section" aria-labelledby="faq-titulo">
+  <div class="container faq-section__inner">
+    <div class="section-heading faq-section__heading">
+      <p class="eyebrow">{{ copy.faq.eyebrow }}</p>
+      <h2 id="faq-titulo">{{ copy.faq.title }}</h2>
+    </div>
+
+    <div class="faq-section__list">
+      <app-faq-list [items]="copy.faq.items" />
+
+      <a class="link-more" [href]="copy.faq.linkHref">
+        {{ copy.faq.linkLabel }}
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M9 4l4 4-4 4" /></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<app-cta-band
+  [title]="copy.finalCta.title"
+  [description]="copy.finalCta.description"
+  [note]="copy.finalCta.note"
+  [secondaryLabel]="copy.finalCta.secondaryLabel"
+  [secondaryHref]="copy.finalCta.secondaryHref"
+/>

@@ -1,0 +1,21 @@
+<section class="proof section" aria-labelledby="prova-titulo">
+  <div class="container proof__inner">
+    <div class="proof__copy">
+      <p class="eyebrow">{{ eyebrow() }}</p>
+      <h2 id="prova-titulo">{{ title() }}</h2>
+      <p>{{ description() }}</p>
+      <p class="note">{{ note() }}</p>
+    </div>
+    <div class="proof__visuals">
+      <figure class="proof__figure">
+        <div class="proof__live-crop">
+          @if (!imageFailed()) {
+            <img [src]="image()" [alt]="alt()" width="720" height="600" loading="lazy" (error)="onImageError()" />
+          } @else {
+            <div class="proof__fallback"><b>CALCMOT · BOA</b><span>R$/km · R$/h · tempo</span></div>
+          }
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>

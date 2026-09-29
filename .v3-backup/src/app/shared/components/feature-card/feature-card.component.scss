@@ -1,0 +1,29 @@
+.feature-card {
+  min-height: 100%;
+  padding: 20px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.feature-card__marker {
+  width: 10px;
+  height: 10px;
+  margin-bottom: 22px;
+  border-radius: 50%;
+  background: var(--color-brand-green);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--color-brand-green) 12%, transparent);
+  display: block;
+}
+
+h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+}
+
+p {
+  margin: 9px 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}

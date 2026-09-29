@@ -1,0 +1,14 @@
+:host { display: block; }
+.proof { border-bottom: 1px solid #1c2934; background: #090e14; }
+.proof__inner { display: grid; gap: 26px; align-items: center; }
+.proof__copy h2 { max-width: 13ch; margin: 12px 0 0; font-size: clamp(2.1rem, 5vw, 3.5rem); line-height: 1.02; letter-spacing: -.055em; }
+.proof__copy > p:not(.eyebrow):not(.note) { max-width: 40ch; margin: 16px 0 0; color: #acb9c4; font-size: 1rem; line-height: 1.6; }
+.proof__copy .note { max-width: 38ch; }
+.proof__visuals { display: grid; }
+.proof__figure { position: relative; margin: 0; padding: 18px; border: 1px solid #3a4a5a; border-radius: 16px; background: #111a23; box-shadow: 0 25px 60px #0005; }
+.proof__live-crop { width: min(100%, 455px); aspect-ratio: 6 / 5; margin: auto; overflow: hidden; border: 1px solid #6e8b99; border-radius: 14px; background: #111d27; }
+.proof__live-crop img { display: block; width: 100%; height: auto; }
+.proof__fallback { height: 100%; display: grid; align-content: center; gap: 8px; padding: 20px; color: #e8f0f3; }
+.proof__fallback b { color: #8bd057; }
+.proof__fallback span { font-size: .78rem; }
+@media (min-width: 850px) { .proof__inner { grid-template-columns: minmax(0, .84fr) minmax(0, 1.16fr); gap: 54px; } }

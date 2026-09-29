@@ -1,0 +1,69 @@
+<section id="inicio" class="hero section" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <div class="hero__kicker">
+        <span class="hero__kicker-dot" aria-hidden="true"></span>
+        <p class="eyebrow">{{ positioning }}</p>
+      </div>
+      <h1 id="hero-title">{{ copy.title }}</h1>
+      <p class="hero__description">{{ copy.description }}</p>
+
+      <div class="hero__actions" aria-label="Ações principais">
+        <app-cta-button
+          [label]="copy.primaryCta"
+          [href]="playStoreUrl"
+          [external]="true"
+        />
+        <app-cta-button
+          [label]="copy.secondaryCta"
+          href="#comparacao"
+          variant="secondary"
+        />
+      </div>
+
+      <p class="hero__trust">{{ copy.trustLine }}</p>
+
+      <div class="hero__guardrails" aria-label="Limites do CalcMot">
+        <span>Não aceita por você</span>
+        <span>Não recusa por você</span>
+        <span>Não controla Uber/99</span>
+        <span>Não promete lucro garantido</span>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__stage" aria-label="Demonstração do CalcMot em uma oferta de corrida">
+        <div class="metric-float metric-float--top">
+          <span class="metric-float__label">R$/km</span>
+          <strong>R$ 2,41/km</strong>
+          <span class="metric-float__trend">acima da meta</span>
+        </div>
+
+        <app-phone-mockup />
+
+        <div class="metric-float metric-float--bottom">
+          <span class="metric-float__label">R$/h</span>
+          <strong>R$ 48/h</strong>
+          <span class="metric-float__trend">tempo considerado</span>
+        </div>
+
+        <div class="metric-float metric-float--time">
+          <span class="metric-float__label">TEMPO</span>
+          <strong>18 min</strong>
+          <span class="metric-float__trend">leitura rápida</span>
+        </div>
+
+        <div class="metric-float metric-float--verdict">
+          <span class="metric-float__label">DECISÃO</span>
+          <strong>ÓTIMA</strong>
+          <span class="metric-float__trend">acima da meta</span>
+        </div>
+
+        <div class="hero__signal" aria-hidden="true">
+          <span></span>
+          oferta visível
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

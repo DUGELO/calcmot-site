@@ -1,0 +1,171 @@
+.comparison-section {
+  background:
+    linear-gradient(90deg, transparent 0 8%, color-mix(in srgb, var(--color-primary) 4%, transparent) 8% 8.2%, transparent 8.2% 100%),
+    var(--color-background);
+}
+
+.comparison-section__heading {
+  max-width: 760px;
+}
+
+.comparison-board {
+  position: relative;
+  padding: 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    var(--color-surface);
+  background-size: 32px 32px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+}
+
+.comparison-board__topline {
+  min-height: 36px;
+  padding: 0 4px 12px;
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.comparison-board__live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-brand-green);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-brand-green) 12%, transparent);
+}
+
+.comparison-board__example {
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+}
+
+.comparison-board__offers {
+  display: grid;
+  gap: 10px;
+}
+
+.offer-card {
+  --offer-tone: var(--color-text-muted);
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid color-mix(in srgb, var(--offer-tone) 52%, var(--color-border-subtle));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--offer-tone) 6%, var(--color-surface-elevated));
+}
+
+.offer-card[data-tone='great'] { --offer-tone: var(--color-great); }
+.offer-card[data-tone='bad'] { --offer-tone: var(--color-bad); }
+
+.offer-card__head,
+.offer-card__metrics,
+.offer-card__verdict {
+  display: flex;
+  align-items: center;
+}
+
+.offer-card__head {
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--color-text-primary);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.offer-card__route {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  font-weight: 650;
+  text-transform: none;
+}
+
+.offer-card__value {
+  margin: 20px 0 14px;
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 900;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.offer-card__metrics {
+  padding-block: 14px;
+  border-block: 1px solid var(--color-border-subtle);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 22px;
+}
+
+.offer-card__metrics div {
+  display: grid;
+  gap: 4px;
+}
+
+.offer-card__metrics span,
+.offer-card__verdict span {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+}
+
+.offer-card__metrics strong {
+  color: var(--color-text-primary);
+  font-size: 1.05rem;
+}
+
+.offer-card__verdict {
+  margin-top: 14px;
+  gap: 9px;
+}
+
+.offer-card__status-dot {
+  flex: 0 0 auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--offer-tone);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--offer-tone) 14%, transparent);
+}
+
+.offer-card__verdict div {
+  display: grid;
+  gap: 2px;
+}
+
+.offer-card__verdict strong {
+  color: color-mix(in srgb, var(--offer-tone) 72%, white);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.comparison-board__note {
+  margin: 14px 4px 2px;
+  color: var(--color-text-muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 760px) {
+  .comparison-board {
+    padding: 18px;
+  }
+
+  .comparison-board__offers {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .offer-card[data-tone='great'] {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 48px color-mix(in srgb, var(--color-great) 14%, transparent);
+  }
+}

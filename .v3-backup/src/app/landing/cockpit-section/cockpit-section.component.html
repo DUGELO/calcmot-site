@@ -1,0 +1,44 @@
+<section class="section section--surface" aria-labelledby="cockpit-title">
+  <div class="container cockpit">
+    <div class="section-heading cockpit__copy">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="cockpit-title">{{ copy.title }}</h2>
+      <p>{{ copy.description }}</p>
+    </div>
+
+    <div class="cockpit__dashboard" aria-label="Exemplo visual do cockpit operacional">
+      <div class="cockpit__dashboard-head">
+        <div>
+          <span class="cockpit__caption">Resumo de hoje</span>
+          <strong>Quarta-feira, 14 ago</strong>
+        </div>
+        <span class="cockpit__status"><i></i> ativo</span>
+      </div>
+
+      <div class="cockpit__summary">
+        <div>
+          <span>Ganhos confirmados</span>
+          <strong>R$ 186,40</strong>
+        </div>
+        <div>
+          <span>Meta do dia</span>
+          <strong>68%</strong>
+        </div>
+      </div>
+
+      <div class="cockpit__progress" aria-hidden="true"><span></span></div>
+
+      <div class="cockpit__panel">
+        @for (item of copy.items; track item) {
+          <div class="cockpit__row">
+            <span class="cockpit__check" aria-hidden="true">✓</span>
+            <strong>{{ item }}</strong>
+            <span class="cockpit__arrow" aria-hidden="true">→</span>
+          </div>
+        }
+      </div>
+
+      <span class="cockpit__example">exemplo de organização · valores ilustrativos</span>
+    </div>
+  </div>
+</section>

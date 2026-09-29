@@ -1,0 +1,17 @@
+<section id="como-funciona" class="section" aria-labelledby="how-title">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="how-title">{{ copy.title }}</h2>
+    </div>
+
+    <ol class="steps" aria-label="Como o CalcMot funciona">
+      @for (step of copy.steps; track step.number) {
+        <li class="steps__item">
+          <span class="steps__number">{{ step.number }}</span>
+          <strong>{{ step.title }}</strong>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

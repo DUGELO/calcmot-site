@@ -1,0 +1,70 @@
+[
+  {
+    "Check": "Pare de aceitar corrida no escuro.",
+    "Result": true
+  },
+  {
+    "Check": "R$ 2,41/km",
+    "Result": true
+  },
+  {
+    "Check": "R$ 48/h",
+    "Result": true
+  },
+  {
+    "Check": "exemplo visual",
+    "Result": true
+  },
+  {
+    "Check": "Android · Uber e 99 · A decisão continua sua",
+    "Result": true
+  },
+  {
+    "Check": "https://play.google.com/store/apps/details?id=br.com.calcmot",
+    "Result": true
+  },
+  {
+    "Check": "ng-server-context=\"ssr\"",
+    "Result": true
+  },
+  {
+    "Check": "HTTP 200 em /, /como-funciona, /calculadora-ganhos-motorista-app, /privacidade e /suporte; todas com ng-server-context=ssr",
+    "Result": true
+  },
+  {
+    "Check": "Title e description SEO aprovados no HTML inicial",
+    "Result": true
+  },
+  {
+    "Check": "Sem a palavra cockpit no HTML renderizado",
+    "Result": true
+  },
+  {
+    "Check": "Home sem a expressão literal lucro garantido; FAQ sobre garantia esclarece que o sinal é uma estimativa",
+    "Result": true
+  },
+  {
+    "Check": "Menção a vínculo oficial aparece em negação explícita",
+    "Result": true
+  },
+  {
+    "Check": "QA estático passou",
+    "Result": true
+  },
+  {
+    "Check": "Build SSR final após hero product-led passou; bundle inicial 380,97 kB (102,04 kB estimados para transferência)",
+    "Result": true
+  },
+  {
+    "Check": "Hero renderiza oferta real com imagem eager e prioritária, alt e métricas R$ 2,01/km, R$ 47,31/h, 13 min e BOA",
+    "Result": true
+  },
+  {
+    "Check": "Classificação SSR contém R$ 2,41/km, R$ 48/h e a nota de exemplo visual",
+    "Result": true
+  },
+  {
+    "Check": "offer-uber-live-cropped.jpg e overlay-real-cropped.jpg servidos por HTTP 200",
+    "Result": true
+  }
+]

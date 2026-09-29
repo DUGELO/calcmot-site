@@ -1,0 +1,60 @@
+<div class="phone" aria-label="Demonstração visual do overlay do CalcMot">
+  <div class="phone__speaker" aria-hidden="true"></div>
+  <div class="phone__screen">
+    <div
+      class="phone__real-screenshot"
+      aria-hidden="true"
+      [style.background-image]="'url(' + screenshotSrc() + ')'"
+    ></div>
+
+    <div class="phone__fallback">
+      <div class="driver-status" aria-hidden="true">
+        <span class="driver-status__label">CalcMot</span>
+        <span class="driver-status__live"><i></i> lendo oferta</span>
+      </div>
+
+      <div class="offer-shell" aria-hidden="true">
+        <div class="offer-shell__route">
+          <span class="offer-shell__pin"></span>
+          <div>
+            <strong>Centro</strong>
+            <small>→ Zona Sul</small>
+          </div>
+        </div>
+        <div class="offer-shell__price">R$ 34,70</div>
+        <div class="offer-shell__details">
+          <span>14,4 km</span>
+          <span>43 min</span>
+          <span>oferta visível</span>
+        </div>
+      </div>
+
+      <div class="overlay-card">
+        <div class="overlay-card__head">
+          <span class="overlay-card__badge">ÓTIMA</span>
+          <span class="overlay-card__meaning">Muito acima da meta</span>
+        </div>
+        <div class="overlay-card__impact">META · <strong>+R$ 8,80</strong> estimado</div>
+        <div class="overlay-card__main">
+          <span class="overlay-card__value">R$ 2,41/km</span>
+          <span class="overlay-card__meta">comparado à sua meta de R$ 1,80/km</span>
+        </div>
+        <div class="overlay-card__metrics">
+          <div>
+            <span>R$/h</span>
+            <strong>R$ 48/h</strong>
+          </div>
+          <div>
+            <span>Tempo total</span>
+            <strong>43 min</strong>
+          </div>
+        </div>
+        <p class="overlay-card__example">exemplo visual · você decide</p>
+      </div>
+
+      <div class="phone__bottom-bar" aria-hidden="true">
+        <span></span><span class="phone__bottom-bar--active"></span><span></span>
+      </div>
+    </div>
+  </div>
+</div>

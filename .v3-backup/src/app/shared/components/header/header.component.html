@@ -1,0 +1,21 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#inicio" aria-label="CalcMot — início">
+      <img src="/assets/brand/calcmot-logo.png" alt="" class="brand__logo" width="32" height="32" />
+      <span class="brand__text"><span class="brand__calc">Calc</span><span class="brand__mot">Mot</span></span>
+    </a>
+
+    <nav class="site-header__nav" aria-label="Navegação principal">
+      @for (item of copy.navigation; track item.href) {
+        <a [href]="item.href">{{ item.label }}</a>
+      }
+    </nav>
+
+    <app-cta-button
+      class="site-header__cta"
+      [label]="copy.hero.primaryCta"
+      [href]="playStoreUrl"
+      [external]="true"
+    />
+  </div>
+</header>

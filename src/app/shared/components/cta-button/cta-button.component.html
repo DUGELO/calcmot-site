@@ -1,0 +1,20 @@
+<a
+  class="cta"
+  [class.cta--secondary]="variant() === 'secondary'"
+  [class.cta--compact]="size() === 'compact'"
+  [href]="href()"
+  [attr.target]="external() ? '_blank' : null"
+  [attr.rel]="external() ? 'noopener noreferrer' : null"
+  [attr.aria-label]="ariaLabel() || null"
+>
+  <span class="cta__label">{{ label() }}</span>
+  @if (external()) {
+    <svg class="cta__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M4 12 12 4M6 4h6v6" />
+    </svg>
+  } @else {
+    <svg class="cta__icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+      <path d="M3 8h9M9 4l4 4-4 4" />
+    </svg>
+  }
+</a>

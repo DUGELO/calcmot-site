@@ -1,0 +1,24 @@
+<section class="comparison section" aria-labelledby="comparacao-titulo">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{{ copy.comparison.eyebrow }}</p>
+      <h2 id="comparacao-titulo">{{ copy.comparison.title }}</h2>
+      <p>{{ copy.comparison.description }}</p>
+    </div>
+    <div class="comparison__board">
+      @for (offer of copy.comparison.offers; track offer.label) {
+        <article class="offer" [attr.data-tone]="offer.tone">
+          <div class="offer__top"><span>{{ offer.label }}</span><strong>{{ offer.verdict }}</strong></div>
+          <p class="offer__value">{{ offer.value }}</p>
+          <div class="offer__bottom">
+            <div><span>TEMPO</span><strong>{{ offer.time }}</strong></div>
+            <div><span>DISTÂNCIA</span><strong>{{ offer.distance }}</strong></div>
+            <div class="offer__per-km"><span>POR QUILÔMETRO</span><strong>{{ offer.perKm }}</strong></div>
+          </div>
+          <p class="offer__reading">{{ offer.detail }}</p>
+        </article>
+      }
+    </div>
+    <p class="note comparison__note">{{ copy.comparison.note }}</p>
+  </div>
+</section>

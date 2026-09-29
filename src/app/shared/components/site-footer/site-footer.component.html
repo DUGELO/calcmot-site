@@ -1,0 +1,37 @@
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <a class="brand" href="/" [attr.aria-label]="copy.header.homeAria">
+        <img class="brand__mark" src="/assets/brand/calcmot-icon.png" width="30" height="30" alt="" />
+        <span class="brand__name">{{ copy.brand.name }}</span>
+      </a>
+      <p class="site-footer__positioning">{{ copy.footer.positioning }}</p>
+    </div>
+
+    <nav class="site-footer__nav" [attr.aria-label]="copy.footer.navAria">
+      @for (item of copy.navigation; track item.href) {
+        <a class="site-footer__link" [href]="item.href">{{ item.label }}</a>
+      }
+      <a
+        class="site-footer__link"
+        [href]="playStoreUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Play Store</a
+      >
+      <a
+        class="site-footer__link"
+        [href]="instagramUrl"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Instagram</a
+      >
+    </nav>
+
+    <div class="site-footer__legal">
+      <p class="site-footer__disclaimer">{{ copy.footer.disclaimer }}</p>
+      <p class="site-footer__autonomy">{{ copy.footer.autonomy }}</p>
+      <p class="site-footer__meta">© {{ year }} CalcMot · Android</p>
+    </div>
+  </div>
+</footer>

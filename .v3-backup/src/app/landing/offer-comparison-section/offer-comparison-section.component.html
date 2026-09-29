@@ -1,0 +1,58 @@
+<section id="comparacao" class="section comparison-section" aria-labelledby="comparison-title">
+  <div class="container">
+    <div class="section-heading comparison-section__heading">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="comparison-title">{{ copy.title }}</h2>
+      <p>{{ copy.description }}</p>
+    </div>
+
+    <div class="comparison-board" aria-label="Comparação visual entre duas ofertas">
+      <div class="comparison-board__topline">
+        <span class="comparison-board__live-dot" aria-hidden="true"></span>
+        <span>Leitura rápida da oferta</span>
+        <span class="comparison-board__example">EXEMPLO VISUAL</span>
+      </div>
+
+      <div class="comparison-board__offers">
+        @for (offer of copy.offers; track offer.label) {
+          <article class="offer-card" [attr.data-tone]="offer.tone">
+            <div class="offer-card__head">
+              <span>{{ offer.label }}</span>
+              <span class="offer-card__route">{{ offer.route }}</span>
+            </div>
+
+            <p class="offer-card__value">{{ offer.value }}</p>
+            <div class="offer-card__metrics">
+              <div>
+                <span>R$/km</span>
+                <strong>{{ offer.perKm }}</strong>
+              </div>
+              <div>
+                <span>R$/h</span>
+                <strong>{{ offer.perHour }}</strong>
+              </div>
+              <div>
+                <span>Tempo</span>
+                <strong>{{ offer.time }}</strong>
+              </div>
+              <div>
+                <span>Distância</span>
+                <strong>{{ offer.distance }}</strong>
+              </div>
+            </div>
+
+            <div class="offer-card__verdict">
+              <span class="offer-card__status-dot" aria-hidden="true"></span>
+              <div>
+                <strong>{{ offer.verdict }}</strong>
+                <span>{{ offer.detail }}</span>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+
+      <p class="comparison-board__note">{{ copy.note }}</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,30 @@
+:host {
+  display: block;
+}
+
+.suporte__contato-inner {
+  display: grid;
+  gap: 22px;
+}
+
+.suporte__contato h2 {
+  margin: 10px 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.5rem, 4.6vw, 2.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.suporte__contato-actions {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+}
+
+@media (min-width: 960px) {
+  .suporte__contato-inner {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 40px;
+    align-items: center;
+  }
+}

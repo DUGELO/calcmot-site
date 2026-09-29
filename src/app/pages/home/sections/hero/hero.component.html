@@ -1,0 +1,30 @@
+<section class="hero" aria-labelledby="hero-titulo">
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <p class="eyebrow hero__eyebrow"><span class="hero__eyebrow-dot"></span>{{ copy.hero.eyebrow }}</p>
+      <h1 id="hero-titulo">{{ copy.hero.title }}</h1>
+      <p class="hero__lead">{{ copy.hero.description }}</p>
+      <div class="hero__actions">
+        <app-cta-button [label]="copy.hero.primaryCta" [href]="playStoreUrl" [external]="true" />
+        <app-cta-button [label]="copy.hero.secondaryCta" [href]="copy.hero.secondaryHref" variant="secondary" />
+      </div>
+      <p class="hero__trust">{{ copy.hero.trustLine }}</p>
+      <div class="hero__proofline"><span>OFERTA · CONTA · SUA DECISÃO</span></div>
+    </div>
+    <div class="hero__stage">
+      <div class="hero__stage-glow" aria-hidden="true"></div>
+      <span class="hero__stage-label">CAPTURA REAL DA OFERTA</span>
+      <figure class="hero__capture">
+        <img [src]="copy.hero.image" [alt]="copy.hero.alt" width="720" height="600" loading="eager" fetchpriority="high" />
+        <figcaption>{{ copy.hero.imageNote }}</figcaption>
+      </figure>
+      <div class="hero__metrics" aria-label="Números da oferta real exibida">
+        @for (metric of copy.hero.metrics; track metric.label) {
+          <div class="hero__metric" [attr.data-tone]="metric.tone">
+            <span>{{ metric.label }}</span><strong>{{ metric.value }}</strong>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

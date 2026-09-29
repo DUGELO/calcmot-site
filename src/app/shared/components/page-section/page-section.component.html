@@ -1,0 +1,106 @@
+<section
+  class="page-block section"
+  [id]="section().id"
+  [attr.aria-labelledby]="section().id + '-titulo'"
+>
+  <div class="container">
+    <div class="page-block__layout" [class.page-block__layout--split]="hasMedia()">
+      <div class="page-block__content prose">
+        @if (section().eyebrow) {
+          <p class="eyebrow">{{ section().eyebrow }}</p>
+        }
+
+        <h2 [id]="section().id + '-titulo'">{{ section().title }}</h2>
+
+        @for (paragraph of section().paragraphs ?? []; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+
+        @if (section().bullets?.length) {
+          <ul>
+            @for (bullet of section().bullets ?? []; track bullet) {
+              <li>{{ bullet }}</li>
+            }
+          </ul>
+        }
+
+        @if (section().steps?.length) {
+          <ol class="page-block__steps">
+            @for (step of section().steps ?? []; track step.title) {
+              <li class="page-block__step">
+                @if (step.number) {
+                  <span class="page-block__step-number" aria-hidden="true">{{ step.number }}</span>
+                }
+                <strong>{{ step.title }}</strong>
+                @if (step.detail) {
+                  <span class="page-block__step-detail">{{ step.detail }}</span>
+                }
+              </li>
+            }
+          </ol>
+        }
+
+        @if (section().formulas?.length) {
+          <dl class="page-block__formulas">
+            @for (formula of section().formulas ?? []; track formula.label) {
+              <div class="formula">
+                <dt class="formula__label">{{ formula.label }}</dt>
+                <dd class="formula__body">
+                  <span class="formula__expression">{{ formula.expression }}</span>
+                  <strong class="formula__result">{{ formula.result }}</strong>
+                  @if (formula.note) {
+                    <span class="formula__note">{{ formula.note }}</span>
+                  }
+                </dd>
+              </div>
+            }
+          </dl>
+        }
+
+        @if (section().cards?.length) {
+          <div class="cards-grid cards-grid--2 page-block__cards">
+            @for (card of section().cards ?? []; track card.title) {
+              <div class="card">
+                <h3>{{ card.title }}</h3>
+                <p>{{ card.detail }}</p>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      @if (section().image; as image) {
+        <figure class="page-block__media">
+          <img
+            [ngSrc]="image.src"
+            [alt]="image.alt"
+            [width]="image.width ?? 720"
+            [height]="image.height ?? 1600"
+            loading="lazy"
+          />
+          @if (image.caption) {
+            <figcaption>{{ image.caption }}</figcaption>
+          }
+        </figure>
+      }
+
+      @if (section().example; as example) {
+        <div class="page-block__example">
+          <app-offer-alert
+            [status]="example.status"
+            [meaning]="example.meaning"
+            [perKm]="example.perKm"
+            [perHour]="example.perHour"
+            [minutes]="example.minutes"
+            [tone]="example.tone"
+            [exampleLabel]="example.note ?? ''"
+          />
+        </div>
+      }
+    </div>
+
+    @if (section().note) {
+      <p class="note page-block__note">{{ section().note }}</p>
+    }
+  </div>
+</section>

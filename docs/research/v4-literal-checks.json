@@ -1,0 +1,30 @@
+[
+  {
+    "Literal": "ganho garantido",
+    "Present": false
+  },
+  {
+    "Literal": "lucro garantido",
+    "Present": true
+  },
+  {
+    "Literal": "aceita automaticamente",
+    "Present": false
+  },
+  {
+    "Literal": "recusa automaticamente",
+    "Present": false
+  },
+  {
+    "Literal": "oficial da Uber",
+    "Present": true
+  },
+  {
+    "Literal": "oficial da 99",
+    "Present": false
+  },
+  {
+    "Literal": "hack",
+    "Present": false
+  }
+]

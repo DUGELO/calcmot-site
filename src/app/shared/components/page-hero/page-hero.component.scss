@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.page-hero {
+  padding-block: 40px 8px;
+}
+
+.page-hero__inner {
+  max-width: 900px;
+}
+
+.page-hero h1 {
+  margin: 12px 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 6.6vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.page-hero__lead {
+  margin: 18px 0 0;
+  max-width: 68ch;
+}
+
+.page-hero__points {
+  margin-top: 22px;
+}
+
+@media (min-width: 768px) {
+  .page-hero {
+    padding-block: 64px 12px;
+  }
+}

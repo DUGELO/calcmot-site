@@ -1,0 +1,19 @@
+.classification-cta {
+  margin-top: 22px;
+  display: flex;
+}
+
+.classification-cta app-cta-button {
+  width: 100%;
+}
+
+.classification-cta ::ng-deep .cta {
+  width: 100%;
+}
+
+@media (min-width: 560px) {
+  .classification-cta app-cta-button,
+  .classification-cta ::ng-deep .cta {
+    width: auto;
+  }
+}

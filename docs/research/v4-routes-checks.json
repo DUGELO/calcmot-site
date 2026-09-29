@@ -1,0 +1,37 @@
+[
+  {
+    "Route": "/",
+    "Status": 200,
+    "SSR": true,
+    "JsonLd": true,
+    "Title": "CalcMot — veja R$/km e R$/h antes de aceitar corridas"
+  },
+  {
+    "Route": "/como-funciona",
+    "Status": 200,
+    "SSR": true,
+    "JsonLd": true,
+    "Title": "Como o CalcMot lê a oferta antes de você decidir — CalcMot"
+  },
+  {
+    "Route": "/calculadora-ganhos-motorista-app",
+    "Status": 200,
+    "SSR": true,
+    "JsonLd": true,
+    "Title": "Calculadora de ganhos do motorista de app: R$/km e R$/h — CalcMot"
+  },
+  {
+    "Route": "/privacidade",
+    "Status": 200,
+    "SSR": true,
+    "JsonLd": true,
+    "Title": "Privacidade: o que o CalcMot lê e o que ele não faz — CalcMot"
+  },
+  {
+    "Route": "/suporte",
+    "Status": 200,
+    "SSR": true,
+    "JsonLd": true,
+    "Title": "Suporte e diagnóstico — CalcMot"
+  }
+]

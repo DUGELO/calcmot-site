@@ -1,0 +1,17 @@
+<section class="section section--surface" aria-labelledby="proof-title">
+  <div class="container proof">
+    <div class="section-heading proof__copy">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="proof-title">{{ copy.title }}</h2>
+    </div>
+
+    <div class="proof__grid">
+      @for (item of copy.items; track item) {
+        <div class="proof__item">
+          <span class="proof__marker" aria-hidden="true"></span>
+          <strong>{{ item }}</strong>
+        </div>
+      }
+    </div>
+  </div>
+</section>

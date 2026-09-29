@@ -1,0 +1,24 @@
+<section class="cta-band section">
+  <div class="container">
+    <div class="cta-band__panel">
+      <h2>{{ title() }}</h2>
+      <p class="cta-band__description">{{ description() }}</p>
+
+      <div class="cta-band__actions">
+        <app-cta-button [label]="playStoreLabel" [href]="playStoreUrl" [external]="true" />
+
+        @if (secondaryLabel() && secondaryHref()) {
+          <app-cta-button
+            [label]="secondaryLabel()"
+            [href]="secondaryHref()"
+            variant="secondary"
+          />
+        }
+      </div>
+
+      @if (note()) {
+        <p class="cta-band__note">{{ note() }}</p>
+      }
+    </div>
+  </div>
+</section>

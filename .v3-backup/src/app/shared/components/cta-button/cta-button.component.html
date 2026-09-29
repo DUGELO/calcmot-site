@@ -1,0 +1,10 @@
+<a
+  class="cta"
+  [class.cta--secondary]="variant() === 'secondary'"
+  [href]="href()"
+  [attr.target]="external() ? '_blank' : null"
+  [attr.rel]="external() ? 'noopener noreferrer' : null"
+>
+  <span>{{ label() }}</span>
+  <span aria-hidden="true">→</span>
+</a>

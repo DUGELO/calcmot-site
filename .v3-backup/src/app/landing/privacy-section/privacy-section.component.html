@@ -1,0 +1,18 @@
+<section id="privacidade" class="section" aria-labelledby="privacy-title">
+  <div class="container privacy">
+    <div class="section-heading privacy__copy">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="privacy-title">{{ copy.title }}</h2>
+      <p>{{ copy.description }}</p>
+    </div>
+
+    <ul class="privacy__list">
+      @for (point of copy.points; track point) {
+        <li>
+          <span aria-hidden="true">×</span>
+          <p>{{ point }}</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

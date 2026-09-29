@@ -1,0 +1,29 @@
+<section
+  class="classification section"
+  [class.section--tight]="!heading()"
+  [attr.aria-labelledby]="heading() ? 'classificacao-titulo' : null"
+>
+  <div class="container">
+    @if (heading()) {
+      <div class="section-heading">
+        <p class="eyebrow">{{ copy.classifications.eyebrow }}</p>
+        <h2 id="classificacao-titulo">{{ copy.classifications.title }}</h2>
+        <p>{{ copy.classifications.description }}</p>
+      </div>
+    }
+
+    <div class="classification__grid">
+      @for (item of copy.classifications.items; track item.label) {
+        <article class="classification__card" [attr.data-tone]="item.tone">
+          <div class="classification__signal">
+            <div class="classification__top"><strong>{{ item.label }}</strong><span>{{ item.meaning }}</span></div>
+            <div class="classification__per-km">{{ item.perKm }}</div>
+            <div class="classification__more">{{ item.perHour }} · {{ item.time }}</div>
+          </div>
+        </article>
+      }
+    </div>
+
+    <p class="note classification__note">{{ copy.classifications.note }}</p>
+  </div>
+</section>

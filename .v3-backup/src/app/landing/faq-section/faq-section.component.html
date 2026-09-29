@@ -1,0 +1,17 @@
+<section id="faq" class="section" aria-labelledby="faq-title">
+  <div class="container faq">
+    <div class="section-heading faq__heading">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="faq-title">{{ copy.title }}</h2>
+    </div>
+
+    <div class="faq__items">
+      @for (item of copy.items; track item.question; let isFirst = $first) {
+        <details [attr.open]="isFirst ? '' : null">
+          <summary>{{ item.question }}</summary>
+          <p>{{ item.answer }}</p>
+        </details>
+      }
+    </div>
+  </div>
+</section>

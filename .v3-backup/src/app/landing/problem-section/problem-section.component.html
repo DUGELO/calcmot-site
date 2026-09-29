@@ -1,0 +1,15 @@
+<section class="section section--surface" aria-labelledby="problem-title">
+  <div class="container">
+    <div class="section-heading">
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="problem-title">{{ copy.title }}</h2>
+      <p>{{ copy.description }}</p>
+    </div>
+
+    <div class="cards-grid cards-grid--3">
+      @for (point of copy.points; track point.title) {
+        <app-feature-card [title]="point.title"  />
+      }
+    </div>
+  </div>
+</section>

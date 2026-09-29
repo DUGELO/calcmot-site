@@ -1,0 +1,17 @@
+<header class="page-hero">
+  <div class="container page-hero__inner">
+    <p class="eyebrow">{{ eyebrow() }}</p>
+    <h1>{{ title() }}</h1>
+    <p class="lead page-hero__lead">{{ lead() }}</p>
+
+    @if (points().length > 0) {
+      <ul class="pill-row page-hero__points">
+        @for (point of points(); track point) {
+          <li class="pill">{{ point }}</li>
+        }
+      </ul>
+    }
+
+    <ng-content />
+  </div>
+</header>

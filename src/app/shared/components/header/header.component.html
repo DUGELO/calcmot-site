@@ -1,0 +1,32 @@
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/" [attr.aria-label]="copy.header.homeAria">
+      <img class="brand__mark" src="/assets/brand/calcmot-icon.png" width="30" height="30" alt="" />
+      <span class="brand__name">{{ copy.brand.name }}</span>
+    </a>
+
+    <nav class="site-header__nav" [attr.aria-label]="copy.header.navAria">
+      @for (item of copy.navigation; track item.href) {
+        <a class="site-header__link" [href]="item.href">{{ item.label }}</a>
+      }
+    </nav>
+
+    <details class="site-header__mobile-menu">
+      <summary>Menu</summary>
+      <nav [attr.aria-label]="copy.header.navAria">
+        @for (item of copy.navigation; track item.href) {
+          <a [href]="item.href">{{ item.label }}</a>
+        }
+      </nav>
+    </details>
+
+    <app-cta-button
+      class="site-header__cta"
+      [label]="copy.header.ctaLabel"
+      [ariaLabel]="copy.header.ctaAria"
+      [href]="playStoreUrl"
+      [external]="true"
+      size="compact"
+    />
+  </div>
+</header>

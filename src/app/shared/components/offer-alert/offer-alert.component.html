@@ -1,0 +1,14 @@
+<div class="alert" [attr.data-tone]="tone()">
+  <div class="alert__head">
+    <span class="alert__status">{{ status() }}</span>
+    <span class="alert__meaning">{{ meaning() }}</span>
+  </div>
+
+  <p class="alert__metric">{{ perKm() }}</p>
+
+  <p class="alert__line">{{ perHour() }} · {{ minutes() }}</p>
+
+  @if (exampleLabel()) {
+    <p class="alert__example">{{ exampleLabel() }}</p>
+  }
+</div>

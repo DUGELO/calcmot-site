@@ -1,0 +1,33 @@
+<figure class="phone">
+  <div class="phone__frame">
+    @if (badge()) {
+      <span class="phone__badge">{{ badge() }}</span>
+    }
+    @if (src() && !imageFailed()) {
+      <img class="phone__screen" [ngSrc]="src()!" [alt]="alt()"
+        [width]="width()" [height]="height()" [priority]="priority()" (error)="onImageError()" />
+    } @else {
+      <div class="phone__screen phone__screen--demo" role="group" [attr.aria-label]="alt()">
+        <div class="phone__status"><span>09:41</span><span>● ● ▰</span></div>
+        <div class="phone__appbar"><span>Oferta na tela</span><span class="phone__live">AGORA</span></div>
+        <div class="phone__offer">
+          <span class="phone__field">VALOR DA OFERTA</span>
+          <strong class="phone__price">R$ 14,40</strong>
+          <div class="phone__offer-meta"><span><b>18 min</b> no trajeto</span><span><b>5,98 km</b> de distância</span></div>
+          <div class="phone__route"><span class="phone__dot"></span><span class="phone__route-line"></span><span class="phone__pin"></span></div>
+          <div class="phone__route-label"><span>Partida</span><span>Destino</span></div>
+        </div>
+        <div class="phone__overlay">
+          <div class="phone__overlay-top"><span class="phone__mark">C</span><span>CALCMOT <small>CONTAS DA CORRIDA</small></span><b>ÓTIMA</b></div>
+          <div class="phone__overlay-metrics"><div><small>POR KM</small><strong>R$ 2,41</strong></div><div><small>POR HORA</small><strong>R$ 48</strong></div></div>
+          <div class="phone__target"><span>Meta ilustrativa</span><strong>R$ 1,50/km · R$ 35/h</strong></div>
+        </div>
+        <p class="phone__decision">Os números aparecem. A decisão continua sua.</p>
+        <div class="phone__home-bar"></div>
+      </div>
+    }
+  </div>
+  <figcaption class="phone__caption">
+    <ng-content />
+  </figcaption>
+</figure>

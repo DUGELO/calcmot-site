@@ -1,0 +1,60 @@
+<app-page-hero
+  [eyebrow]="page.hero.eyebrow"
+  [title]="page.hero.title"
+  [lead]="page.hero.lead"
+  [points]="page.hero.points ?? []"
+/>
+
+@for (section of page.sections; track section.id) {
+  <app-page-section [section]="section" />
+}
+
+@if (page.faq; as faq) {
+  <section class="suporte__faq section section--surface" aria-labelledby="suporte-faq-titulo">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Suporte</p>
+        <h2 id="suporte-faq-titulo">{{ faq.title }}</h2>
+      </div>
+
+      <app-faq-list [items]="faq.items" />
+    </div>
+  </section>
+}
+
+<section class="suporte__contato section" aria-labelledby="suporte-contato-titulo">
+  <div class="container suporte__contato-inner">
+    <div>
+      <p class="eyebrow">Canal de suporte</p>
+      <h2 id="suporte-contato-titulo">Onde pedir ajuda</h2>
+      <p class="lead">
+        O canal de suporte é o que aparece na ficha do app na Play Store, e é por ele que chegam os
+        avisos de versão e as correções.
+      </p>
+      <p class="note">
+        Antes de escrever, tenha em mãos o modelo do aparelho, a versão do Android e o que aparece
+        em Diagnóstico de leitura. Isso acelera a resposta.
+      </p>
+    </div>
+
+    <div class="suporte__contato-actions">
+      <app-cta-button
+        label="Abrir a ficha do app na Play Store"
+        [href]="playStoreUrl"
+        [external]="true"
+        variant="secondary"
+      />
+
+      @if (supportEmail) {
+        <a class="link-more" [href]="'mailto:' + supportEmail">Enviar e-mail para o suporte</a>
+      }
+
+      <a class="link-more" href="/privacidade">
+        Ver privacidade e permissões
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h9M9 4l4 4-4 4" /></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<app-cta-band [title]="page.closing.title" [description]="page.closing.description" />

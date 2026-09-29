@@ -1,0 +1,40 @@
+.proof {
+  display: grid;
+  gap: 30px;
+}
+
+.proof__grid {
+  display: grid;
+  gap: 10px;
+}
+
+.proof__item {
+  min-height: 62px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.proof__marker {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-brand-green);
+}
+
+@media (min-width: 900px) {
+  .proof {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: 72px;
+  }
+
+  .proof__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

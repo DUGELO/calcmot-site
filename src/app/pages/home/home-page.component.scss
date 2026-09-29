@@ -1,0 +1,67 @@
+:host {
+  display: block;
+}
+
+.compat__inner {
+  display: grid;
+  gap: 26px;
+}
+
+.compat h2 {
+  margin: 10px 0 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.7rem, 5.2vw, 2.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.compat .lead {
+  max-width: 54ch;
+  margin: 16px 0 0;
+}
+
+.compat__apps {
+  margin-top: 22px;
+}
+.compat__apps .pill { justify-content: center; min-width: 92px; min-height: 54px; border-radius: 7px; color: #eef3f7; background: #141e27; font-size: .9rem; }
+
+.compat__aside {
+  padding: 20px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface-elevated) 76%, transparent);
+}
+
+.compat__aside-title {
+  margin: 10px 0 16px;
+  color: var(--color-text-primary);
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+}
+
+.compat__promise { margin: 0 0 8px; color: #f0f5f8; font-size: 1.13rem; font-weight: 700; line-height: 1.45; }
+.compat__limits { max-width: 50ch; margin: 0 0 16px; color: #aebbc5; font-size: .9rem; line-height: 1.55; }
+
+.faq-section__inner {
+  display: grid;
+  gap: 20px;
+}
+
+@media (min-width: 960px) {
+  .compat__inner {
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: 48px;
+    align-items: start;
+  }
+
+  .faq-section__inner {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 44px;
+    align-items: start;
+  }
+
+  .faq-section__heading {
+    margin-bottom: 0;
+  }
+}
