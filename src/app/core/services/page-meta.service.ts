@@ -23,7 +23,7 @@ export class PageMetaService {
     const canonicalUrl = baseUrl
       ? config.path === '/'
         ? `${baseUrl}/`
-        : `${baseUrl}${config.path}`
+        : `${baseUrl}${config.path.replace(/\/+$/, '')}/`
       : null;
 
     this.titleService.setTitle(config.title);

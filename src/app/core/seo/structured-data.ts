@@ -9,7 +9,7 @@ const absoluteUrl = (path: string): string | null => {
     return null;
   }
 
-  return path === '/' ? `${base}/` : `${base}${path}`;
+  return path === '/' ? `${base}/` : `${base}${path.replace(/\/+$/, '')}/`;
 };
 
 const withUrl = (data: JsonLd, path: string): JsonLd => {
