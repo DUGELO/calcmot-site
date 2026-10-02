@@ -17,10 +17,8 @@ export const BRAND_TOKENS = {
   site: {
     name: 'CalcMot',
     locale: 'pt_BR',
-    // Canonical base URL. Keep empty until the production domain is confirmed:
-    // the canonical link, og:url and the sitemap only run when this is filled.
-    // Never guess a domain here.
-    url: '',
+    // Production canonical URL; www is an alias of this hostname.
+    url: 'https://calcmot.com.br',
     // The Play listing publishes a personal support email. Keep this empty to
     // point the support page to the Play listing instead of exposing personal
     // contact data on the site. Fill it only with an authorised address.

@@ -176,7 +176,7 @@ check(
   read('src/app/core/services/page-meta.service.ts').includes('if (canonicalUrl)'),
   'Canonical e og:url só quando existe domínio canônico',
 );
-check(tokens.includes("url: ''"), 'Domínio canônico vazio até confirmação (sem chute)');
+check(tokens.includes("url: 'https://calcmot.com.br'"), 'Domínio canônico confirmado: https://calcmot.com.br');
 check(tokens.includes("supportEmail: ''"), 'Canal de suporte não exposto sem confirmação');
 check(tokens.includes('ogImage: null'), 'og:image preparado sem imagem inventada');
 check(

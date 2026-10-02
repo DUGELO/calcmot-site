@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
 
-# O sitemap é publicado por "npm run seo:sitemap" depois de definir
-# BRAND_TOKENS.site.url com o domínio de produção confirmado.
+Sitemap: https://calcmot.com.br/sitemap.xml
 

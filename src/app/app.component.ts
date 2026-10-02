@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { SiteFooterComponent } from './shared/components/site-footer/site-footer.component';
+import { SiteAnalyticsService } from './core/services/site-analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,11 @@ import { SiteFooterComponent } from './shared/components/site-footer/site-footer
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+  private readonly analytics = inject(SiteAnalyticsService);
+
+  constructor() {
+    afterNextRender(() => this.analytics.initialize());
+  }
+}
 
