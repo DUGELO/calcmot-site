@@ -4,7 +4,6 @@ import { calculateRide, type RideField, type RideInputs } from '../../core/calcu
 import { PageMetaService } from '../../core/services/page-meta.service';
 import { SiteAnalyticsService } from '../../core/services/site-analytics.service';
 import { webPageJsonLd, webSiteJsonLd } from '../../core/seo/structured-data';
-import { CtaButtonComponent } from '../../shared/components/cta-button/cta-button.component';
 import { FaqListComponent } from '../../shared/components/faq-list/faq-list.component';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 
@@ -18,7 +17,7 @@ const NUMBER = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
 
 @Component({
   selector:'app-corrida-vale-a-pena-page',
-  imports:[PageHeroComponent,CtaButtonComponent,FaqListComponent],
+  imports:[PageHeroComponent,FaqListComponent],
   templateUrl:'./corrida-vale-a-pena-page.component.html',
   styleUrl:'./corrida-vale-a-pena-page.component.scss',
   changeDetection:ChangeDetectionStrategy.OnPush,
