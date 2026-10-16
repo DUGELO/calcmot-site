@@ -1,0 +1,105 @@
+<app-page-hero
+  eyebrow="Calculadora gratuita para motoristas"
+  title="Essa corrida vale a pena? Calcule R$/km e R$/h"
+  lead="Simule uma oferta da Uber ou 99, inclua o trajeto até o passageiro e veja quanto ela rende por quilômetro e por hora. Sem cadastro."
+  [points]="['Uber e 99','Cálculo gratuito','Sem cadastro']"
+/>
+
+<section class="section section--tight" aria-labelledby="simulador">
+  <div class="container calculator">
+    <div class="calculator__form card">
+      <p class="eyebrow">Simule sua corrida</p>
+      <h2 id="simulador">Informe os dados da oferta</h2>
+      <p class="note">Exemplo visual preenchido para você testar. Troque pelos seus números. Use vírgula ou ponto decimal, sem separador de milhar.</p>
+      <form (submit)="$event.preventDefault(); calculate()" novalidate>
+        <div class="calculator__fields">
+          @for (field of fields; track field.key) {
+            <div class="calculator__field">
+              <label [for]="field.key">{{ field.label }}</label>
+              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <small [id]="field.key + '-hint'">{{ field.hint }}</small>
+              <small class="calculator__error" [id]="field.key + '-error'" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
+            </div>
+          }
+        </div>
+        <button class="calculator__submit" type="submit">Calcular minha corrida</button>
+      </form>
+    </div>
+    <div class="calculator__result card" aria-live="polite" aria-atomic="true" data-clarity-mask="true">
+      <p class="eyebrow">Seu resultado estimado</p>
+      @if (result().ok) {
+        @if (result().metrics; as m) {
+          <h2>Quanto essa oferta rende?</h2>
+          <div class="calculator__metrics">
+            <div class="calculator__metric"><span>Receita por km</span><strong>{{ money(m.grossPerKmCents) }}/km</strong></div>
+            <div class="calculator__metric"><span>Receita por hora</span><strong>{{ money(m.grossPerHourCents) }}/h</strong></div>
+            <div class="calculator__metric"><span>Distância total</span><strong>{{ number(m.totalMeters / 1000) }} km</strong></div>
+            <div class="calculator__metric"><span>Tempo total</span><strong>{{ m.totalMinutes }} min</strong></div>
+          </div>
+          @if (m.costCents !== null && m.balanceCents !== null && m.balancePerHourCents !== null) {
+            <div class="calculator__balance">
+              <span>Saldo após custo informado</span>
+              <strong>{{ money(m.balanceCents) }}</strong>
+              <p>Custo estimado: {{ money(m.costCents) }} · Saldo estimado/h: {{ money(m.balancePerHourCents) }}</p>
+            </div>
+          } @else {
+            <p class="calculator__notice">Informe seu custo por km para ver o saldo estimado. Os números acima são receita bruta, não lucro.</p>
+          }
+          <p class="note">Estimativa: não considera espera, retorno vazio, impostos, pedágios ou despesas não informadas. A decisão é sua.</p>
+          <button class="calculator__share" type="button" (click)="share()">Compartilhar esta calculadora</button>
+        }
+      } @else {
+        <h2>Confira os campos</h2>
+        <p class="lead">Preencha valores válidos para calcular sem divisão por zero.</p>
+      }
+      <div class="calculator__cta">
+        <p><strong>Quer fazer essa conta na hora da oferta?</strong> O CalcMot para Android mostra R$/km, R$/h e a classificação enquanto você decide.</p>
+        <a class="calculator__play" [href]="playUrl" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Baixar CalcMot na Play Store</a>
+        <a class="calculator__instagram" [href]="instagramUrl" target="_blank" rel="noopener noreferrer" (click)="trackInstagram()">Acompanhar no Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--surface" aria-labelledby="metodologia">
+  <div class="container container--narrow calculator__editorial">
+    <p class="eyebrow">Entenda os números</p>
+    <h2 id="metodologia">Como calcular se uma corrida compensa</h2>
+    <p>Uma oferta de R$ 18 com 10 km de viagem e 2 km até o passageiro representa 12 km totais. Se a viagem leva 20 minutos e a busca leva 4, o tempo total é 24 minutos. A receita bruta é de R$ 1,50/km e R$ 45/h.</p>
+    <p>Com um custo informado de R$ 0,55/km, a estimativa de custo é R$ 6,60 e o saldo após esse custo é R$ 11,40. Isso não é lucro líquido exato: despesas, espera e volta sem passageiro podem alterar o resultado.</p>
+    <h3>Fórmulas usadas</h3>
+    <p><strong>R$/km:</strong> valor da oferta ÷ (km de busca + km da viagem). <strong>R$/h:</strong> valor da oferta × 60 ÷ (minutos de busca + minutos da viagem). <strong>Saldo estimado:</strong> valor da oferta − (km totais × custo por km informado).</p>
+    <p>Você pode <a href="/calculadora-ganhos-motorista-app/">entender as metas e os sinais do CalcMot</a> ou <a href="/como-funciona/">ver como o aplicativo lê uma oferta</a>. O site faz uma simulação manual; o aplicativo Android acompanha as ofertas compatíveis na tela.</p>
+  </div>
+</section>
+
+<section class="section calculator__real-offer-section" aria-labelledby="oferta-real">
+  <div class="container calculator__real-offer">
+    <div class="calculator__real-offer-content">
+      <p class="eyebrow">Captura real do CalcMot</p>
+      <h2 id="oferta-real">Veja o cálculo durante uma oferta de verdade</h2>
+      <p>Na calculadora acima, você preenche os valores manualmente. No aplicativo para Android, o CalcMot apresenta os indicadores diretamente sobre a oferta compatível, para ajudar você a decidir.</p>
+      <p>Esta captura mostra uma oferta UberX de <strong>R$ 40,76</strong> com o aviso do CalcMot: classificação BOA, R$ 1,62/km e R$ 39,45/h.</p>
+      <p class="note">Os números são da oferta fotografada, não da sua simulação. O CalcMot é independente da Uber e da 99; os resultados são estimativas, não garantia de ganho.</p>
+      <a class="calculator__real-offer-link" [href]="playUrl" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Conhecer o CalcMot na Play Store</a>
+    </div>
+    <figure class="calculator__real-offer-figure">
+      <img
+        src="/assets/screenshots/offer-real-q90.webp"
+        width="440"
+        height="355"
+        loading="lazy"
+        decoding="async"
+        alt="Captura real de oferta UberX de R$ 40,76 com aviso do CalcMot: classificação BOA, R$ 1,62 por quilômetro, R$ 39,45 por hora e duração de 62 minutos."
+      />
+      <figcaption>Oferta real com sobreposição do CalcMot. Indicadores exibidos pelo aplicativo, não pela calculadora deste site.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="duvidas-corrida">
+  <div class="container container--narrow">
+    <div class="section-heading"><p class="eyebrow">Perguntas frequentes</p><h2 id="duvidas-corrida">Dúvidas sobre a calculadora</h2></div>
+    <app-faq-list [items]="faq" />
+  </div>
+</section>

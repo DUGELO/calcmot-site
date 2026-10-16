@@ -46,6 +46,11 @@ const PAGES = [
     component: 'src/app/pages/calculadora/calculadora-page.component.ts',
   },
   {
+    route: '/ferramentas/corrida-vale-a-pena',
+    copy: null,
+    component: 'src/app/pages/corrida-vale-a-pena/corrida-vale-a-pena-page.component.ts',
+  },
+  {
     route: '/privacidade',
     copy: 'src/app/core/constants/pages/privacidade.copy.ts',
     component: 'src/app/pages/privacidade/privacidade-page.component.ts',
@@ -127,6 +132,7 @@ const EXPECTED_ROUTES = [
   '',
   'como-funciona',
   'calculadora-ganhos-motorista-app',
+  'ferramentas/corrida-vale-a-pena',
   'privacidade',
   'suporte',
 ];
@@ -193,7 +199,7 @@ check(
   'fallback estático quando o bootstrap não está disponível',
 );
 check(
-  indexHtml.includes('play-lh.googleusercontent.com') && indexHtml.includes('rel="icon"'),
+  indexHtml.includes('/assets/brand/calcmot-icon.png') && indexHtml.includes('rel="icon"'),
   'favicon usando asset real publicado',
 );
 check(indexHtml.includes('<html lang="pt-BR">'), 'idioma pt-BR no documento');
