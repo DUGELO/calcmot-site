@@ -22,6 +22,14 @@ export const routes: Routes = [
     title: 'Calculadora de ganhos do motorista de app: R$/km e R$/h — CalcMot',
   },
   {
+    path: 'ferramentas/corrida-vale-a-pena',
+    loadComponent: () =>
+      import('./pages/corrida-vale-a-pena/corrida-vale-a-pena-page.component').then(
+        (page) => page.CorridaValeAPenaPageComponent,
+      ),
+    title: 'Calculadora de corrida Uber e 99: vale a pena? | CalcMot',
+  },
+  {
     path: 'privacidade',
     component: PrivacidadePageComponent,
     title: 'Privacidade: o que o CalcMot lê e o que ele não faz — CalcMot',
