@@ -10,7 +10,7 @@ import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.c
 const PATH = '/ferramentas/corrida-vale-a-pena';
 const TITLE = 'Calculadora de corrida Uber e 99: vale a pena? | CalcMot';
 const DESCRIPTION = 'Calcule grátis R$/km, R$/h, custo por km e saldo estimado de uma corrida Uber ou 99. Inclua o trajeto até o passageiro e veja as fórmulas.';
-const LINK = 'https://calcmot.com.br/ferramentas/corrida-vale-a-pena/';
+const LINK = `${BRAND_TOKENS.site.url}${PATH}/`;
 const DEFAULT: RideInputs = {fare:'18,00',pickupKm:'2',tripKm:'10',tripMinutes:'20',pickupMinutes:'4',costPerKm:''};
 const MONEY = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const NUMBER = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
@@ -45,11 +45,12 @@ export class CorridaValeAPenaPageComponent {
     {question:'Preciso criar conta ou baixar aplicativo para calcular?',answer:'Não. A calculadora funciona gratuitamente neste site, sem cadastro. O aplicativo Android CalcMot é opcional para acompanhar ofertas automaticamente.'},
     {question:'O CalcMot é oficial da Uber ou da 99?',answer:'Não. O CalcMot é independente e não tem vínculo oficial com essas plataformas.'},
   ];
-  private readonly meta=inject(PageMetaService);
+  private readonly pageMeta=inject(PageMetaService);
   private readonly analytics=inject(SiteAnalyticsService);
   private started=false;
+  protected readonly shareFeedback=signal('');
   constructor(){
-    this.meta.apply({title:TITLE,description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,TITLE,DESCRIPTION)]});
+    this.pageMeta.apply({title:TITLE,description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,TITLE,DESCRIPTION)]});
   }
   protected update(field:RideField,event:Event):void{
     const target=event.target as HTMLInputElement;
@@ -68,8 +69,8 @@ export class CorridaValeAPenaPageComponent {
     const data={title:'Calculadora de corrida — CalcMot',text:'Veja quanto uma corrida paga por km e por hora.',url:LINK};
     try{
       if(navigator.share)await navigator.share(data);
-      else if(navigator.clipboard)await navigator.clipboard.writeText(LINK);
-      else return;
+      else if(navigator.clipboard){await navigator.clipboard.writeText(LINK);this.shareFeedback.set('Link copiado.');}
+      else {this.shareFeedback.set('Copie o endereço desta página para compartilhar.');return;}
       this.analytics.trackToolEvent('web_result_shared');
     }catch{ /* cancelamento não é compartilhamento */ }
   }
