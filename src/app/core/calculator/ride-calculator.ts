@@ -38,7 +38,47 @@ const LIMITS = {
 
 function decimalUnits(raw: string, decimals: number): number | null {
   const value = raw.trim();
-  if (!new RegExp(`^\\d+(?:[,.]\\d{1,${decimals}})?$`).test(value)) return null;
+  if (!(decimals === 0 ? /^\d+$/ : new RegExp(`^\\d+(?:[,.]\\d{1,${decimals}})?/**
+ * Motor financeiro puro da calculadora de corrida.
+ * Valores monetários em centavos, distâncias em metros e custo/km em milésimos
+ * de real: a entrada decimal nunca é somada como float.
+ */
+export type RideField =
+  | 'fare'
+  | 'pickupKm'
+  | 'tripKm'
+  | 'tripMinutes'
+  | 'pickupMinutes'
+  | 'costPerKm';
+
+export type RideInputs = Readonly<Record<RideField, string>>;
+export type RideErrors = Partial<Record<RideField, string>>;
+
+export interface RideMetrics {
+  readonly fareCents: number;
+  readonly totalMeters: number;
+  readonly totalMinutes: number;
+  readonly grossPerKmCents: number;
+  readonly grossPerHourCents: number;
+  readonly costCents: number | null;
+  readonly balanceCents: number | null;
+  readonly balancePerHourCents: number | null;
+}
+
+export type RideCalculation =
+  | { readonly ok: true; readonly metrics: RideMetrics; readonly errors: RideErrors }
+  | { readonly ok: false; readonly metrics: null; readonly errors: RideErrors };
+
+const LIMITS = {
+  fare: 1_000_000, // R$ 10.000,00 em centavos
+  distance: 1_000_000, // 1.000 km em metros
+  minutes: 1_440, // 24 horas
+  cost: 100_000, // R$ 100,000 por km em milésimos
+} as const;
+
+function decimalUnits(raw: string, decimals: number): number | null {
+  const value = raw.trim();
+  )).test(value)) return null;
   const [whole, fraction = ''] = value.replace(',', '.').split('.');
   const result = Number(whole) * 10 ** decimals + Number(fraction.padEnd(decimals, '0'));
   return Number.isSafeInteger(result) ? result : null;
