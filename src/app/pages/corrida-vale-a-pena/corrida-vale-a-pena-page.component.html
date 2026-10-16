@@ -16,7 +16,7 @@
           @for (field of fields; track field.key) {
             <div class="calculator__field">
               <label [for]="field.key">{{ field.label }}</label>
-              <input [id]="field.key" type="text" inputmode="decimal" autocomplete="off" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <input [id]="field.key" type="text" inputmode="decimal" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
               <small class="calculator__error" [id]="field.key + '-error'" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
             </div>
@@ -25,7 +25,7 @@
         <button class="calculator__submit" type="submit">Calcular minha corrida</button>
       </form>
     </div>
-    <div class="calculator__result card" aria-live="polite" aria-atomic="true">
+    <div class="calculator__result card" aria-live="polite" aria-atomic="true" data-clarity-mask="true">
       <p class="eyebrow">Seu resultado estimado</p>
       @if (result().ok) {
         @if (result().metrics; as m) {
