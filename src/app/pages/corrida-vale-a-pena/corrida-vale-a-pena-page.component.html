@@ -18,7 +18,7 @@
               <label [for]="field.key">{{ field.label }}</label>
               <input [id]="field.key" type="text" inputmode="decimal" autocomplete="off" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
-              <small class="calculator__error" [id]="field.key + '-error" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
+              <small class="calculator__error" [id]="field.key + '-error'" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
             </div>
           }
         </div>
