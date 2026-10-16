@@ -1,0 +1,48 @@
+name: Site CI (Angular + SEO)
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# O deploy continua exclusivamente na integração GitHub -> Cloudflare.
+# Este workflow apenas valida código, build e HTML indexável.
+permissions:
+  contents: read
+
+concurrency:
+  group: site-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: QA estático, build e prerender
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      NODE_OPTIONS: --max-old-space-size=4096
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js do projeto
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Instalar dependências do lockfile
+        run: npm ci --no-audit --no-fund
+
+      - name: Guardrails do site
+        run: npm run qa:static
+
+      - name: Build Angular SSR + prerender
+        run: npm run build
+
+      - name: Validar HTML indexável, canonical, Play Store e sitemap
+        run: node scripts/verify-prerender.mjs
