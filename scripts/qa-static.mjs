@@ -199,7 +199,7 @@ check(
   'fallback estático quando o bootstrap não está disponível',
 );
 check(
-  indexHtml.includes('play-lh.googleusercontent.com') && indexHtml.includes('rel="icon"'),
+  indexHtml.includes('/assets/brand/calcmot-icon.png') && indexHtml.includes('rel="icon"'),
   'favicon usando asset real publicado',
 );
 check(indexHtml.includes('<html lang="pt-BR">'), 'idioma pt-BR no documento');
