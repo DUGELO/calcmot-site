@@ -29,7 +29,7 @@ export const BRAND_TOKENS = {
     overlayLive: '/assets/screenshots/offer-uber-live-cropped.jpg',
     overlayReal: '/assets/screenshots/overlay-real-cropped.jpg',
     settings: '/assets/screenshots/app-settings.jpg',
-    // Keep null until a dedicated, approved social image exists and its public absolute URL is known.
+    // A imagem social exige composição específica aprovada; não use screenshots como OG genericamente.
     ogImage: null as string | null,
   },
 } as const;
