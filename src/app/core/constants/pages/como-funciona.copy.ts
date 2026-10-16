@@ -37,6 +37,8 @@ export const COMO_FUNCIONA_COPY: PageCopy = {
         src: BRAND_TOKENS.assets.settings,
         alt: 'Configurações do CalcMot com a permissão de acessibilidade marcada como ativada e o cálculo automático ligado.',
         caption: 'Configurações do app: permissão de acessibilidade ativada.',
+        width: 720,
+        height: 1600,
       },
     },
     {
