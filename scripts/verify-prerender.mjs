@@ -24,6 +24,19 @@ for (const route of routes) {
   }
 }
 
+const calculatorHtml = resolve(output, 'ferramentas/corrida-vale-a-pena/index.html');
+const realOffer = resolve(output, 'assets/screenshots/offer-real-q90.webp');
+if (!existsSync(realOffer)) failures.push('WebP de oferta real ausente no build');
+if (existsSync(calculatorHtml)) {
+  const html = read('ferramentas/corrida-vale-a-pena/index.html');
+  if (!html.includes('/assets/screenshots/offer-real-q90.webp')) {
+    failures.push('Imagem de oferta real não referenciada na página prerenderizada');
+  }
+  if (!html.includes('width="440"') || !html.includes('height="355"')) {
+    failures.push('Dimensões intrínsecas da imagem de oferta real ausentes');
+  }
+}
+
 if (!existsSync(resolve(output, 'sitemap.xml'))) {
   failures.push('Sitemap ausente no build');
 } else {
