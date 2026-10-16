@@ -10,6 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "serve:ssr": "node dist/calcmot-site/server/server.mjs",
     "qa:static": "node scripts/qa-static.mjs",
+    "test:calculator": "node scripts/test-ride-calculator.mjs",
     "qa:ssr": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-ssr.ps1",
     "seo:sitemap": "node scripts/generate-sitemap.mjs"
   },
