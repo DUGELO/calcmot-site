@@ -24,6 +24,8 @@ jobs:
     env:
       CI: 'true'
       NODE_OPTIONS: --max-old-space-size=4096
+      CF_PREVIEW_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_PREVIEW_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
       - name: Checkout
@@ -49,3 +51,26 @@ jobs:
 
       - name: Validar HTML indexável, canonical, Play Store e sitemap
         run: node scripts/verify-prerender.mjs
+
+      # Downloadable preview for EVERY PR, even before hosting credentials are configured.
+      - name: Publicar build HTML como artifact de preview
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: calcmot-preview-pr-${{ github.event.pull_request.number }}
+          path: dist/calcmot-site/browser
+          if-no-files-found: error
+          retention-days: 7
+
+      # Optional real URL; isolated Pages project, NEVER production Worker.
+      - name: Deploy preview isolado no Cloudflare Pages
+        if: github.event_name == 'pull_request' && env.CF_PREVIEW_TOKEN != '' && env.CF_ACCOUNT_ID != ''
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_PAGES_PREVIEW_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/calcmot-site/browser --project-name=calcmot-site-preview --branch=pr-${{ github.event.pull_request.number }}
+
+      - name: Orientar quando preview hospedado nao estiver configurado
+        if: github.event_name == 'pull_request' && (env.CF_PREVIEW_TOKEN == '' || env.CF_ACCOUNT_ID == '')
+        run: echo "Preview HTML disponivel em Artifacts. Para URL publica, configurar Cloudflare Pages staging e secrets conforme docs/deploy/preview.md."
