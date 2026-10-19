@@ -32,8 +32,10 @@ export class CorridaValeAPenaPageComponent {
     {key:'pickupMinutes',label:'Tempo até o passageiro (min)',hint:'Se não souber, deixe zero.',required:false},
     {key:'costPerKm',label:'Custo do seu veículo por km (R$)',hint:'Opcional. Inclua combustível, manutenção e desgaste.',required:false},
   ] as const;
+  protected readonly essentialFields = this.fields.filter(field => field.required);
+  protected readonly optionalFields = this.fields.filter(field => !field.required);
   protected readonly inputs=signal<RideInputs>({...DEFAULT});
-  protected readonly touched=signal(false);
+  protected readonly submitted=signal(false);
   protected readonly result=computed(()=>calculateRide(this.inputs()));
   protected readonly money=(cents:number)=>MONEY.format(cents/100);
   protected readonly number=(value:number)=>NUMBER.format(value);
@@ -44,6 +46,10 @@ export class CorridaValeAPenaPageComponent {
     {question:'O cálculo inclui o deslocamento até o passageiro?',answer:'Sim, quando você preenche os quilômetros e minutos de busca. Campos opcionais em zero não significam que o deslocamento não existe.'},
     {question:'R$/km é o mesmo que lucro?',answer:'Não. R$/km é a receita bruta dividida pela distância total. O saldo desconta apenas o custo por quilômetro informado e não inclui despesas ou tempos omitidos.'},
     {question:'Preciso criar conta ou baixar aplicativo para calcular?',answer:'Não. A calculadora funciona gratuitamente neste site, sem cadastro. O aplicativo Android CalcMot é opcional para acompanhar ofertas automaticamente.'},
+    {question:'Como calcular o valor por km de uma corrida Uber ou 99?',answer:'Divida o valor que você receberá pela soma da distância até o passageiro e dos quilômetros da viagem. Para saber quanto rende por hora, divida o valor pelos minutos totais e multiplique por 60.'},
+    {question:'Qual é um bom valor por km para aceitar uma corrida?',answer:'Não existe um valor único que sirva para todos os motoristas. Compare o R$/km com o custo do seu veículo, sua meta de ganho e o tempo estimado. Uma oferta com boa receita por km pode render pouco por hora.'},
+    {question:'A calculadora desconta combustível, manutenção e IPVA?',answer:'Ela desconta apenas o custo por km que você informar. Para estimar melhor, considere combustível, manutenção, pneus, seguro, impostos do veículo e depreciação no seu próprio custo médio.'},
+    {question:'Como sei se uma corrida com passageiro longe compensa?',answer:'Some os quilômetros e minutos de deslocamento até o passageiro à viagem. Mesmo sem receber por essa busca separadamente, seu carro consome tempo e recursos, reduzindo o retorno da oferta.'},
     {question:'O CalcMot é oficial da Uber ou da 99?',answer:'Não. O CalcMot é independente e não tem vínculo oficial com essas plataformas.'},
   ];
   private readonly pageMeta=inject(PageMetaService);
@@ -58,13 +64,12 @@ export class CorridaValeAPenaPageComponent {
   protected update(field:RideField,event:Event):void{
     const target=event.target as HTMLInputElement;
     this.inputs.update(previous=>({...previous,[field]:target.value}));
-    this.touched.set(true);
     this.resultAnnouncement.set('');
     this.shareFeedback.set('');
     if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
   }
   protected calculate():void{
-    this.touched.set(true);
+    this.submitted.set(true);
     const calculation=this.result();
     if(!calculation.ok){
       this.resultAnnouncement.set('Confira os campos destacados antes de calcular.');
@@ -81,14 +86,14 @@ export class CorridaValeAPenaPageComponent {
   }
   protected clearFields():void {
     this.inputs.set({fare:'',pickupKm:'',tripKm:'',tripMinutes:'',pickupMinutes:'',costPerKm:''});
-    this.touched.set(false);
+    this.submitted.set(false);
     this.shareFeedback.set('');
     this.resultAnnouncement.set('Campos limpos. Informe o valor, a distância e o tempo da corrida.');
     this.document.getElementById('fare')?.focus();
   }
   protected restoreExample():void {
     this.inputs.set({...DEFAULT});
-    this.touched.set(false);
+    this.submitted.set(false);
     this.shareFeedback.set('');
     this.resultAnnouncement.set('Exemplo de corrida restaurado.');
     this.document.getElementById('fare')?.focus();
