@@ -29,3 +29,9 @@
 - Lighthouse SEO técnico no commit anterior: 100/100. Não garante posições no Google.
 - Clarity disponibiliza agregados, não as gravações individuais nesta coleta. Não diagnosticar causa dos 9 cliques inativos sem reproduções.
 - Capturas visuais auditadas correspondem ao build **antes** das alterações de simplificação; não atribuir a elas validação do layout final.
+
+## Validação após as correções — commit 48e55188
+- CI Angular: sucesso, https://github.com/DUGELO/calcmot-site/actions/runs/39298472574
+- Lighthouse: SEO **100**, acessibilidade **100**, boas práticas **100**, performance **96**; LCP 2,1s, TBT 160ms, CLS 0. https://github.com/DUGELO/calcmot-site/actions/runs/39298472622
+- Novo build renderizado estaticamente no Chromium: viewport 390px, botão Calcular a ~1181px, resultado ~1385px do topo; reduz ~413px (26%) em relação ao build anterior na mesma viewport. Outros tamanhos avaliados: 320, 360, 430, 768, 1280px, sem overflow horizontal na medição.
+- Limitação: inspeção é HTML/CSS prerenderizado sem bootstrap Angular devido a bloqueio do navegador local; validar a interação final no preview antes do merge. Não atribuir performance Lighthouse local a tráfego real.
