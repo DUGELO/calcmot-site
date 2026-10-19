@@ -19,7 +19,7 @@
           @for (field of essentialFields; track field.key) {
             <div class="calculator__field" [class.calculator__field--optional]="!field.required">
               <label [for]="field.key">{{ field.label }} @if (!field.required) { <span class="calculator__optional">(opcional)</span> }</label>
-              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <input [id]="field.key" type="text" [attr.inputmode]="field.key.endsWith('Minutes') ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
               @if (submitted() && result().errors[field.key]) { <small class="calculator__error" [id]="field.key + '-error'">{{ result().errors[field.key] }}</small> }
             </div>
@@ -33,7 +33,7 @@
           @for (field of optionalFields; track field.key) {
             <div class="calculator__field" [class.calculator__field--optional]="!field.required">
               <label [for]="field.key">{{ field.label }} @if (!field.required) { <span class="calculator__optional">(opcional)</span> }</label>
-              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <input [id]="field.key" type="text" [attr.inputmode]="field.key.endsWith('Minutes') ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
               @if (submitted() && result().errors[field.key]) { <small class="calculator__error" [id]="field.key + '-error'">{{ result().errors[field.key] }}</small> }
             </div>
