@@ -12,7 +12,8 @@ const PATH = '/ferramentas/corrida-vale-a-pena';
 const TITLE = 'Calculadora de Corrida Uber e 99: Vale a Pena? | CalcMot';
 const DESCRIPTION = 'Simule uma corrida da Uber ou 99 grátis. Calcule ganhos por km e hora, inclua o deslocamento até o passageiro e estime os custos do carro.';
 const LINK = `${BRAND_TOKENS.site.url}${PATH}/`;
-const DEFAULT: RideInputs = {fare:'18,00',pickupKm:'2',tripKm:'10',tripMinutes:'20',pickupMinutes:'4',costPerKm:''};
+const DEFAULT: RideInputs = {fare:'18,00',pickupKm:'0',tripKm:'10',tripMinutes:'20',pickupMinutes:'0',costPerKm:''};
+const COMPLETE_EXAMPLE: RideInputs = {...DEFAULT,pickupKm:'2',pickupMinutes:'4'};
 const MONEY = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const NUMBER = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
 
@@ -36,6 +37,8 @@ export class CorridaValeAPenaPageComponent {
   protected readonly optionalFields = this.fields.filter(field => !field.required);
   protected readonly inputs=signal<RideInputs>({...DEFAULT});
   protected readonly submitted=signal(false);
+  protected readonly hasCalculated=signal(false);
+  protected readonly extrasOpen=signal(false);
   protected readonly result=computed(()=>calculateRide(this.inputs()));
   protected readonly money=(cents:number)=>MONEY.format(cents/100);
   protected readonly number=(value:number)=>NUMBER.format(value);
@@ -65,6 +68,7 @@ export class CorridaValeAPenaPageComponent {
   protected update(field:RideField,event:Event):void{
     const target=event.target as HTMLInputElement;
     this.inputs.update(previous=>({...previous,[field]:target.value}));
+    this.hasCalculated.set(false);
     this.resultAnnouncement.set('');
     this.shareFeedback.set('');
     if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
@@ -72,6 +76,7 @@ export class CorridaValeAPenaPageComponent {
   protected calculate():void{
     if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
     this.submitted.set(true);
+    this.hasCalculated.set(false);
     const calculation=this.result();
     if(!calculation.ok){
       this.resultAnnouncement.set('Confira os campos destacados antes de calcular.');
@@ -79,6 +84,7 @@ export class CorridaValeAPenaPageComponent {
       if(invalid)this.document.getElementById(invalid.key)?.focus();
       return;
     }
+    this.hasCalculated.set(true);
     this.analytics.trackToolEvent('web_tool_completed');
     if(!this.firstCalculationTracked){
       this.firstCalculationTracked=true;
@@ -93,13 +99,17 @@ export class CorridaValeAPenaPageComponent {
   protected clearFields():void {
     this.inputs.set({fare:'',pickupKm:'',tripKm:'',tripMinutes:'',pickupMinutes:'',costPerKm:''});
     this.submitted.set(false);
+    this.hasCalculated.set(false);
+    this.extrasOpen.set(false);
     this.shareFeedback.set('');
     this.resultAnnouncement.set('Campos limpos. Informe o valor, a distância e o tempo da corrida.');
     this.document.getElementById('fare')?.focus();
   }
   protected restoreExample():void {
-    this.inputs.set({...DEFAULT});
+    this.inputs.set({...COMPLETE_EXAMPLE});
     this.submitted.set(false);
+    this.hasCalculated.set(false);
+    this.extrasOpen.set(true);
     this.shareFeedback.set('');
     this.resultAnnouncement.set('Exemplo de corrida restaurado.');
     this.document.getElementById('fare')?.focus();
