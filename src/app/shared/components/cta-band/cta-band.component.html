@@ -5,7 +5,7 @@
       <p class="cta-band__description">{{ description() }}</p>
 
       <div class="cta-band__actions">
-        <app-cta-button [label]="playStoreLabel" [href]="playStoreUrl" [external]="true" />
+        <app-cta-button [label]="playStoreLabel" [href]="playStoreUrl" analyticsPlacement="cta_band" [external]="true" />
 
         @if (secondaryLabel() && secondaryHref()) {
           <app-cta-button
