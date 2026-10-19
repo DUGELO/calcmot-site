@@ -43,3 +43,20 @@
 .calculator__real-offer-figure figcaption{font-size:.82rem;color:var(--color-text-secondary);line-height:1.5;margin-top:10px}
 .calculator__real-offer-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin-top:12px;padding:10px 18px;border-radius:var(--radius-sm);background:var(--color-primary);color:#fff;font-weight:800;text-decoration:none}
 @media(min-width:800px){.calculator__real-offer{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:40px}}
+
+
+/* UX: navegação rápida, ações secundárias e leitura confortável. */
+.calculator__jump{display:flex;justify-content:flex-start;margin-top:20px}
+.calculator__jump-link{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:9px 15px;border:1px solid var(--color-border-strong);border-radius:var(--radius-sm);color:var(--color-text-primary);text-decoration:none;font-weight:800}
+.calculator__intro{line-height:1.65;color:var(--color-text-secondary)}
+.calculator__intro strong{color:var(--color-text-primary)}
+.calculator__actions{display:flex;flex-wrap:wrap;gap:8px;margin:13px 0 17px}
+.calculator__action{border:1px solid var(--color-border-strong);border-radius:var(--radius-sm);background:var(--color-surface-soft);color:var(--color-text-primary);font:inherit;font-size:.88rem;font-weight:750;min-height:44px;padding:9px 12px;cursor:pointer}
+.calculator__group-label{margin:19px 0 12px;color:var(--color-brand-green);font-size:.78rem;font-weight:850;letter-spacing:.05em;text-transform:uppercase}
+.calculator__field--optional{opacity:.95}
+.calculator__optional{font-size:.75rem;font-weight:500;color:var(--color-text-secondary)}
+.calculator__form-note{margin:12px 0 0;font-size:.79rem;color:var(--color-text-secondary);line-height:1.5}
+.calculator__share-feedback{color:var(--color-brand-green);font-weight:700;margin:12px 0 0}
+.calculator__result:focus{outline:2px solid var(--color-brand-green);outline-offset:3px}
+.calculator__sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:419px){.calculator__action{flex:1 1 120px}}
