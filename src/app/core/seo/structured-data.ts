@@ -77,3 +77,25 @@ export function faqJsonLd(items: readonly { question: string; answer: string }[]
     })),
   };
 }
+
+/** Calculadora web gratuita: dados estruturados sem alegações de avaliações ou ganhos. */
+export function rideCalculatorWebAppJsonLd(path: string, description: string): JsonLd {
+  return withUrl(
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Calculadora de corrida Uber e 99 — CalcMot',
+      description,
+      applicationCategory: 'FinanceApplication',
+      browserRequirements: 'Navegador com JavaScript habilitado',
+      inLanguage: 'pt-BR',
+      isAccessibleForFree: true,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'BRL',
+      },
+    },
+    path,
+  );
+}
