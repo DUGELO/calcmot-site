@@ -1,21 +1,26 @@
 <app-page-hero
   eyebrow="Calculadora gratuita para motoristas"
-  title="Essa corrida vale a pena? Calcule R$/km e R$/h"
-  lead="Simule uma oferta da Uber ou 99, inclua o trajeto até o passageiro e veja quanto ela rende por quilômetro e por hora. Sem cadastro."
+  title="Calculadora de corrida Uber e 99: vale a pena?"
+  lead="Veja quanto uma corrida paga por km e por hora. Informe o valor, a distância e o tempo, considere o deslocamento até o passageiro e estime os custos. Grátis e sem cadastro."
   [points]="['Uber e 99','Cálculo gratuito','Sem cadastro']"
 />
+
+<div class="container calculator__jump"><a href="#simulador" class="calculator__jump-link">Ir para a calculadora <span aria-hidden="true">↓</span></a></div>
 
 <section class="section section--tight" aria-labelledby="simulador">
   <div class="container calculator">
     <div class="calculator__form card">
       <p class="eyebrow">Simule sua corrida</p>
       <h2 id="simulador">Informe os dados da oferta</h2>
-      <p class="note">Exemplo visual preenchido para você testar. Troque pelos seus números. Use vírgula ou ponto decimal, sem separador de milhar.</p>
+      <p class="calculator__intro">Comece com <strong>valor, distância e tempo</strong>. O exemplo já está preenchido: altere os números ou comece do zero.</p>
+      <div class="calculator__actions" aria-label="Preenchimento da calculadora"><button type="button" class="calculator__action" (click)="clearFields()">Limpar campos</button><button type="button" class="calculator__action" (click)="restoreExample()">Usar exemplo</button></div>
+      <p class="note">Aceita vírgula ou ponto decimal. Não utilize separador de milhar.</p>
       <form (submit)="$event.preventDefault(); calculate()" novalidate>
+        <p class="calculator__group-label">Dados essenciais</p>
         <div class="calculator__fields">
           @for (field of fields; track field.key) {
-            <div class="calculator__field">
-              <label [for]="field.key">{{ field.label }}</label>
+            <div class="calculator__field" [class.calculator__field--optional]="!field.required">
+              <label [for]="field.key">{{ field.label }} @if (!field.required) { <span class="calculator__optional">(opcional)</span> }</label>
               <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
               <small class="calculator__error" [id]="field.key + '-error'" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
@@ -23,9 +28,11 @@
           }
         </div>
         <button class="calculator__submit" type="submit">Calcular minha corrida</button>
+        <p class="calculator__form-note">Os números são estimativas. Nenhum valor é enviado para realizar o cálculo.</p>
       </form>
     </div>
-    <div class="calculator__result card" aria-live="polite" aria-atomic="true" data-clarity-mask="true">
+    <div id="resultado-corrida" tabindex="-1" class="calculator__result card" data-clarity-mask="true">
+      <p class="calculator__sr-only" role="status" aria-live="polite">{{ resultAnnouncement() }}</p>
       <p class="eyebrow">Seu resultado estimado</p>
       @if (result().ok) {
         @if (result().metrics; as m) {
@@ -47,6 +54,7 @@
           }
           <p class="note">Estimativa: não considera espera, retorno vazio, impostos, pedágios ou despesas não informadas. A decisão é sua.</p>
           <button class="calculator__share" type="button" (click)="share()">Compartilhar esta calculadora</button>
+          @if (shareFeedback()) { <p class="calculator__share-feedback" role="status">{{ shareFeedback() }}</p> }
         }
       } @else {
         <h2>Confira os campos</h2>
