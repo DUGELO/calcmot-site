@@ -1,15 +1,16 @@
+import { DOCUMENT } from '@angular/core';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { BRAND_TOKENS } from '../../core/constants/brand.tokens';
 import { calculateRide, type RideField, type RideInputs } from '../../core/calculator/ride-calculator';
 import { PageMetaService } from '../../core/services/page-meta.service';
 import { SiteAnalyticsService } from '../../core/services/site-analytics.service';
-import { webPageJsonLd, webSiteJsonLd } from '../../core/seo/structured-data';
+import { rideCalculatorWebAppJsonLd, webPageJsonLd, webSiteJsonLd } from '../../core/seo/structured-data';
 import { FaqListComponent } from '../../shared/components/faq-list/faq-list.component';
 import { PageHeroComponent } from '../../shared/components/page-hero/page-hero.component';
 
 const PATH = '/ferramentas/corrida-vale-a-pena';
-const TITLE = 'Calculadora de corrida Uber e 99: vale a pena? | CalcMot';
-const DESCRIPTION = 'Calcule grátis R$/km, R$/h, custo por km e saldo estimado de uma corrida Uber ou 99. Inclua o trajeto até o passageiro e veja as fórmulas.';
+const TITLE = 'Calculadora de Corrida Uber e 99: Vale a Pena? | CalcMot';
+const DESCRIPTION = 'Simule uma corrida da Uber ou 99 grátis. Calcule ganhos por km e hora, inclua o deslocamento até o passageiro e estime os custos do carro.';
 const LINK = `${BRAND_TOKENS.site.url}${PATH}/`;
 const DEFAULT: RideInputs = {fare:'18,00',pickupKm:'2',tripKm:'10',tripMinutes:'20',pickupMinutes:'4',costPerKm:''};
 const MONEY = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
@@ -47,20 +48,50 @@ export class CorridaValeAPenaPageComponent {
   ];
   private readonly pageMeta=inject(PageMetaService);
   private readonly analytics=inject(SiteAnalyticsService);
+  private readonly document=inject(DOCUMENT);
   private started=false;
   protected readonly shareFeedback=signal('');
+  protected readonly resultAnnouncement=signal('');
   constructor(){
-    this.pageMeta.apply({title:TITLE,description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,TITLE,DESCRIPTION)]});
+    this.pageMeta.apply({title:TITLE,description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,TITLE,DESCRIPTION),rideCalculatorWebAppJsonLd(PATH,DESCRIPTION)]});
   }
   protected update(field:RideField,event:Event):void{
     const target=event.target as HTMLInputElement;
     this.inputs.update(previous=>({...previous,[field]:target.value}));
     this.touched.set(true);
+    this.resultAnnouncement.set('');
+    this.shareFeedback.set('');
     if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
   }
   protected calculate():void{
     this.touched.set(true);
-    if(this.result().ok)this.analytics.trackToolEvent('web_tool_completed');
+    const calculation=this.result();
+    if(!calculation.ok){
+      this.resultAnnouncement.set('Confira os campos destacados antes de calcular.');
+      const invalid=this.fields.find(field=>Boolean(calculation.errors[field.key]));
+      if(invalid)this.document.getElementById(invalid.key)?.focus();
+      return;
+    }
+    this.analytics.trackToolEvent('web_tool_completed');
+    const metrics=calculation.metrics;
+    this.resultAnnouncement.set(
+      `Cálculo atualizado: ${this.money(metrics.grossPerKmCents)} por quilômetro, ${this.money(metrics.grossPerHourCents)} por hora.`,
+    );
+    this.document.getElementById('resultado-corrida')?.focus();
+  }
+  protected clearFields():void {
+    this.inputs.set({fare:'',pickupKm:'',tripKm:'',tripMinutes:'',pickupMinutes:'',costPerKm:''});
+    this.touched.set(false);
+    this.shareFeedback.set('');
+    this.resultAnnouncement.set('Campos limpos. Informe o valor, a distância e o tempo da corrida.');
+    this.document.getElementById('fare')?.focus();
+  }
+  protected restoreExample():void {
+    this.inputs.set({...DEFAULT});
+    this.touched.set(false);
+    this.shareFeedback.set('');
+    this.resultAnnouncement.set('Exemplo de corrida restaurado.');
+    this.document.getElementById('fare')?.focus();
   }
   protected trackPlay():void{this.analytics.trackToolEvent('web_play_clicked');}
   protected trackInstagram():void{this.analytics.trackToolEvent('web_instagram_clicked');}
