@@ -56,6 +56,7 @@ export class CorridaValeAPenaPageComponent {
   private readonly analytics=inject(SiteAnalyticsService);
   private readonly document=inject(DOCUMENT);
   private started=false;
+  private firstCalculationTracked=false;
   protected readonly shareFeedback=signal('');
   protected readonly resultAnnouncement=signal('');
   constructor(){
@@ -69,6 +70,7 @@ export class CorridaValeAPenaPageComponent {
     if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
   }
   protected calculate():void{
+    if(!this.started){this.started=true;this.analytics.trackToolEvent('web_tool_started');}
     this.submitted.set(true);
     const calculation=this.result();
     if(!calculation.ok){
@@ -78,6 +80,10 @@ export class CorridaValeAPenaPageComponent {
       return;
     }
     this.analytics.trackToolEvent('web_tool_completed');
+    if(!this.firstCalculationTracked){
+      this.firstCalculationTracked=true;
+      this.analytics.trackToolEvent('web_tool_first_completed');
+    }
     const metrics=calculation.metrics;
     this.resultAnnouncement.set(
       `Cálculo atualizado: ${this.money(metrics.grossPerKmCents)} por quilômetro, ${this.money(metrics.grossPerHourCents)} por hora.`,
