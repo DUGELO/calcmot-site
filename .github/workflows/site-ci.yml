@@ -55,6 +55,14 @@ jobs:
       - name: Validar HTML indexável, canonical, Play Store e sitemap
         run: node scripts/verify-prerender.mjs
 
+      - name: Preparar Chromium para smoke test mobile
+        run: |
+          python -m pip install playwright==1.58.0
+          python -m playwright install --with-deps chromium
+
+      - name: Smoke test E2E Angular mobile-first
+        run: python scripts/e2e-mobile-smoke.py
+
       # Downloadable preview for EVERY PR, even before hosting credentials are configured.
       - name: Publicar build HTML como artifact de preview
         if: github.event_name == 'pull_request'
