@@ -54,7 +54,7 @@ export class SiteAnalyticsService {
   }
 
   /** Eventos agregados: nunca transmitir valores financeiros nem campos do formulário. */
-  trackToolEvent(event: 'web_tool_started' | 'web_tool_completed' | 'web_result_shared' | 'web_play_clicked' | 'web_instagram_clicked'): void {
+  trackToolEvent(event: 'web_tool_started' | 'web_tool_completed' | 'web_tool_first_completed' | 'web_result_shared' | 'web_play_clicked' | 'web_instagram_clicked'): void {
     const browser = this.document.defaultView as AnalyticsWindow | null;
     if (!browser || !this.initialized || !browser.gtag) return;
     browser.gtag('event', event, { tool_id: 'ride_calculator' });
