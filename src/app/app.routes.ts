@@ -27,7 +27,7 @@ export const routes: Routes = [
       import('./pages/corrida-vale-a-pena/corrida-vale-a-pena-page.component').then(
         (page) => page.CorridaValeAPenaPageComponent,
       ),
-    title: 'Calculadora de corrida Uber e 99: vale a pena? | CalcMot',
+    title: 'Calculadora de Corrida Uber e 99: Vale a Pena? | CalcMot',
   },
   {
     path: 'privacidade',
