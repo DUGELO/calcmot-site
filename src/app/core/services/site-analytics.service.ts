@@ -70,9 +70,9 @@ export class SiteAnalyticsService {
     const browser = this.document.defaultView as AnalyticsWindow | null;
     if (!this.initialized || !browser || !event.isTrusted) return;
     const target = event.target;
-    if (!(target instanceof browser.Element)) return;
+    if (!(target instanceof Element)) return;
     const anchor = target.closest('a[href]');
-    if (!(anchor instanceof browser.HTMLAnchorElement)) return;
+    if (!(anchor instanceof HTMLAnchorElement)) return;
     const destination = trackedDestination(anchor.href, browser.location.href);
     if (!destination) return;
     const placement = safePlacement(anchor.getAttribute('data-analytics-placement'));
