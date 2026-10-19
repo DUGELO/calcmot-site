@@ -12,9 +12,7 @@
     <div class="calculator__form card">
       <p class="eyebrow">Simule sua corrida</p>
       <h2 id="simulador">Informe os dados da oferta</h2>
-      <p class="calculator__intro">Comece com <strong>valor, distância e tempo</strong>. O exemplo já está preenchido: altere os números ou comece do zero.</p>
-      <div class="calculator__actions" aria-label="Preenchimento da calculadora"><button type="button" class="calculator__action" (click)="clearFields()">Limpar campos</button><button type="button" class="calculator__action" (click)="restoreExample()">Usar exemplo</button></div>
-      <p class="note">Aceita vírgula ou ponto decimal. Não utilize separador de milhar.</p>
+      <p class="calculator__intro">Preencha o valor, a distância e o tempo da oferta. A busca pelo passageiro começa em zero; você pode ajustá-la abaixo.</p>
       <form (submit)="$event.preventDefault(); calculate()" novalidate>
         <p class="calculator__group-label">1. Dados da corrida</p>
         <div class="calculator__fields">
@@ -27,8 +25,10 @@
             </div>
           }
         </div>
-        <p class="calculator__group-label">2. Ajuste sua estimativa <span class="calculator__optional">(opcional)</span></p>
-        <p class="calculator__form-note">O exemplo usa 2 km e 4 minutos até o passageiro. Altere esses dados ou use zero quando não houver busca. Custo por km em branco significa custo não informado.</p>
+        <details class="calculator__extras" [open]="extrasOpen()" (toggle)="extrasOpen.set($any($event.target).open)">
+          <summary>Incluir busca do passageiro e custos <span class="calculator__optional">(opcional)</span></summary>
+        <p class="calculator__group-label">Ajustes opcionais</p>
+        <p class="calculator__form-note">Inclua a distância e o tempo até o passageiro para uma estimativa mais completa. Se não souber, os campos ficam em zero. Custo não informado não é descontado.</p>
         <div class="calculator__fields">
           @for (field of optionalFields; track field.key) {
             <div class="calculator__field" [class.calculator__field--optional]="!field.required">
@@ -39,14 +39,19 @@
             </div>
           }
         </div>
+        </details>
         <button class="calculator__submit" type="submit">Calcular minha corrida</button>
+        <div class="calculator__actions" aria-label="Controles de preenchimento"><button type="button" class="calculator__action" (click)="clearFields()">Limpar</button><button type="button" class="calculator__action" (click)="restoreExample()">Usar exemplo completo</button></div>
         <p class="calculator__form-note">Os números são estimativas. Nenhum valor é enviado para realizar o cálculo.</p>
       </form>
     </div>
     <div id="resultado-corrida" tabindex="-1" class="calculator__result card" data-clarity-mask="true">
       <p class="calculator__sr-only" role="status" aria-live="polite">{{ resultAnnouncement() }}</p>
       <p class="eyebrow">Seu resultado estimado</p>
-      @if (result().ok) {
+      @if (!hasCalculated()) {
+        <h2>Seu resultado aparece aqui</h2>
+        <p class="calculator__notice">Preencha a oferta e toque em <strong>Calcular minha corrida</strong>. Você verá o valor por km e por hora, considerando os dados informados.</p>
+      } @else if (result().ok) {
         @if (result().metrics; as m) {
           <h2>Quanto essa oferta rende?</h2>
           <div class="calculator__metrics">
