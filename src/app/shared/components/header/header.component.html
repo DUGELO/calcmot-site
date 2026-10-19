@@ -7,7 +7,7 @@
 
     <nav class="site-header__nav" [attr.aria-label]="copy.header.navAria">
       @for (item of copy.navigation; track item.href) {
-        <a class="site-header__link" [href]="item.href">{{ item.label }}</a>
+        <a class="site-header__link" [href]="item.href" data-analytics-placement="header_desktop">{{ item.label }}</a>
       }
     </nav>
 
@@ -15,7 +15,7 @@
       <summary>Menu</summary>
       <nav [attr.aria-label]="copy.header.navAria">
         @for (item of copy.navigation; track item.href) {
-          <a [href]="item.href">{{ item.label }}</a>
+          <a [href]="item.href" data-analytics-placement="header_mobile">{{ item.label }}</a>
         }
       </nav>
     </details>
