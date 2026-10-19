@@ -79,7 +79,7 @@
       }
       <div class="calculator__cta">
         <p><strong>Quer fazer essa conta na hora da oferta?</strong> O CalcMot para Android mostra R$/km, R$/h e a classificação enquanto você decide.</p>
-        <a class="calculator__play" [href]="playUrl" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Baixar CalcMot na Play Store</a>
+        <a class="calculator__play" [href]="playUrl" data-analytics-placement="calculator_result" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Baixar CalcMot na Play Store</a>
         <a class="calculator__instagram" [href]="instagramUrl" target="_blank" rel="noopener noreferrer" (click)="trackInstagram()">Acompanhar no Instagram</a>
       </div>
     </div>
@@ -106,7 +106,7 @@
       <p>Na calculadora acima, você preenche os valores manualmente. No aplicativo para Android, o CalcMot apresenta os indicadores diretamente sobre a oferta compatível, para ajudar você a decidir.</p>
       <p>Esta captura mostra uma oferta UberX de <strong>R$ 40,76</strong> com o aviso do CalcMot: classificação BOA, R$ 1,62/km e R$ 39,45/h.</p>
       <p class="note">Os números são da oferta fotografada, não da sua simulação. O CalcMot é independente da Uber e da 99; os resultados são estimativas, não garantia de ganho.</p>
-      <a class="calculator__real-offer-link" [href]="playUrl" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Conhecer o CalcMot na Play Store</a>
+      <a class="calculator__real-offer-link" [href]="playUrl" data-analytics-placement="calculator_real_offer" target="_blank" rel="noopener noreferrer" (click)="trackPlay()">Conhecer o CalcMot na Play Store</a>
     </div>
     <figure class="calculator__real-offer-figure">
       <img
