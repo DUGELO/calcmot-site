@@ -16,14 +16,26 @@
       <div class="calculator__actions" aria-label="Preenchimento da calculadora"><button type="button" class="calculator__action" (click)="clearFields()">Limpar campos</button><button type="button" class="calculator__action" (click)="restoreExample()">Usar exemplo</button></div>
       <p class="note">Aceita vírgula ou ponto decimal. Não utilize separador de milhar.</p>
       <form (submit)="$event.preventDefault(); calculate()" novalidate>
-        <p class="calculator__group-label">Dados essenciais</p>
+        <p class="calculator__group-label">1. Dados da corrida</p>
         <div class="calculator__fields">
-          @for (field of fields; track field.key) {
+          @for (field of essentialFields; track field.key) {
             <div class="calculator__field" [class.calculator__field--optional]="!field.required">
               <label [for]="field.key">{{ field.label }} @if (!field.required) { <span class="calculator__optional">(opcional)</span> }</label>
-              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="touched() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
               <small [id]="field.key + '-hint'">{{ field.hint }}</small>
-              <small class="calculator__error" [id]="field.key + '-error'" aria-live="polite">{{ touched() ? result().errors[field.key] : '' }}</small>
+              @if (submitted() && result().errors[field.key]) { <small class="calculator__error" [id]="field.key + '-error'">{{ result().errors[field.key] }}</small> }
+            </div>
+          }
+        </div>
+        <p class="calculator__group-label">2. Ajuste sua estimativa <span class="calculator__optional">(opcional)</span></p>
+        <p class="calculator__form-note">O exemplo usa 2 km e 4 minutos até o passageiro. Altere esses dados ou use zero quando não houver busca. Custo por km em branco significa custo não informado.</p>
+        <div class="calculator__fields">
+          @for (field of optionalFields; track field.key) {
+            <div class="calculator__field" [class.calculator__field--optional]="!field.required">
+              <label [for]="field.key">{{ field.label }} @if (!field.required) { <span class="calculator__optional">(opcional)</span> }</label>
+              <input [id]="field.key" type="text" [attr.inputmode]="field.key === 'tripMinutes' || field.key === 'pickupMinutes' ? 'numeric' : 'decimal'" autocomplete="off" data-clarity-mask="true" [required]="field.required" [value]="inputs()[field.key]" (input)="update(field.key,$event)" [attr.aria-invalid]="submitted() && result().errors[field.key] ? 'true' : null" [attr.aria-describedby]="field.key + '-hint ' + field.key + '-error'" />
+              <small [id]="field.key + '-hint'">{{ field.hint }}</small>
+              @if (submitted() && result().errors[field.key]) { <small class="calculator__error" [id]="field.key + '-error'">{{ result().errors[field.key] }}</small> }
             </div>
           }
         </div>
