@@ -28,3 +28,8 @@
   .hero__proofline { display: flex; justify-content: space-between; }
 }
 @media (max-width: 479px) { .hero__actions app-cta-button { flex-basis: 100%; } }
+
+/* Acesso contextual à ferramenta para quem chega pela home, sem novo botão principal. */
+.hero__tool-linkline { margin: 16px 0 0; color: #b7c1cb; font-size: .9rem; line-height: 1.6; }
+.hero__tool-linkline a { color: #c6edff; font-weight: 750; text-decoration: underline; text-underline-offset: 3px; }
+.hero__tool-linkline a:hover { color: #fff; }
