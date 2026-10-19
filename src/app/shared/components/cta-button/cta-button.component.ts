@@ -13,4 +13,5 @@ export class CtaButtonComponent {
   readonly size = input<'default' | 'compact'>('default');
   readonly external = input(false);
   readonly ariaLabel = input('');
+  readonly analyticsPlacement = input('');
 }
