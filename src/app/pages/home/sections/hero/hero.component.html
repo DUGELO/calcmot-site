@@ -5,7 +5,7 @@
       <h1 id="hero-titulo">{{ copy.hero.title }}</h1>
       <p class="hero__lead">{{ copy.hero.description }}</p>
       <div class="hero__actions">
-        <app-cta-button [label]="copy.hero.primaryCta" [href]="playStoreUrl" [external]="true" />
+        <app-cta-button [label]="copy.hero.primaryCta" [href]="playStoreUrl" analyticsPlacement="home_hero_cta" [external]="true" />
         <app-cta-button [label]="copy.hero.secondaryCta" [href]="copy.hero.secondaryHref" variant="secondary" />
       </div>
       <p class="hero__tool-linkline">Quer testar antes de baixar? <a href="/ferramentas/corrida-vale-a-pena/" data-analytics-placement="home_hero">Simule uma corrida grátis <span aria-hidden="true">→</span></a></p>
