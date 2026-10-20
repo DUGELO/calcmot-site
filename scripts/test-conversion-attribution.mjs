@@ -25,4 +25,12 @@ const now = 1000000;
 assert.equal(storedCalculatorEntry(JSON.stringify({sourcePage:'home',placement:'home_hero',timestamp:now-1000}),now).sourcePage,'home');
 assert.equal(storedCalculatorEntry(JSON.stringify({sourcePage:'home',placement:'home_hero',timestamp:now-121000}),now),null);
 assert.equal(storedCalculatorEntry(JSON.stringify({sourcePage:'https://example.com/?secret=1',placement:'home_hero',timestamp:now}),now),null);
+
+const analytics = readFileSync('src/app/core/services/site-analytics.service.ts', 'utf8');
+const beforeConfig = analytics.indexOf("browser.gtag('config', ANALYTICS_CONFIG.googleMeasurementId)");
+const afterView = analytics.indexOf("this.trackCalculatorView(browser)");
+assert.ok(beforeConfig >= 0 && afterView > beforeConfig, 'GA4 deve inicializar antes do evento de visita');
+assert.ok(!analytics.includes("'web_play_clicked'"), 'Evitar evento legado duplicado de Play Store');
+assert.equal((analytics.match(/this\.document\.addEventListener\('click'/g) || []).length, 1, 'Um único listener de cliques');
+
 console.log('Conversões: caminhos canônicos, origens categóricas, destinos, expiração e privacidade OK.');
