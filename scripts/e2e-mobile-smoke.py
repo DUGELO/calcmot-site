@@ -29,7 +29,7 @@ try:
             page = browser.new_page(viewport={"width": width, "height": 844})
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(f"{base}/ferramentas/corrida-vale-a-pena/", wait_until="networkidle")
-            expect(page.locator("h1")).to_contain_text("Calculadora de corrida Uber e 99")
+            expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
             expect(page.locator(".calculator__metric")).to_have_count(0)
             expect(page.get_by_text("Seu resultado aparece aqui")).to_be_visible()
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (
