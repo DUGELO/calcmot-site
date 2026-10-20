@@ -63,6 +63,9 @@ jobs:
       - name: Smoke test E2E Angular mobile-first
         run: python scripts/e2e-mobile-smoke.py
 
+      - name: Validar eventos GA4 com hostname de produção simulado
+        run: python scripts/e2e-analytics-production.py
+
       # Downloadable preview for EVERY PR, even before hosting credentials are configured.
       - name: Publicar build HTML como artifact de preview
         if: github.event_name == 'pull_request'
