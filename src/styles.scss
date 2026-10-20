@@ -429,3 +429,7 @@ summary:focus-visible {
   }
 }
 
+
+// Administrative viewport may be narrower than 320px after desktop scrollbars.
+body.calcmot-admin { min-width: 0; }
+

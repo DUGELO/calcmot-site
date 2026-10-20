@@ -1,0 +1,113 @@
+@use "./layout/admin-ui" as ui;
+@include ui.controls;
+:host {
+  display: block;
+  color: var(--color-text-primary);
+  --admin-surface: var(--color-surface);
+  --admin-line: var(--color-border-strong);
+  --admin-muted: var(--color-text-secondary);
+  --admin-accent: var(--color-brand-green);
+  --surface: var(--admin-surface);
+  --line: var(--admin-line);
+  --muted: var(--admin-muted);
+  --accent: var(--admin-accent);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.content {
+  max-width: 1440px;
+  margin: auto;
+  padding: 44px 42px 35px;
+}
+.eyebrow {
+  display: block;
+  letter-spacing: 1.6px;
+  color: var(--color-brand-green);
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+.feedback {
+  border: 1px solid #65502c;
+  background: #2b2417;
+  color: #f4dca6;
+  padding: 17px 20px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+}
+.feedback p {
+  color: inherit;
+  margin: 5px 0;
+}
+.feedback button {
+  margin-top: 12px;
+}
+.success {
+  background: #152c22;
+  border-color: #335e42;
+  color: #b8ebc9;
+}
+.login {
+  margin: 60px auto;
+  max-width: 440px;
+  text-align: center;
+}
+.login h1 {
+  font-size: 35px;
+  margin-bottom: 18px;
+}
+.login p {
+  line-height: 1.8;
+}
+.login-symbol {
+  display: block;
+  margin: 30px auto;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+.login .primary {
+  margin-top: 28px;
+  width: 100%;
+}
+.login small {
+  display: block;
+  margin: 20px 0;
+}
+.login .setup-note {
+  font-size: 12px;
+  margin-top: 16px;
+  color: #dfc984;
+}
+@media (min-width: 1500px) {
+  .content {
+    padding-top: 55px;
+  }
+}
+@media (max-width: 1100px) {
+  .content {
+    padding: 30px 24px;
+  }
+}
+@media (max-width: 760px) {
+  .content {
+    padding: 27px 18px;
+  }
+  .login {
+    margin: 35px auto;
+  }
+  .login h1 {
+    font-size: 30px;
+  }
+}
+
+.environment-banner {
+  background: #27251b;
+  border: 1px solid #645e32;
+  color: #e7dda6;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  font-size: 12px;
+  margin-bottom: 25px;
+}

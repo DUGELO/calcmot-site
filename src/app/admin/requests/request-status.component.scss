@@ -1,0 +1,20 @@
+.status {
+  display: inline-block;
+  border: 1px solid #514d2c;
+  background: #2a2819;
+  color: #eed58c;
+  font-size: 10px;
+  border-radius: 20px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.status[data-state="GRANTED"] {
+  background: #152d21;
+  border-color: #2c583d;
+  color: #a5e2b7;
+}
+.status[data-state="REJECTED"] {
+  background: #301e26;
+  border-color: #573441;
+  color: #edb3c5;
+}

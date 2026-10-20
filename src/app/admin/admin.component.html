@@ -1,0 +1,96 @@
+<admin-shell
+  [ready]="session.ready()"
+  [busy]="store.busy() || session.busy()"
+  [tab]="tab()"
+  (navigate)="navigate($event)"
+  (logout)="session.logout()"
+  ><section
+    class="content"
+    aria-label="Painel de recuperação"
+    [attr.aria-busy]="store.busy() || session.busy()"
+  >
+    <div class="environment-banner" role="status">
+      Homologação DEV · Operações restritas ao ambiente de desenvolvimento.
+    </div>
+    @if (error(); as failure) {
+      <div class="feedback error" role="alert">
+        <strong>Não foi possível continuar</strong>
+        <p>{{ failure.message }}</p>
+        @if (failure.requestId) {
+          <small>Referência de atendimento: {{ failure.requestId }}</small>
+        }
+        @if (failure.code === "CONFLICT" && store.detail()) {
+          <button
+            class="secondary"
+            (click)="store.open(store.detail()!.view.claimId)"
+          >
+            Recarregar pedido
+          </button>
+        }
+      </div>
+    }
+    @if (store.notice()) {
+      <div class="feedback success" role="status">{{ store.notice() }}</div>
+    }
+    @if (!session.ready()) {
+      <div class="login">
+        <span class="eyebrow">CALCMOT · ÁREA RESTRITA</span>
+        <img
+          class="login-symbol"
+          src="/assets/brand/calcmot-icon.png"
+          width="70"
+          height="70"
+          alt=""
+        />
+        <h1>Cuidado em cada decisão.</h1>
+        <p>
+          Entre com sua conta autorizada para avaliar solicitações de
+          recuperação com segurança.
+        </p>
+        <button
+          class="primary"
+          [disabled]="session.busy() || session.auth.state() !== 'ready'"
+          (click)="session.login()"
+        >
+          {{
+            session.busy()
+              ? "Verificando acesso…"
+              : session.auth.state() === "loading"
+                ? "Preparando entrada…"
+                : error()?.code === "REAUTH_REQUIRED"
+                  ? "Confirmar identidade com Google"
+                  : "Continuar com Google"
+          }}
+        </button>
+        @if (!session.auth.configured) {
+          <p class="setup-note">
+            O acesso ainda não está disponível neste ambiente. A configuração
+            autorizada de autenticação está pendente.
+          </p>
+        }
+        @if (session.auth.state() === "error") {
+          <p class="setup-note" role="alert">
+            Não foi possível preparar a entrada com Google. Verifique sua
+            conexão e recarregue o painel.
+          </p>
+          <button class="secondary" (click)="reload()">
+            Recarregar painel
+          </button>
+        }
+        <small>A autorização é verificada pelo serviço em cada operação.</small>
+      </div>
+    } @else {
+      <router-outlet />
+    }
+    @if (store.pending(); as operation) {
+      <admin-operation-confirmation
+        [operation]="operation"
+        [busy]="store.mutating() || session.busy()"
+        [reauthRequired]="session.reauthenticationRequired()"
+        [error]="error()"
+        (reauthenticate)="reauthenticate()"
+        (accepted)="store.execute()"
+        (cancelled)="store.cancel()"
+      />
+    }</section
+></admin-shell>

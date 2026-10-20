@@ -1,5 +1,7 @@
 # Deploy estático no Cloudflare Pages
 
+> Nota de auditoria (20/10/2026): o agente backend identificou a publicação atual como Worker + Assets, e não Pages. As instruções abaixo descrevem uma opção histórica de deploy estático. Para o painel no Angular oficial, consulte [a entrega administrativa](../admin/README.md); não migre a hospedagem nem publique por estas instruções sem aprovação.
+
 ## Objetivo
 
 Publicar o CalcMot no Cloudflare Pages Free como site estático, sem executar o SSR com Node em produção. O projeto mantém o servidor Angular SSR para uso local; as páginas públicas listadas em `src/app/app.routes.server.ts` são geradas como HTML estático durante o build.

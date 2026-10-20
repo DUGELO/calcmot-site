@@ -22,7 +22,7 @@ export class SiteAnalyticsService {
   initialize(): void {
     const browser = this.document.defaultView as AnalyticsWindow | null;
     if (
-      !browser || this.initialized || isDevMode() ||
+      !browser || /^\/admin(?:\/|$)/.test(browser.location.pathname) || this.initialized || isDevMode() ||
       !ANALYTICS_CONFIG.productionHosts.some((host) => host === browser.location.hostname)
     ) return;
     browser.dataLayer = browser.dataLayer || [];

@@ -13,12 +13,19 @@
     "test:calculator": "node scripts/test-ride-calculator.mjs",
     "test:analytics": "node scripts/test-conversion-attribution.mjs",
     "qa:ssr": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify-ssr.ps1",
-    "seo:sitemap": "node scripts/generate-sitemap.mjs"
+    "seo:sitemap": "node scripts/generate-sitemap.mjs",
+    "test:admin": "node scripts/test-admin.mjs",
+    "qa:admin": "node scripts/qa-admin.mjs",
+    "test:admin:ui": "node scripts/serve-admin-prototype.mjs",
+    "qa:admin:build": "node scripts/verify-admin-build.mjs",
+    "build:cloudflare": "node scripts/build-cloudflare.mjs",
+    "test:admin:edge": "node tests/admin-edge.spec.mjs"
   },
   "dependencies": {
     "@angular/common": "^21.2.0",
     "@angular/compiler": "^21.2.0",
     "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.23",
     "@angular/platform-browser": "^21.2.0",
     "@angular/platform-server": "^21.2.0",
     "@angular/router": "^21.2.0",
@@ -26,6 +33,7 @@
     "@sentry/angular": "^11.4.0",
     "@types/three": "^0.186.0",
     "express": "^5.1.0",
+    "firebase": "^13.0.0",
     "gsap": "^3.15.0",
     "rxjs": "~7.8.2",
     "three": "^0.186.0",
@@ -39,6 +47,7 @@
     "@types/express": "^5.0.0",
     "@types/node": "^22.15.0",
     "sass": "^1.93.0",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "wrangler": "4.149.0"
   }
 }

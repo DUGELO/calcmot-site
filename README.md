@@ -2,6 +2,10 @@
 
 Landing page institucional do CalcMot em Angular, SSR, Standalone Components e SCSS.
 
+## Painel administrativo
+
+A feature local /admin está documentada em [docs/admin/README.md](docs/admin/README.md). Segue o contrato S06 Admin Web 1.2.0, com Firebase Google e autorização backend. A integração remota ainda depende da configuração autorizada; fixtures ficam somente nos testes. Sem publicação automática.
+
 ## Requisitos
 
 - Node.js 22.12+ para Angular 21 (o projeto foi pensado para Angular 21.2 LTS)

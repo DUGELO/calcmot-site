@@ -5,6 +5,8 @@ import { RenderMode, type ServerRoute } from '@angular/ssr';
  * runtime. The wildcard keeps the local Angular SSR fallback for other paths.
  */
 export const serverRoutes: ServerRoute[] = [
+  { path: 'admin', renderMode: RenderMode.Client },
+  { path: 'admin/**', renderMode: RenderMode.Client },
   { path: '', renderMode: RenderMode.Prerender },
   { path: 'como-funciona', renderMode: RenderMode.Prerender },
   { path: 'calculadora-ganhos-motorista-app', renderMode: RenderMode.Prerender },

@@ -1,3 +1,4 @@
+import { adminDocumentBoundary } from './core/admin-document-boundary.guard';
 import type { Routes } from '@angular/router';
 import { CalculadoraPageComponent } from './pages/calculadora/calculadora-page.component';
 import { ComoFuncionaPageComponent } from './pages/como-funciona/como-funciona-page.component';
@@ -6,6 +7,11 @@ import { PrivacidadePageComponent } from './pages/privacidade/privacidade-page.c
 import { SuportePageComponent } from './pages/suporte/suporte-page.component';
 
 export const routes: Routes = [
+  {
+    path: 'admin',
+    canMatch: [adminDocumentBoundary],
+    loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES),
+  },
   {
     path: '',
     component: HomePageComponent,

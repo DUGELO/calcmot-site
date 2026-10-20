@@ -14,7 +14,7 @@ const routesSource = readFileSync(resolve(root, 'src/app/app.routes.ts'), 'utf8'
 
 const siteUrl = (tokens.match(/url:\s*'([^']*)'/) ?? ['', ''])[1].replace(/\/+$/, '');
 const paths = [...new Set([...routesSource.matchAll(/path:\s*'([^']*)'/g)].map((match) => match[1]))]
-  .filter((path) => path !== '**');
+  .filter((path) => path !== '**' && path !== 'admin' && !path.startsWith('admin/'));
 
 if (!siteUrl) {
   console.warn(

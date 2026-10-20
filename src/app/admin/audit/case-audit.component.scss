@@ -1,0 +1,28 @@
+@use "../layout/admin-ui" as ui;
+@include ui.controls;
+.panel {
+  @include ui.panel;
+}
+.panel > p {
+  font-size: 13px;
+  margin-top: 8px;
+}
+.timeline {
+  border-left: 1px solid #526840;
+  padding: 0 0 25px 15px;
+  margin-top: 20px;
+  font-size: 12px;
+}
+.timeline p {
+  font-size: 11px;
+  margin-top: 5px;
+}
+.audit-reason {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.empty {
+  color: var(--admin-muted);
+  padding-top: 22px;
+  font-size: 12px;
+}

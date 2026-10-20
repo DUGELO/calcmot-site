@@ -30,7 +30,7 @@ const routePaths = () => {
   const source = read('src/app/app.routes.ts');
   const matches = [...source.matchAll(/path:\s*'([^']*)'/g)].map((match) => match[1]);
 
-  return [...new Set(matches)].filter((path) => path !== '**' && path !== 'cosmos');
+  return [...new Set(matches)].filter((path) => path !== '**' && path !== 'cosmos' && path !== 'admin');
 };
 
 const PAGES = [
@@ -367,7 +367,7 @@ check(
   'Sitemap condicionado ao domínio canônico',
 );
 check(
-  read('public/robots.txt').includes('User-agent: *') && !read('public/robots.txt').includes('Disallow: /'),
+  read('public/robots.txt').includes('User-agent: *') && !/^Disallow:\s*\/$/m.test(read('public/robots.txt')),
   'robots.txt libera o rastreamento',
 );
 
@@ -381,6 +381,3 @@ if (failures.length > 0) {
 }
 
 console.log('QA estático OK: rotas, SEO/metadata, SSR, exemplo visual, captura real, tokens, acessibilidade e guardrails de copy.');
-
-
-

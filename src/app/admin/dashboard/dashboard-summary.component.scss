@@ -1,0 +1,131 @@
+@use "../layout/admin-ui" as ui;
+@include ui.type;
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 22px;
+}
+.metric {
+  border: 1px solid var(--admin-line);
+  background: var(--admin-surface);
+  border-radius: var(--radius-md);
+  padding: 23px;
+  position: relative;
+}
+.metric p {
+  font-size: 13px;
+  margin-bottom: 12px;
+  color: var(--color-text-secondary);
+}
+.metric strong {
+  font-size: 36px;
+  line-height: 1;
+  display: block;
+  font-weight: 600;
+  letter-spacing: -1px;
+  margin-bottom: 14px;
+}
+.metric-icon {
+  position: absolute;
+  right: 20px;
+  top: 21px;
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: #26301c;
+  color: #d9df83;
+  font-size: 19px;
+}
+.metric-icon[data-state="GRANTED"] {
+  background: #173323;
+  color: #83dd9b;
+}
+.metric-icon[data-state="REJECTED"] {
+  background: #30232a;
+  color: #e6a7b4;
+}
+.metric small {
+  font-size: 11px;
+}
+.insight {
+  background: linear-gradient(105deg, #182a1e, #101b19);
+  border: 1px solid #304a35;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 19px 22px;
+  margin-bottom: 32px;
+}
+.insight > span {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: #29422a;
+  color: #a7ec82;
+  font-size: 24px;
+  width: 39px;
+  height: 39px;
+  flex-shrink: 0;
+}
+.insight strong {
+  font-size: 13px;
+  color: #d9edd0;
+}
+.insight p {
+  margin-top: 3px;
+  font-size: 12px;
+}
+@media (max-width: 1100px) {
+  .metrics {
+    gap: 12px;
+  }
+  .metric {
+    padding: 20px 17px;
+  }
+  .metric-icon {
+    right: 15px;
+  }
+}
+@media (max-width: 760px) {
+  .metrics {
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .metric {
+    padding: 15px 10px;
+  }
+  .metric p {
+    font-size: 10px;
+    margin-top: 33px;
+    margin-bottom: 10px;
+  }
+  .metric strong {
+    font-size: 28px;
+    margin-bottom: 0;
+  }
+  .metric small {
+    display: none;
+  }
+  .metric-icon {
+    top: 12px;
+    left: 10px;
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+  }
+  .insight {
+    padding: 15px;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .insight strong {
+    font-size: 12px;
+  }
+  .insight p {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,32 @@
+<div class="page-heading">
+  <div>
+    <span class="eyebrow">RECUPERAÇÃO DE ACESSO</span>
+    <h1>{{ overview ? "Visão geral" : "Solicitações" }}</h1>
+    <p>
+      {{
+        overview
+          ? "Cada solicitação, com a atenção que ela merece."
+          : "Encontre um protocolo e continue a avaliação."
+      }}
+    </p>
+  </div>
+  <button class="secondary" [disabled]="store.busy()" (click)="store.load()">
+    ↻ Atualizar
+  </button>
+</div>
+@if (overview) {
+  <admin-dashboard-summary [counts]="store.counts()" />
+}
+<admin-requests-list
+  [items]="store.claims()"
+  [busy]="store.listLoading()"
+  [page]="store.page()"
+  [nextCursor]="store.nextCursor()"
+  [initialQuery]="store.query()"
+  (search)="store.search($event)"
+  (paginate)="store.paginate($event)"
+  (open)="open($event)"
+/>
+<p class="privacy-note">
+  Acesso restrito · Exibimos apenas as informações necessárias à avaliação.
+</p>

@@ -1,0 +1,105 @@
+<section class="panel">
+  <div class="section-heading">
+    <h2>Evidências e referências</h2>
+    <small>{{ selection().length }}/16 selecionadas</small>
+  </div>
+  <p>
+    Selecione as evidências que fundamentam a decisão. Referências são
+    identificadores, sem abertura de links externos.
+  </p>
+  @for (item of items(); track item.evidenceId) {
+    <div class="evidence-item">
+      <label class="check"
+        ><input
+          #evidenceCheckbox
+          type="checkbox"
+          [checked]="selection().includes(item.evidenceId)"
+          [disabled]="
+            busy() ||
+            !editable() ||
+            (!selection().includes(item.evidenceId) && selection().length >= 16)
+          "
+          (change)="select(item.evidenceId, evidenceCheckbox.checked)"
+        /><span
+          ><strong>{{
+            item.kind === "DECLARATION"
+              ? "Declaração do motorista"
+              : item.kind === "HISTORY"
+                ? "Histórico verificável"
+                : "Referência auxiliar"
+          }}</strong
+          ><small>{{ item.reference }}</small
+          ><small
+            >Origem: {{ item.originKey }} ·
+            {{ item.addedAt | date: "dd/MM/yyyy HH:mm" }}</small
+          ></span
+        ></label
+      >
+    </div>
+  } @empty {
+    <div class="empty">Nenhuma referência registrada neste pedido.</div>
+  }
+  @if (moreAvailable()) {
+    <button class="text-button" [disabled]="busy()" (click)="more.emit()">
+      Carregar mais referências
+    </button>
+  }
+  @if (editable()) {
+    <details class="add-evidence">
+      <summary>Registrar referência de evidência</summary>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label for="kind">Tipo de evidência</label
+        ><select id="kind" formControlName="kind">
+          <option value="AUXILIARY">Referência auxiliar</option>
+          <option value="DECLARATION">Declaração do motorista</option>
+          <option value="HISTORY">Histórico já verificado pelo serviço</option>
+        </select>
+        @if (form.controls.kind.value !== "DECLARATION") {
+          <label for="category">Categoria</label
+          ><select id="category" formControlName="category">
+            <option value="SUPPORT_RECORD">Registro de atendimento</option>
+            <option value="INSTALL_CONTEXT">Contexto de instalação</option>
+            <option value="USAGE_CONTEXT">Contexto de uso</option>
+            <option value="ACCOUNT_CONTINUITY">Continuidade da conta</option>
+          </select>
+        }
+        <label for="origin">Referência de origem</label
+        ><input
+          id="origin"
+          formControlName="originKey"
+          maxlength="128"
+          placeholder="Identificador do registro de origem"
+        /><label for="reference">Referência da evidência</label
+        ><input
+          id="reference"
+          formControlName="reference"
+          maxlength="128"
+          placeholder="Identificador da evidência disponível"
+        />
+        @if (form.controls.kind.value === "HISTORY") {
+          <label for="authority">Identificador do histórico autoritativo</label
+          ><input
+            id="authority"
+            formControlName="authorityEvidenceId"
+            maxlength="128"
+          /><small
+            >Use apenas a prova já validada pelo serviço. Este formulário não
+            cria histórico de uso.</small
+          >
+        }
+        @if (form.touched && form.invalid) {
+          <p class="field-error" role="alert">
+            Preencha as referências válidas, com até 128 caracteres: letras,
+            números, ponto, dois-pontos, barra, hífen ou sublinhado.
+          </p>
+        }
+        <p class="muted">
+          Não inclua documentos pessoais ou dados de corridas.
+        </p>
+        <button class="secondary" type="submit" [disabled]="busy()">
+          Revisar referência
+        </button>
+      </form>
+    </details>
+  }
+</section>

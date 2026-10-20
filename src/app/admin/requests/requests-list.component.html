@@ -1,0 +1,91 @@
+<section class="panel queue">
+  <div class="section-heading">
+    <div>
+      <h2>Fila de solicitações</h2>
+      <p>Pesquise pelo protocolo exato ou filtre por estado.</p>
+    </div>
+    <span class="live"><i></i>{{ "Dados do serviço" }}</span>
+  </div>
+  <form class="filters" [formGroup]="filters" (ngSubmit)="applyFilters()">
+    <div>
+      <label for="protocol">Protocolo</label
+      ><input
+        id="protocol"
+        formControlName="protocol"
+        placeholder="Buscar protocolo exato"
+        maxlength="128"
+        autocomplete="off"
+      />
+    </div>
+    <div>
+      <label for="state">Estado</label
+      ><select id="state" formControlName="state">
+        <option value="">Todos os estados</option>
+        <option value="UNDER_REVIEW">Em análise</option>
+        <option value="GRANTED">Direito emitido</option>
+        <option value="REJECTED">Recusado</option>
+      </select>
+    </div>
+    <button class="secondary" type="submit" [disabled]="busy()">Filtrar</button>
+  </form>
+  @if (filters.invalid) {
+    <p class="field-error">Use um protocolo válido, com até 128 caracteres.</p>
+  }
+  @if (busy()) {
+    <div class="skeleton" role="status" aria-label="Carregando solicitações">
+      @for (n of [1, 2, 3]; track n) {
+        <div></div>
+      }
+    </div>
+  } @else if (!items().length) {
+    <div class="empty">
+      <span aria-hidden="true">⌕</span>
+      <h3>Nenhuma solicitação encontrada</h3>
+      <p>Confira o protocolo ou escolha outro estado para pesquisar.</p>
+    </div>
+  } @else {
+    <div class="list-head" aria-hidden="true">
+      <span>Protocolo</span><span>Estado</span><span>Abertura</span
+      ><span></span>
+    </div>
+    <ul class="claim-list">
+      @for (claim of items(); track claim.claimId) {
+        <li>
+          <div class="protocol">
+            <span class="case-icon" aria-hidden="true">▤</span
+            ><strong>{{ claim.claimId }}</strong>
+          </div>
+          <admin-status [state]="claim.state" /><time
+            [attr.datetime]="claim.openedAt"
+            >{{ claim.openedAt | date: "dd/MM/yyyy"
+            }}<small>{{ claim.openedAt | date: "HH:mm" }}</small></time
+          ><button
+            class="text-button"
+            (click)="open.emit(claim.claimId)"
+            [attr.aria-label]="'Analisar solicitação ' + claim.claimId"
+          >
+            Ver pedido <span aria-hidden="true">→</span>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+  <footer class="pagination">
+    <small>Página {{ page() }} · Até 10 solicitações por página</small>
+    <div>
+      <button
+        class="secondary"
+        [disabled]="busy() || page() === 1"
+        (click)="paginate.emit(false)"
+      >
+        Anterior</button
+      ><button
+        class="secondary"
+        [disabled]="busy() || !nextCursor()"
+        (click)="paginate.emit(true)"
+      >
+        Próxima →
+      </button>
+    </div>
+  </footer>
+</section>

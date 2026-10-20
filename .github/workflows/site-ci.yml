@@ -22,10 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      CI: 'true'
+      CI: "true"
       NODE_OPTIONS: --max-old-space-size=4096
-      CF_PREVIEW_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_PREVIEW_TOKEN }}
-      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
     steps:
       - name: Checkout
@@ -43,6 +41,12 @@ jobs:
       - name: Guardrails do site
         run: npm run qa:static
 
+      - name: Guardrails e testes administrativos isolados
+        run: |
+          npm run qa:admin
+          npm run test:admin
+          npm run test:admin:edge
+
       - name: Testar motor financeiro
         run: npm run test:calculator
 
@@ -54,6 +58,19 @@ jobs:
 
       - name: Validar HTML indexável, canonical, Play Store e sitemap
         run: node scripts/verify-prerender.mjs
+
+      - name: Empacotar o Worker e Assets sem publicar
+        run: npx wrangler deploy --dry-run --config wrangler.jsonc --outdir .angular/worker-dryrun
+
+      - name: Conferir paridade SSR/SSG público e shell administrativo
+        run: node scripts/verify-admin-build.mjs dist/calcmot-cloudflare/browser dist/calcmot-site/browser
+
+      - name: Testar roteamento no workerd local sem API remota
+        env:
+          # Pinned local runtime supports up to this date. Production retains
+          # the existing 2026-10-19 date; Google/CSP E2E follows deployment.
+          ADMIN_WORKER_TEST_DATE: "2026-10-13"
+        run: node scripts/verify-admin-workerd.mjs
 
       - name: Preparar Chromium para smoke test mobile
         run: |
@@ -76,15 +93,5 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      # Optional real URL; isolated Pages project, NEVER production Worker.
-      - name: Deploy preview isolado no Cloudflare Pages
-        if: github.event_name == 'pull_request' && env.CF_PREVIEW_TOKEN != '' && env.CF_ACCOUNT_ID != ''
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_PAGES_PREVIEW_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/calcmot-site/browser --project-name=calcmot-site-preview --branch=pr-${{ github.event.pull_request.number }}
-
-      - name: Orientar quando preview hospedado nao estiver configurado
-        if: github.event_name == 'pull_request' && (env.CF_PREVIEW_TOKEN == '' || env.CF_ACCOUNT_ID == '')
-        run: echo "Preview HTML disponivel em Artifacts. Para URL publica, configurar Cloudflare Pages staging e secrets conforme docs/deploy/preview.md."
+      # Production deploy remains exclusively GitHub main -> existing
+      # Cloudflare Worker Builds. No parallel Pages deployment from this workflow.

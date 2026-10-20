@@ -1,0 +1,116 @@
+<admin-confirmation (cancel)="cancelled.emit()"
+  ><span class="eyebrow">CONFIRMAÇÃO NECESSÁRIA</span>
+  <h2 id="confirmation-title" tabindex="-1">
+    {{
+      operation().kind === "issuance"
+        ? "Confirmar emissão do direito"
+        : operation().kind === "evidence"
+          ? "Registrar referência de evidência"
+          : "Confirmar avaliação"
+    }}
+  </h2>
+  <dl>
+    <dt>Protocolo</dt>
+    <dd>{{ operation().claimId }}</dd>
+    <dt>Revisão</dt>
+    <dd>{{ operation().intent.revision }}</dd>
+    @if (operation().kind === "issuance") {
+      <dt>Escopo</dt>
+      <dd>Núcleo permanente</dd>
+    }
+    @if (operation(); as op) {
+      @switch (op.kind) {
+        @case ("decision") {
+          <dt>Resultado</dt>
+          <dd>{{ labels[op.intent.body.outcome] }}</dd>
+          <dt>Justificativa</dt>
+          <dd>{{ op.intent.body.reason }}</dd>
+          <dt>Evidências</dt>
+          <dd>{{ op.intent.body.evidenceIds.length }} selecionadas</dd>
+        }
+        @case ("evidence") {
+          <dt>Origem</dt>
+          <dd>{{ op.intent.body.originKey }}</dd>
+          <dt>Referência</dt>
+          <dd>{{ op.intent.body.reference }}</dd>
+        }
+      }
+    }
+  </dl>
+  <p>
+    {{
+      operation().kind === "issuance"
+        ? "Esta operação concede o direito comercial permanente. Não há ação de desfazer nesta interface. A emissão só estará concluída após confirmação do serviço."
+        : operation().kind === "evidence"
+          ? "A referência será registrada no histórico. O serviço continuará responsável por verificar a suficiência das evidências."
+          : "A decisão será registrada no histórico. Aprovar não concede o direito: a emissão exige uma confirmação separada."
+    }}
+  </p>
+  @if (error(); as failure) {
+    <div class="feedback error" role="alert">
+      {{ failure.message }}
+      @if (failure.code === "CONFLICT") {
+        <p>Volte e recarregue este pedido.</p>
+      }
+    </div>
+  }
+  @if (reauthRequired()) {
+    <div class="reauth-note" role="status">
+      <strong>Confirme sua identidade para registrar esta operação.</strong>
+      <p>
+        Você pode continuar consultando os pedidos. Entrar novamente com Google
+        não executará esta ação.
+      </p>
+    </div>
+    <div class="actions">
+      <button class="secondary" [disabled]="busy()" (click)="cancelled.emit()">
+        Voltar</button
+      ><button
+        class="primary"
+        [disabled]="busy()"
+        (click)="reauthenticate.emit()"
+      >
+        {{
+          busy() ? "Verificando identidade…" : "Confirmar identidade com Google"
+        }}
+      </button>
+    </div>
+  } @else {
+    <label class="check"
+      ><input
+        #confirmation
+        type="checkbox"
+        [checked]="confirmed"
+        (change)="confirmed = confirmation.checked"
+        [disabled]="busy()"
+      />Revisei os dados e confirmo esta operação.</label
+    >
+    <div class="actions">
+      <button class="secondary" [disabled]="busy()" (click)="cancelled.emit()">
+        Voltar</button
+      ><button
+        class="primary"
+        [disabled]="
+          busy() || !confirmed || (error() !== null && !error()!.retryable)
+        "
+        (click)="submit()"
+      >
+        {{
+          busy()
+            ? "Confirmando…"
+            : error()?.retryable
+              ? "Repetir tentativa"
+              : operation().kind === "issuance"
+                ? "Confirmar emissão"
+                : operation().kind === "evidence"
+                  ? "Registrar referência"
+                  : "Registrar avaliação"
+        }}
+      </button>
+    </div>
+  }
+  <small
+    >Se precisar reautenticar, a operação não será executada
+    automaticamente.</small
+  ></admin-confirmation
+>
