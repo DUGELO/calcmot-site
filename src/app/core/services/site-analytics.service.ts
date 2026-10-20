@@ -25,10 +25,6 @@ export class SiteAnalyticsService {
       !browser || this.initialized || isDevMode() ||
       !ANALYTICS_CONFIG.productionHosts.some((host) => host === browser.location.hostname)
     ) return;
-    this.initialized = true;
-    this.document.addEventListener('click', this.trackNavigationClick, { capture: true });
-    if (pageGroup(browser.location.pathname) === 'ride_calculator') this.trackCalculatorView(browser);
-
     browser.dataLayer = browser.dataLayer || [];
     browser.gtag = browser.gtag || function (..._args: unknown[]) {
       browser.dataLayer!.push(arguments);
@@ -46,6 +42,11 @@ export class SiteAnalyticsService {
     // Do not also emit manual router page_view events.
     browser.gtag('config', ANALYTICS_CONFIG.googleMeasurementId);
     this.loadScript('calcmot-ga4', `https://www.googletagmanager.com/gtag/js?id=${ANALYTICS_CONFIG.googleMeasurementId}`);
+    // Só registrar eventos após preparar a fila gtag e configurar a propriedade.
+    // A fila recebe web_calculator_viewed mesmo antes de o script externo carregar.
+    this.initialized = true;
+    this.document.addEventListener('click', this.trackNavigationClick, { capture: true });
+    if (pageGroup(browser.location.pathname) === 'ride_calculator') this.trackCalculatorView(browser);
 
     browser.clarity = browser.clarity || Object.assign(
       (...args: unknown[]) => { (browser.clarity!.q ||= []).push(args); },
@@ -59,7 +60,7 @@ export class SiteAnalyticsService {
   }
 
   /** Eventos agregados: nunca transmitir valores financeiros nem campos do formulário. */
-  trackToolEvent(event: 'web_tool_started' | 'web_tool_completed' | 'web_tool_first_completed' | 'web_result_shared' | 'web_play_clicked' | 'web_instagram_clicked'): void {
+  trackToolEvent(event: 'web_tool_started' | 'web_tool_completed' | 'web_tool_first_completed' | 'web_result_shared' | 'web_instagram_clicked'): void {
     const browser = this.document.defaultView as AnalyticsWindow | null;
     if (!browser || !this.initialized || !browser.gtag) return;
     browser.gtag('event', event, { tool_id: 'ride_calculator' });
