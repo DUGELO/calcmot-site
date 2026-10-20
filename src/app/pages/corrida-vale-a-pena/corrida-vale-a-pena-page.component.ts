@@ -114,7 +114,6 @@ export class CorridaValeAPenaPageComponent {
     this.resultAnnouncement.set('Exemplo de corrida restaurado.');
     this.document.getElementById('fare')?.focus();
   }
-  protected trackPlay():void{this.analytics.trackToolEvent('web_play_clicked');}
   protected trackInstagram():void{this.analytics.trackToolEvent('web_instagram_clicked');}
   protected async share():Promise<void>{
     if(typeof navigator==='undefined')return;
