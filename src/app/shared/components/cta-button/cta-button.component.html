@@ -3,6 +3,7 @@
   [class.cta--secondary]="variant() === 'secondary'"
   [class.cta--compact]="size() === 'compact'"
   [href]="href()"
+  [attr.data-analytics-placement]="analyticsPlacement() || null"
   [attr.target]="external() ? '_blank' : null"
   [attr.rel]="external() ? 'noopener noreferrer' : null"
   [attr.aria-label]="ariaLabel() || null"

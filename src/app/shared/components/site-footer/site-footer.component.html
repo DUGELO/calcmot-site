@@ -10,11 +10,11 @@
 
     <nav class="site-footer__nav" [attr.aria-label]="copy.footer.navAria">
       @for (item of copy.navigation; track item.href) {
-        <a class="site-footer__link" [href]="item.href">{{ item.label }}</a>
+        <a class="site-footer__link" [href]="item.href" data-analytics-placement="footer_nav">{{ item.label }}</a>
       }
       <a
         class="site-footer__link"
-        [href]="playStoreUrl"
+        [href]="playStoreUrl" data-analytics-placement="footer_play"
         target="_blank"
         rel="noopener noreferrer"
         >Play Store</a

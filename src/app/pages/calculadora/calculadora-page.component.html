@@ -5,7 +5,7 @@
   [points]="page.hero.points ?? []"
 >
   <div class="calculadora__actions">
-    <app-cta-button label="Baixar na Play Store" [href]="playStoreUrl" [external]="true" />
+    <app-cta-button label="Baixar na Play Store" [href]="playStoreUrl" analyticsPlacement="app_page_play" [external]="true" />
     <app-cta-button
       label="Como o CalcMot lê a oferta"
       href="/como-funciona"
@@ -13,6 +13,7 @@
     />
     <app-cta-button
       label="Simular uma corrida agora"
+      analyticsPlacement="app_page_hero"
       href="/ferramentas/corrida-vale-a-pena/"
       variant="secondary"
     />

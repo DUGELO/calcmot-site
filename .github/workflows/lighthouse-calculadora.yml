@@ -1,0 +1,48 @@
+name: Lighthouse — Calculadora de corrida
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'angular.json'
+      - 'package*.json'
+      - 'lighthouserc.cjs'
+      - '.github/workflows/lighthouse-calculadora.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Lighthouse SEO 100 e relatório UX
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Node.js do projeto
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Instalar e compilar
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: Executar Lighthouse da rota estática
+        run: npx --yes @lhci/cli@0.15.1 autorun --config=./lighthouserc.cjs
+      - name: Disponibilizar relatórios
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-calculadora
+          path: |
+            lighthouse-results/
+            .lighthouseci/
+          if-no-files-found: warn
+          retention-days: 7

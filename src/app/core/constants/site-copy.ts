@@ -3,6 +3,7 @@ import { BRAND_TOKENS } from './brand.tokens';
 export const SITE_COPY = {
   brand: { name: 'CalcMot', positioning: 'Veja quanto a corrida paga antes de aceitar.' },
   navigation: [
+    { label: 'Simular corrida', href: '/ferramentas/corrida-vale-a-pena/' },
     { label: 'Como funciona', href: '/como-funciona' },
     { label: 'Calculadora de ganhos', href: '/calculadora-ganhos-motorista-app' },
     { label: 'Privacidade', href: '/privacidade' },
