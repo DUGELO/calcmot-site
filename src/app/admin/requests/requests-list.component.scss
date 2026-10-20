@@ -1,0 +1,222 @@
+@use "../layout/admin-ui" as ui;
+@include ui.controls;
+@include ui.skeleton;
+.panel {
+  @include ui.panel;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.section-heading p {
+  font-size: 12px;
+  margin-top: 6px;
+}
+.live {
+  font-size: 10px;
+  color: #becdc0;
+  white-space: nowrap;
+}
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px auto;
+  gap: 12px;
+  align-items: end;
+  margin: 23px 0;
+}
+.filters label {
+  font-size: 11px;
+  margin: 0 0 7px;
+  color: #b4c1cd;
+}
+.filters input,
+.filters select {
+  font-size: 12px;
+}
+.list-head,
+.claim-list li {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.3fr) minmax(120px, 1fr) minmax(90px, 0.8fr)
+    100px;
+  align-items: center;
+  gap: 15px;
+}
+.list-head {
+  font-size: 10px;
+  color: #99aabc;
+  border-block: 1px solid var(--admin-line);
+  padding: 13px 7px;
+}
+.claim-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.claim-list li {
+  padding: 20px 7px;
+  border-bottom: 1px solid var(--admin-line);
+}
+.protocol {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+.protocol strong {
+  overflow-wrap: anywhere;
+  font-size: 12px;
+  font-weight: 600;
+}
+.case-icon {
+  color: #92a4b5;
+  font-size: 18px;
+}
+time {
+  font-size: 12px;
+  color: #cad5df;
+}
+time small {
+  display: block;
+  font-size: 10px;
+  margin-top: 2px;
+}
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 23px;
+}
+.pagination > div {
+  display: flex;
+  gap: 8px;
+}
+.pagination button {
+  font-size: 11px;
+  padding: 8px 12px;
+  min-height: 38px;
+}
+.pagination small {
+  font-size: 10px;
+}
+.empty {
+  text-align: center;
+  padding: 50px 20px;
+}
+.empty > span {
+  font-size: 30px;
+  color: #8ca5bc;
+}
+.empty h3 {
+  margin-top: 10px;
+}
+.empty p {
+  max-width: 380px;
+  margin: 8px auto 0;
+  font-size: 13px;
+}
+@media (max-width: 1100px) {
+  .list-head,
+  .claim-list li {
+    grid-template-columns: minmax(0, 1fr) 105px 85px;
+  }
+  .list-head span:last-child {
+    display: none;
+  }
+  .claim-list li > .text-button {
+    grid-column: 1/-1;
+    justify-self: end;
+    min-height: 44px;
+  }
+  .filters {
+    grid-template-columns: minmax(0, 1fr) 155px auto;
+  }
+}
+@media (max-width: 760px) {
+  .section-heading {
+    align-items: flex-start;
+  }
+  .section-heading h2 {
+    font-size: 17px;
+  }
+  .live {
+    display: none;
+  }
+  .filters {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .filters > div:first-child {
+    grid-column: 1/-1;
+  }
+  .filters > div:nth-child(2) {
+    min-width: 0;
+  }
+  .list-head {
+    display: none;
+  }
+  .claim-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 20px 0;
+  }
+  .protocol {
+    grid-column: 1/-1;
+  }
+  .protocol strong {
+    font-size: 13px;
+  }
+  .claim-list time {
+    text-align: right;
+  }
+  .claim-list li > .text-button {
+    grid-column: auto;
+    grid-row: auto;
+    justify-self: end;
+  }
+  .claim-list .status {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .claim-list time {
+    grid-column: 2;
+    grid-row: 2;
+  }
+  .claim-list li > .text-button {
+    grid-column: 1/-1;
+  }
+  .pagination {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .pagination > div {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.claim-list admin-status {
+  justify-self: start;
+}
+.live i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--admin-accent);
+  border-radius: 50%;
+  margin-right: 7px;
+}
+@media (max-width: 760px) {
+  .pagination button {
+    min-height: 44px;
+  }
+  .claim-list admin-status {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}

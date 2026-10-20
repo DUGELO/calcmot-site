@@ -1,0 +1,50 @@
+@use "../layout/admin-ui" as ui;
+@include ui.controls;
+.panel {
+  @include ui.panel;
+}
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+.section-heading small {
+  font-size: 10px;
+  white-space: nowrap;
+}
+.panel > p {
+  font-size: 13px;
+  margin-top: 8px;
+}
+.evidence-item {
+  padding: 6px 0 16px;
+  border-bottom: 1px solid var(--admin-line);
+}
+.evidence-item small {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.add-evidence {
+  margin-top: 22px;
+}
+.add-evidence summary {
+  cursor: pointer;
+  color: #b3d3fd;
+  padding: 12px 0;
+}
+.add-evidence form > button {
+  margin-top: 18px;
+}
+.add-evidence form > p {
+  font-size: 12px;
+  margin-top: 12px;
+}
+.empty {
+  text-align: center;
+  padding: 25px 15px;
+  border: 1px dashed #3b4b5b;
+  border-radius: 10px;
+  margin-top: 20px;
+  color: var(--admin-muted);
+}

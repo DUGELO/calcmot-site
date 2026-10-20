@@ -1,0 +1,41 @@
+<div class="metrics">
+  @for (state of ["UNDER_REVIEW", "GRANTED", "REJECTED"]; track state) {
+    <article class="metric">
+      <span class="metric-icon" [attr.data-state]="state">{{
+        state === "UNDER_REVIEW" ? "◷" : state === "GRANTED" ? "✓" : "−"
+      }}</span>
+      <p>
+        {{
+          state === "UNDER_REVIEW"
+            ? "Em análise"
+            : state === "GRANTED"
+              ? "Direitos emitidos"
+              : "Recusados"
+        }}
+      </p>
+      <strong>{{
+        counts()?.[
+          state === "UNDER_REVIEW"
+            ? "UNDER_REVIEW"
+            : state === "GRANTED"
+              ? "GRANTED"
+              : "REJECTED"
+        ] ?? "—"
+      }}</strong
+      ><small>{{
+        state === "UNDER_REVIEW"
+          ? "Aguardando conclusão do processo"
+          : "Confirmados pelo serviço"
+      }}</small>
+    </article>
+  }
+</div>
+<div class="insight">
+  <span aria-hidden="true">↗</span>
+  <div>
+    <strong>Aprovar é uma etapa. Emitir é outra.</strong>
+    <p>
+      Após a avaliação, revise e confirme a emissão para concluir a recuperação.
+    </p>
+  </div>
+</div>

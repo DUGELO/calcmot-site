@@ -1,0 +1,24 @@
+<section class="panel">
+  <h2>Auditoria do caso</h2>
+  <p>Decisões, referências e emissões registradas.</p>
+  @for (event of events(); track event.eventId) {
+    <div class="timeline">
+      <strong>{{ labels[event.kind] || "Atualização do caso" }}</strong>
+      <p>
+        {{ event.occurredAt | date: "dd/MM/yyyy · HH:mm" }} ·
+        {{ event.actor === "OWNER" ? "Proprietário" : "Sistema" }}
+      </p>
+      @if (event.details.reason) {
+        <p class="audit-reason">{{ event.details.reason }}</p>
+      }
+      <small>Revisão {{ event.fromRevision }} → {{ event.toRevision }}</small>
+    </div>
+  } @empty {
+    <div class="empty">Nenhum evento disponível.</div>
+  }
+  @if (moreAvailable()) {
+    <button class="text-button" [disabled]="busy()" (click)="more.emit()">
+      Carregar mais eventos
+    </button>
+  }
+</section>

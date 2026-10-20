@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-20",
+  "branch": "codex/admin-panel",
+  "baseCommit": "2f89a6d",
+  "rollbackVersion": "8787f096-328f-41a7-b7f7-e9e22c0ada71",
+  "buildConfigurationBefore": {
+    "repository": "DUGELO/calcmot-site",
+    "productionBranch": "main",
+    "buildCommand": "npm run build",
+    "deployCommand": "npx wrangler deploy",
+    "root": "/",
+    "disableBuilds": false,
+    "buildCache": true
+  },
+  "status": "pipeline-restored-pr-preparation",
+  "buildConfigurationAfter": {
+    "repository": "DUGELO/calcmot-site",
+    "productionBranch": "main",
+    "buildCommand": "npm run build",
+    "deployCommand": "npx wrangler deploy",
+    "root": "/",
+    "disableBuilds": false,
+    "buildCache": true
+  },
+  "gatewayRoutesVerified": [
+    "https://calcmot.com.br/api/admin/v1",
+    "https://calcmot.com.br/api/admin/v1/*"
+  ],
+  "manualUploadInterrupted": true,
+  "newVersionCreated": false,
+  "productionVersionUnchanged": true,
+  "publicationStrategy": "PR -> authorized merge -> existing automatic main deployment"
+}

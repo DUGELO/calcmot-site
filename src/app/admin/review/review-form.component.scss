@@ -1,0 +1,24 @@
+@use "../layout/admin-ui" as ui;
+@include ui.controls;
+.panel {
+  @include ui.panel;
+}
+.panel > p {
+  font-size: 13px;
+  margin-top: 8px;
+}
+form > small {
+  display: block;
+  margin-top: 8px;
+}
+fieldset {
+  border: 1px solid var(--admin-line);
+  border-radius: var(--radius-sm);
+  margin: 23px 0;
+  padding: 10px 16px 18px;
+}
+legend {
+  padding: 0 5px;
+  color: #c5d2de;
+  font-size: 12px;
+}

@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "rawBytes": 485359,
+    "gzipBytes": 155013,
+    "initialFiles": [
+      "polyfills-YMBILSHJ.js",
+      "main-KW24KRK7.js",
+      "chunk-HSA5KWI6.js",
+      "styles-AT2WVM6X.css"
+    ],
+    "initialContainsAdminUi": false,
+    "artifactContainsSyntheticFixtures": false
+  },
+  "current": {
+    "rawBytes": 440240,
+    "gzipBytes": 138705,
+    "initialFiles": [
+      "polyfills-5CFQRCPP.js",
+      "main-REVLV5CO.js",
+      "chunk-RU6LCTTB.js",
+      "chunk-EN34FYDX.js",
+      "chunk-XXFMOP6N.js",
+      "chunk-ACKELEN3.js",
+      "chunk-NKFIN2XQ.js",
+      "chunk-5FQC633L.js",
+      "styles-6GBPHSRI.css"
+    ],
+    "initialContainsAdminUi": false,
+    "artifactContainsSyntheticFixtures": false
+  },
+  "delta": {
+    "rawBytes": -45119,
+    "gzipBytes": -16308,
+    "rawPercent": -9.3
+  },
+  "note": "Initial JS/CSS only, including recursive static imports. Lazy monitoring and Firebase are reported separately by Angular build. Gzip is calculated consistently per emitted file."
+}

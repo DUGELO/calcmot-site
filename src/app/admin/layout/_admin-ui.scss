@@ -1,0 +1,157 @@
+@mixin type {
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+  h1 {
+    font-size: clamp(26px, 3vw, 36px);
+    letter-spacing: -1.2px;
+    font-weight: 650;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+  }
+  h2 {
+    font-size: 18px;
+    letter-spacing: -0.4px;
+  }
+  h3 {
+    font-size: 16px;
+  }
+  p,
+  small {
+    color: var(--admin-muted);
+  }
+  small {
+    font-size: 12px;
+  }
+  .muted {
+    color: var(--admin-muted);
+  }
+}
+@mixin controls {
+  @include type;
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+    min-height: 44px;
+    border: 0;
+  }
+  button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  input,
+  select,
+  textarea {
+    color: inherit;
+    background: var(--color-background);
+    border: 1px solid #607286;
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    width: 100%;
+    min-height: 46px;
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-primary) 70%, white);
+    outline-offset: 3px;
+  }
+  label {
+    display: block;
+    margin: 19px 0 7px;
+    font-weight: 600;
+  }
+  .primary,
+  .secondary {
+    border-radius: var(--radius-sm);
+    padding: 11px 18px;
+    font-size: 13px;
+    font-weight: 650;
+  }
+  .primary {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  .primary:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+  }
+  .secondary {
+    background: var(--color-surface-elevated);
+    color: var(--color-text-primary);
+    border: 1px solid #607286;
+  }
+  .secondary:hover:not(:disabled) {
+    background: var(--color-surface-soft);
+  }
+  .text-button {
+    background: transparent;
+    color: #b3d3fd;
+    padding: 8px 5px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .check {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.8;
+  }
+  .check input {
+    width: 18px;
+    height: 18px;
+    min-height: 0;
+    flex-shrink: 0;
+    accent-color: var(--admin-accent);
+    margin: 2px 0;
+  }
+  .field-error {
+    color: #ffc1be;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+@mixin panel {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  @media (max-width: 760px) {
+    padding: 19px 16px;
+  }
+}
+@mixin skeleton {
+  .skeleton {
+    padding: 10px 0;
+  }
+  .skeleton > div {
+    height: 60px;
+    margin: 12px 0;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #1a2630, #293b48, #1a2630);
+    background-size: 200%;
+    animation: loading 1.5s infinite;
+  }
+  @keyframes loading {
+    to {
+      background-position: -200%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton > div {
+      animation: none;
+    }
+  }
+}

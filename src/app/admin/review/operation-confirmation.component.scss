@@ -1,0 +1,75 @@
+@use "../layout/admin-ui" as ui;
+@include ui.controls;
+.eyebrow {
+  display: block;
+  letter-spacing: 1.6px;
+  color: #a3b3c2;
+  font-size: 10px;
+  font-weight: 700;
+  margin-bottom: 13px;
+}
+h2 {
+  font-size: 24px;
+}
+dl {
+  border-block: 1px solid var(--admin-line);
+  padding: 18px 0;
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 12px;
+}
+dt {
+  color: #a5b4c1;
+}
+dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #b9c7d3;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 25px 0 20px;
+}
+small {
+  font-size: 11px;
+}
+.feedback {
+  border: 1px solid #65502c;
+  background: #2b2417;
+  color: #f4dca6;
+  padding: 17px 20px;
+  border-radius: 12px;
+  margin: 18px 0;
+}
+.feedback p {
+  color: inherit;
+  margin-top: 5px;
+}
+@media (max-width: 760px) {
+  .actions {
+    flex-wrap: wrap;
+  }
+  .actions button {
+    flex: 1;
+  }
+}
+.reauth-note {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #645e32;
+  background: #27251b;
+  color: #e7dda6;
+  font-size: 13px;
+}
+.reauth-note p {
+  margin-top: 6px;
+}

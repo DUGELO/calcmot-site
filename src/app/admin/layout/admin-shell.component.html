@@ -1,0 +1,53 @@
+<div class="admin-shell">
+  <aside class="sidebar" aria-label="Administração">
+    <a class="brand" href="/admin" aria-label="CalcMot administração"
+      ><img
+        class="brand-mark"
+        src="/assets/brand/calcmot-icon.png"
+        width="30"
+        height="30"
+        alt=""
+      />
+      <span>CalcMot</span><span class="admin-label">ADMIN</span></a
+    >
+    <div class="workspace">
+      <span class="workspace-icon">C</span>
+      <div>Área administrativa<small>Recuperação de acesso</small></div>
+    </div>
+    <nav aria-label="Navegação administrativa">
+      <button
+        type="button"
+        [class.active]="tab() === 'overview'"
+        [attr.aria-current]="tab() === 'overview' ? 'page' : null"
+        (click)="navigate.emit('overview')"
+      >
+        <span aria-hidden="true">◫</span> Visão geral
+      </button>
+      <button
+        type="button"
+        [class.active]="tab() === 'claims'"
+        [attr.aria-current]="tab() === 'claims' ? 'page' : null"
+        (click)="navigate.emit('claims')"
+      >
+        <span aria-hidden="true">▤</span> Solicitações
+      </button>
+    </nav>
+    <div class="sidebar-bottom">
+      <span class="secure-dot"></span>Acesso restrito<small
+        >Somente operadores autorizados</small
+      >
+    </div>
+  </aside>
+  <div class="workspace-main">
+    <header class="topbar">
+      <span>Administração <span class="crumb">/ Recuperação</span></span>
+      @if (ready()) {
+        <button class="text-button" [disabled]="busy()" (click)="logout.emit()">
+          Sair da sessão
+        </button>
+      }
+      <span class="avatar" aria-hidden="true">CM</span>
+    </header>
+    <ng-content />
+  </div>
+</div>

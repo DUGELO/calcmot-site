@@ -1,0 +1,57 @@
+<section class="panel">
+  <h2>Avaliação</h2>
+  <p class="muted">
+    Registre uma justificativa clara. A aprovação não emite o direito.
+  </p>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label for="outcome">Resultado da avaliação</label
+    ><select id="outcome" formControlName="outcome">
+      <option value="REQUEST_MORE">Solicitar complementação</option>
+      <option value="APPROVE">Aprovar para emissão</option>
+      <option value="REJECT">Recusar solicitação</option>
+      <option value="OWNERSHIP_CONFLICT">
+        Registrar conflito de titularidade
+      </option></select
+    ><label for="reason"
+      >Justificativa <span class="muted">(obrigatória)</span></label
+    ><textarea
+      id="reason"
+      rows="5"
+      formControlName="reason"
+      maxlength="1000"
+      aria-describedby="reason-help reason-error"
+      [attr.aria-invalid]="
+        form.controls.reason.touched && form.controls.reason.invalid
+      "
+      placeholder="Descreva o fundamento da sua avaliação."
+    ></textarea
+    ><small id="reason-help"
+      >Até 1.000 caracteres. Não inclua dados pessoais desnecessários.</small
+    >
+    @if (form.controls.reason.touched && form.controls.reason.invalid) {
+      <p id="reason-error" class="field-error" role="alert">
+        Informe uma justificativa de até 1.000 caracteres.
+      </p>
+    }
+    <fieldset>
+      <legend>Verificações da avaliação</legend>
+      <label class="check"
+        ><input
+          type="checkbox"
+          formControlName="ownershipConfirmed"
+        />Titularidade confirmada</label
+      ><label class="check"
+        ><input
+          type="checkbox"
+          formControlName="contradictionsCleared"
+        />Contradições esclarecidas</label
+      ><label class="check"
+        ><input type="checkbox" formControlName="legacyUseConcluded" />Uso
+        anterior concluído na avaliação</label
+      >
+    </fieldset>
+    <button class="primary" type="submit" [disabled]="busy()">
+      Revisar avaliação →
+    </button>
+  </form>
+</section>

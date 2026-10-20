@@ -1,0 +1,6 @@
+# Generated from the authoritative S06 backend; synchronized by script.
+src/app/admin/data-access/admin.contracts.ts
+.angular/
+dist/
+node_modules/
+.npm-cache/

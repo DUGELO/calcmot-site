@@ -1,0 +1,38 @@
+:host {
+  display: contents;
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.confirmation-backdrop {
+  position: fixed;
+  inset: 0;
+  background: #03080ce8;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 50;
+  overflow: auto;
+}
+.confirmation {
+  width: min(100%, 550px);
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+  padding: 30px;
+  box-shadow: 0 24px 100px #0008;
+}
+@media (max-width: 760px) {
+  .confirmation {
+    padding: 24px 20px;
+  }
+}
+.confirmation {
+  color: var(--color-text-primary);
+  margin: auto;
+  border: 1px solid var(--line);
+}
+.confirmation::backdrop {
+  background: #03080ce8;
+}

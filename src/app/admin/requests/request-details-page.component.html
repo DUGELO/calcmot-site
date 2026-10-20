@@ -1,0 +1,93 @@
+<a class="back text-button" routerLink="/admin/solicitacoes"
+  >← Voltar às solicitações</a
+>
+@if (store.detail(); as d) {
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">DETALHES DA SOLICITAÇÃO</span>
+      <h1 id="case-title" tabindex="-1">{{ d.view.claimId }}</h1>
+      <p>
+        Aberta em {{ d.view.openedAt | date: "dd/MM/yyyy · HH:mm" }} · Revisão
+        {{ d.view.revision }}
+      </p>
+    </div>
+    <admin-status [state]="d.view.state" />
+  </div>
+  <div class="detail-grid">
+    <div class="detail-main">
+      <section class="panel">
+        <h2>Declaração do motorista</h2>
+        <p>
+          Não há declaração textual disponível neste resumo. Consulte as
+          referências de declaração registradas nas evidências do pedido.
+        </p>
+      </section>
+      <admin-evidence-panel
+        [items]="store.evidence()"
+        [busy]="store.busy()"
+        [editable]="d.view.state === 'UNDER_REVIEW'"
+        [moreAvailable]="!!store.evidenceCursor()"
+        [selection]="selection()"
+        [revision]="d.view.revision"
+        (selected)="selection.set($event)"
+        (register)="store.prepareEvidence($event)"
+        (more)="store.more('evidence')"
+      />
+      @if (d.view.state === "UNDER_REVIEW") {
+        <admin-review-form
+          [revision]="d.view.revision"
+          [busy]="store.busy()"
+          [evidenceIds]="selection()"
+          (review)="store.prepareDecision($event)"
+        />
+      } @else {
+        <section class="panel">
+          <h2>Avaliação concluída</h2>
+          <p>
+            Novas avaliações não estão disponíveis nesta interface para este
+            pedido.
+          </p>
+        </section>
+      }
+    </div>
+    <aside class="case-side">
+      <section class="panel">
+        <span class="step">ETAPA SEPARADA</span>
+        <h2>Emissão do direito</h2>
+        <p>O direito só é concedido após a confirmação do serviço.</p>
+        @if (d.grant) {
+          <div class="success">Direito emitido</div>
+        } @else if (store.showIssuance()) {
+          <div class="approval">
+            <strong>Aprovação registrada</strong>
+            <p>
+              Revisão {{ d.view.revision }} disponível para confirmação de
+              emissão. O serviço verificará os requisitos.
+            </p>
+          </div>
+          <button
+            class="primary"
+            [disabled]="store.busy()"
+            (click)="store.prepareIssuance()"
+          >
+            Revisar emissão
+          </button>
+        } @else {
+          <p class="muted">Aguardando uma aprovação válida na revisão atual.</p>
+        }
+      </section>
+      <admin-case-audit
+        [events]="store.events()"
+        [busy]="store.busy()"
+        [moreAvailable]="!!store.eventsCursor()"
+        (more)="store.more('events')"
+      />
+    </aside>
+  </div>
+} @else if (store.detailLoading()) {
+  <div class="skeleton" role="status" aria-label="Carregando pedido">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+}
