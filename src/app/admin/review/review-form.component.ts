@@ -22,6 +22,7 @@ import type { DecisionInput } from "../data-access/admin.models";
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewFormComponent implements OnChanges {
+  readonly mode = input<"review" | "reopen">("review");
   readonly busy = input(false);
   readonly revision = input.required<number>();
   readonly evidenceIds = input<string[]>([]);
@@ -43,15 +44,29 @@ export class ReviewFormComponent implements OnChanges {
     legacyUseConcluded: new FormControl(false, { nonNullable: true }),
   });
   ngOnChanges(changes: SimpleChanges) {
-    if (changes["revision"] && !changes["revision"].firstChange)
+    if (
+      (changes["revision"] && !changes["revision"].firstChange) ||
+      changes["mode"]
+    )
       this.form.reset();
   }
   submit() {
     this.form.markAllAsTouched();
     if (this.form.valid && !this.busy())
-      this.review.emit({
-        ...this.form.getRawValue(),
-        evidenceIds: [...this.evidenceIds()],
-      });
+      this.review.emit(
+        this.mode() === "reopen"
+          ? {
+              outcome: "REQUEST_MORE",
+              reason: this.form.controls.reason.value,
+              evidenceIds: [],
+              ownershipConfirmed: false,
+              contradictionsCleared: false,
+              legacyUseConcluded: false,
+            }
+          : {
+              ...this.form.getRawValue(),
+              evidenceIds: [...this.evidenceIds()],
+            },
+      );
   }
 }

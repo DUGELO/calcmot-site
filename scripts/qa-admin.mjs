@@ -12,6 +12,14 @@ const failures = [];
 const check = (condition, message) => {
   if (!condition) failures.push(message);
 };
+const worker = ts.parseConfigFileTextToJson(
+  "wrangler.jsonc",
+  readFileSync("wrangler.jsonc", "utf8"),
+);
+check(
+  !worker.error && Object.hasOwn(worker.config ?? {}, "previews"),
+  "Cloudflare's existing preview command requires a versioned previews block",
+);
 const presenters = [
   "requests-list",
   "request-status",

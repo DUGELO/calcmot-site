@@ -1,18 +1,27 @@
 <section class="panel">
-  <h2>Avaliação</h2>
+  <h2>{{ mode() === "reopen" ? "Reabrir análise" : "Avaliação" }}</h2>
   <p class="muted">
-    Registre uma justificativa clara. A aprovação não emite o direito.
+    @if (mode() === "reopen") {
+      Registre por que este pedido precisa de complementação. A reabertura será
+      registrada no histórico após a confirmação do serviço e não concede
+      direitos.
+    } @else {
+      Registre uma justificativa clara. A aprovação não emite o direito.
+    }
   </p>
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <label for="outcome">Resultado da avaliação</label
-    ><select id="outcome" formControlName="outcome">
-      <option value="REQUEST_MORE">Solicitar complementação</option>
-      <option value="APPROVE">Aprovar para emissão</option>
-      <option value="REJECT">Recusar solicitação</option>
-      <option value="OWNERSHIP_CONFLICT">
-        Registrar conflito de titularidade
-      </option></select
-    ><label for="reason"
+    @if (mode() === "review") {
+      <label for="outcome">Resultado da avaliação</label
+      ><select id="outcome" formControlName="outcome">
+        <option value="REQUEST_MORE">Solicitar complementação</option>
+        <option value="APPROVE">Aprovar para emissão</option>
+        <option value="REJECT">Recusar solicitação</option>
+        <option value="OWNERSHIP_CONFLICT">
+          Registrar conflito de titularidade
+        </option>
+      </select>
+    }
+    <label for="reason"
       >Justificativa <span class="muted">(obrigatória)</span></label
     ><textarea
       id="reason"
@@ -33,25 +42,27 @@
         Informe uma justificativa de até 1.000 caracteres.
       </p>
     }
-    <fieldset>
-      <legend>Verificações da avaliação</legend>
-      <label class="check"
-        ><input
-          type="checkbox"
-          formControlName="ownershipConfirmed"
-        />Titularidade confirmada</label
-      ><label class="check"
-        ><input
-          type="checkbox"
-          formControlName="contradictionsCleared"
-        />Contradições esclarecidas</label
-      ><label class="check"
-        ><input type="checkbox" formControlName="legacyUseConcluded" />Uso
-        anterior concluído na avaliação</label
-      >
-    </fieldset>
+    @if (mode() === "review") {
+      <fieldset>
+        <legend>Verificações da avaliação</legend>
+        <label class="check"
+          ><input
+            type="checkbox"
+            formControlName="ownershipConfirmed"
+          />Titularidade confirmada</label
+        ><label class="check"
+          ><input
+            type="checkbox"
+            formControlName="contradictionsCleared"
+          />Contradições esclarecidas</label
+        ><label class="check"
+          ><input type="checkbox" formControlName="legacyUseConcluded" />Uso
+          anterior concluído na avaliação</label
+        >
+      </fieldset>
+    }
     <button class="primary" type="submit" [disabled]="busy()">
-      Revisar avaliação →
+      {{ mode() === "reopen" ? "Revisar reabertura →" : "Revisar avaliação →" }}
     </button>
   </form>
 </section>
