@@ -40,6 +40,13 @@
           [evidenceIds]="selection()"
           (review)="store.prepareDecision($event)"
         />
+      } @else if (d.view.state === "REJECTED" && !d.grant) {
+        <admin-review-form
+          mode="reopen"
+          [revision]="d.view.revision"
+          [busy]="store.busy()"
+          (review)="store.prepareDecision($event)"
+        />
       } @else {
         <section class="panel">
           <h2>Avaliação concluída</h2>

@@ -205,7 +205,14 @@ export class AdminWorkspaceStore {
   }
   prepareDecision(body: DecisionInput) {
     const d = this.detail();
-    if (!d || this.busy()) return;
+    if (
+      !d ||
+      this.busy() ||
+      d.grant ||
+      d.view.state === "GRANTED" ||
+      (d.view.state === "REJECTED" && body.outcome !== "REQUEST_MORE")
+    )
+      return;
     this.error.set(null);
     this.pending.set({
       kind: "decision",

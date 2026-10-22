@@ -452,6 +452,107 @@ await test("Late mutation response after session invalidation is ignored", async
   assert.equal(f.store.notice(), "");
   f.destroy();
 });
+await test("Rejected case reopens only through an explicitly confirmed REQUEST_MORE", async () => {
+  const f = fixture();
+  await f.store.open(view.claimId);
+  f.store.prepareDecision({ ...decision, outcome: "REJECT" });
+  await f.store.execute();
+  const revision = f.store.detail()!.view.revision;
+  for (const outcome of ["APPROVE", "REJECT", "OWNERSHIP_CONFLICT"] as const) {
+    f.store.prepareDecision({ ...decision, outcome });
+    assert.equal(f.store.pending(), null);
+  }
+  f.store.prepareDecision({ ...decision, outcome: "REQUEST_MORE" });
+  assert.equal(f.decisions.length, 1);
+  assert.equal(f.store.pending()!.intent.revision, revision);
+  f.store.cancel();
+  await f.store.execute();
+  assert.equal(f.decisions.length, 1);
+  assert.equal(f.store.detail()!.view.state, "REJECTED");
+  f.store.prepareDecision({ ...decision, outcome: "REQUEST_MORE" });
+  await f.store.execute();
+  assert.equal(f.store.detail()!.view.state, "UNDER_REVIEW");
+  assert.equal(f.store.detail()!.view.revision, revision + 1);
+  assert.equal(f.store.detail()!.grant, null);
+  assert.equal(f.issues.length, 0);
+  f.destroy();
+});
+await test("Reopening preserves intent across reauthentication without replay", async () => {
+  const f = fixture();
+  await f.store.open(view.claimId);
+  f.store.prepareDecision({ ...decision, outcome: "REJECT" });
+  await f.store.execute();
+  f.store.prepareDecision({ ...decision, outcome: "REQUEST_MORE" });
+  const original = f.backend.decide;
+  f.backend.decide = () =>
+    throwError(() => new AdminApiError("REAUTH_REQUIRED", "Confirm identity"));
+  await f.store.execute();
+  const pending = f.store.pending();
+  await f.store.execute();
+  f.freshAuthentication();
+  f.store.dismissError();
+  assert.equal(f.decisions.length, 1);
+  assert.equal(f.store.detail()!.view.state, "REJECTED");
+  assert.deepEqual(f.store.pending(), pending);
+  f.backend.decide = original;
+  await f.store.execute();
+  assert.deepEqual(f.decisions[1], pending!.intent);
+  assert.equal(f.store.detail()!.view.state, "UNDER_REVIEW");
+  assert.equal(f.issues.length, 0);
+  f.destroy();
+});
+await test("Granted cases never prepare reopening or other decisions", async () => {
+  const f = fixture();
+  await f.store.open(view.claimId);
+  f.store.prepareDecision(decision);
+  await f.store.execute();
+  f.store.prepareIssuance();
+  await f.store.execute();
+  for (const outcome of [
+    "REQUEST_MORE",
+    "APPROVE",
+    "REJECT",
+    "OWNERSHIP_CONFLICT",
+  ] as const) {
+    f.store.prepareDecision({ ...decision, outcome });
+    assert.equal(f.store.pending(), null);
+  }
+  assert.equal(f.decisions.length, 1);
+  assert.equal(f.store.detail()!.view.state, "GRANTED");
+  assert.ok(f.store.detail()!.grant);
+  f.store.detail.update((d) =>
+    d ? { ...d, view: { ...d.view, state: "REJECTED" } } : null,
+  );
+  f.store.prepareDecision({ ...decision, outcome: "REQUEST_MORE" });
+  assert.equal(f.store.pending(), null);
+  assert.equal(f.decisions.length, 1);
+  f.destroy();
+});
+await test("Reopening form emits only REQUEST_MORE and a justified reason", () => {
+  const injector = Injector.create({ providers: [] });
+  const form = runInInjectionContext(injector, () => new ReviewFormComponent());
+  Object.defineProperty(form, "mode", { value: () => "reopen" });
+  const emitted: DecisionInput[] = [];
+  form.review.subscribe((body) => emitted.push(body));
+  form.submit();
+  assert.equal(emitted.length, 0);
+  form.form.patchValue({
+    outcome: "APPROVE",
+    reason: "Reavaliar contexto sintético",
+    ownershipConfirmed: true,
+  });
+  form.submit();
+  assert.deepEqual(emitted, [
+    {
+      outcome: "REQUEST_MORE",
+      reason: "Reavaliar contexto sintético",
+      evidenceIds: [],
+      ownershipConfirmed: false,
+      contradictionsCleared: false,
+      legacyUseConcluded: false,
+    },
+  ]);
+});
 await test("Presentational review validates locally with no API provider", () => {
   const injector = Injector.create({ providers: [] });
   const form = runInInjectionContext(injector, () => new ReviewFormComponent());

@@ -200,6 +200,7 @@ const fixture: AdminBackend = {
         occurredAt: e.occurredAt,
       };
       if (intent.body.outcome === "REJECT") c.view.state = "REJECTED";
+      if (intent.body.outcome === "REQUEST_MORE") c.view.state = "UNDER_REVIEW";
       const result = { view: c.view, decision: c.latestDecision };
       receipts.set(intent.key, structuredClone(result));
       return result;
