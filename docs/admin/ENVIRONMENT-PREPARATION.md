@@ -114,13 +114,12 @@ Inspeção somente de código, sem ler credenciais ou executar --apply: backend/
 
 A homologação DEV de 22/10 está concluída em registro local separado FINAL-OPERATIONAL-QA.md; suas capturas reais e alterações documentais antigas não integram este PR de ambientes.
 
-### Estado GO/HOLD de readiness (antes do PR)
+### Estado GO/HOLD de readiness
 
 - GO local: arquivos de ambiente e seleção, compatibilidade 1.3/DEV1.2, bloqueios/read-only, 41 testes, QA/builds/SEO e dry-run locais comprovados.
 - HOLD para corte/merge: nenhuma autorização de merge/cutover nesta ordem; exige revisão conjunta frontend/backend e janela coordenada.
 - HOLD para política PROD: consumidor privado por stdin implementado; produtor legítimo de sessão recente não confirmado. Sem token em chat/clipboard/arquivo, extração de browser ou dependência USB.
-- PR frontend: stage isolado em codex/admin-environments, 27 arquivos, sem dependências/lockfile/workflows. Envio remoto aguardando confirmação humana neste chat: a revisão automática rejeitou a autorização repassada pelo chat coordenador. Não foi feito push nem commit por essas tentativas rejeitadas.
-- Lighthouse e checks remotos do novo PR aguardam sua abertura; não confundir com os checks aprovados do PR #6 já publicado.
+- PR frontend: https://github.com/DUGELO/calcmot-site/pull/7, branch codex/admin-environments, 27 arquivos, sem dependências/lockfile/workflows. Push e abertura autorizados diretamente pelo proprietário neste chat.
+- Lighthouse, Site CI e preview Cloudflare do PR #7 devem ser aprovados no head atual antes de considerar o PR pronto; não confundir com os checks do PR #6 já publicado.
 
 Autorização direta de push de codex/admin-environments e abertura do PR recebida neste chat após o bloqueio acima. Não inclui merge ou publicação.
-
