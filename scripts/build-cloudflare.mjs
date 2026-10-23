@@ -8,6 +8,9 @@ import {
 } from "node:fs/promises";
 import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
+import { adminBuildEnvironment } from "./admin-build-environment.mjs";
+
+const adminBuild = adminBuildEnvironment();
 
 // Isolate Wrangler's neutral Angular adaptation from the source/default SSR build.
 const workspace = resolve(".angular/cloudflare-workspace");
@@ -47,9 +50,18 @@ await writeFile(
 );
 execFileSync(
   process.execPath,
-  [resolve("node_modules/@angular/cli/bin/ng.js"), "build"],
+  [
+    resolve("node_modules/@angular/cli/bin/ng.js"),
+    "build",
+    "--configuration",
+    adminBuild.configuration,
+  ],
   {
     cwd: workspace,
     stdio: "inherit",
   },
+);
+await writeFile(
+  resolve("dist/calcmot-cloudflare/admin-environment.mjs"),
+  `export const adminEnvironment = ${JSON.stringify(adminBuild.target)};\n`,
 );

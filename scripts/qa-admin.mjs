@@ -91,15 +91,17 @@ check(
   "Firebase must use the officially supplied DEV Web app",
 );
 check(
-  /contractVersion:\s*["']1\.2\.0["']/.test(
+  /contractVersion:\s*["']1\.3\.0["']/.test(
     readFileSync(`${root}/data-access/admin.contracts.ts`, "utf8"),
   ),
-  "S06 contract version must be 1.2.0",
+  "Generated S06 contract version must be 1.3.0; DEV 1.2 compatibility belongs to the adapter",
 );
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exitCode = 1;
-} else
+} else {
   console.log(
     `Admin architecture checks passed (${files.length} feature files): presentation boundary, strict types, CSR, no fixture imports, no storage/HTML/logs, sitemap and TransferState.`,
   );
+  await import("../tests/admin-build-environment.spec.mjs");
+}

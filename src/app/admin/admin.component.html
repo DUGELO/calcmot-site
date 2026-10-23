@@ -10,7 +10,11 @@
     [attr.aria-busy]="store.busy() || session.busy()"
   >
     <div class="environment-banner" role="status">
-      Homologação DEV · Operações restritas ao ambiente de desenvolvimento.
+      @if (session.targetEnvironment === "DEV") {
+        Homologação DEV · Operações restritas ao ambiente de desenvolvimento.
+      } @else {
+        Destino configurado: PROD · Somente consulta. Escritas desativadas.
+      }
     </div>
     @if (error(); as failure) {
       <div class="feedback error" role="alert">
@@ -44,8 +48,13 @@
         />
         <h1>Cuidado em cada decisão.</h1>
         <p>
-          Entre com sua conta autorizada para avaliar solicitações de
-          recuperação com segurança.
+          @if (session.targetEnvironment === "PROD") {
+            Entre com sua conta autorizada para consultar solicitações com
+            segurança.
+          } @else {
+            Entre com sua conta autorizada para avaliar solicitações de
+            recuperação com segurança.
+          }
         </p>
         <button
           class="primary"

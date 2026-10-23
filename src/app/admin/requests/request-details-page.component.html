@@ -25,7 +25,7 @@
       <admin-evidence-panel
         [items]="store.evidence()"
         [busy]="store.busy()"
-        [editable]="d.view.state === 'UNDER_REVIEW'"
+        [editable]="store.mutationsEnabled() && d.view.state === 'UNDER_REVIEW'"
         [moreAvailable]="!!store.evidenceCursor()"
         [selection]="selection()"
         [revision]="d.view.revision"
@@ -33,7 +33,14 @@
         (register)="store.prepareEvidence($event)"
         (more)="store.more('evidence')"
       />
-      @if (d.view.state === "UNDER_REVIEW") {
+      @if (!store.mutationsEnabled()) {
+        <section class="panel">
+          <h2>Somente consulta</h2>
+          <p>
+            O registro de avaliações e referências está desativado neste painel.
+          </p>
+        </section>
+      } @else if (d.view.state === "UNDER_REVIEW") {
         <admin-review-form
           [revision]="d.view.revision"
           [busy]="store.busy()"
@@ -64,7 +71,11 @@
         <p>O direito só é concedido após a confirmação do serviço.</p>
         @if (d.grant) {
           <div class="success">Direito emitido</div>
-        } @else if (store.showIssuance()) {
+        } @else if (!store.mutationsEnabled()) {
+          <p class="muted">
+            Emissão desativada. Este painel permite somente consulta.
+          </p>
+        } @else if (store.showIssuance() && store.mutationsEnabled()) {
           <div class="approval">
             <strong>Aprovação registrada</strong>
             <p>

@@ -15,6 +15,8 @@ const parsed = ts.parseConfigFileTextToJson(
 );
 assert.equal(parsed.error, undefined);
 const config = parsed.config;
+const expectedEnvironment = process.env.ADMIN_WORKER_TEST_ENVIRONMENT ?? "DEV";
+assert.ok(["DEV", "PROD"].includes(expectedEnvironment));
 const options = {
   workers: [
     {
@@ -46,6 +48,7 @@ try {
     const response = await runtime.dispatchFetch(
       `https://calcmot.com.br${path}`,
     );
+    assert.equal(response.headers.get("X-CalcMot-Environment"), expectedEnvironment);
     assert.equal(
       response.status,
       200,

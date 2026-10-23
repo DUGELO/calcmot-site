@@ -68,7 +68,15 @@ export class AdminComponent {
       });
   }
   async reauthenticate() {
-    if (await this.session.reauthenticate()) this.store.dismissError();
+    if (await this.session.reauthenticate()) {
+      this.store.dismissError();
+      if (!this.session.mutationsEnabled()) {
+        this.store.cancel();
+        this.store.notice.set(
+          "Identidade confirmada. O painel permanece somente para consulta.",
+        );
+      }
+    }
   }
   reload() {
     this.document.defaultView?.location.reload();

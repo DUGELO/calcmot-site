@@ -61,6 +61,7 @@ export class AdminWorkspaceStore {
   readonly listLoading = signal(false);
   readonly detailLoading = signal(false);
   readonly mutating = signal(false);
+  readonly mutationsEnabled = computed(() => this.session.mutationsEnabled());
   readonly busy = computed(
     () => this.listLoading() || this.detailLoading() || this.mutating(),
   );
@@ -123,7 +124,18 @@ export class AdminWorkspaceStore {
     if (failure.code === "REAUTH_REQUIRED") {
       this.session.requireReauthentication();
       this.error.set(failure);
-    } else if (["AUTH_REQUIRED", "FORBIDDEN"].includes(failure.code))
+    } else if (failure.code === "READ_ONLY") {
+      this.session.disableMutations();
+      this.pending.set(null);
+      this.error.set(failure);
+    } else if (
+      [
+        "AUTH_REQUIRED",
+        "FORBIDDEN",
+        "CONTRACT_MISMATCH",
+        "ENVIRONMENT_MISMATCH",
+      ].includes(failure.code)
+    )
       this.session.invalidate(failure);
     else this.error.set(failure);
   }
@@ -207,6 +219,7 @@ export class AdminWorkspaceStore {
     const d = this.detail();
     if (
       !d ||
+      !this.mutationsEnabled() ||
       this.busy() ||
       d.grant ||
       d.view.state === "GRANTED" ||
@@ -226,7 +239,7 @@ export class AdminWorkspaceStore {
   }
   prepareEvidence(body: EvidenceInput) {
     const d = this.detail();
-    if (!d || this.busy()) return;
+    if (!d || this.busy() || !this.mutationsEnabled()) return;
     this.error.set(null);
     this.pending.set({
       kind: "evidence",
@@ -240,7 +253,8 @@ export class AdminWorkspaceStore {
   }
   prepareIssuance() {
     const d = this.detail();
-    if (!d || this.busy() || !this.showIssuance()) return;
+    if (!d || this.busy() || !this.mutationsEnabled() || !this.showIssuance())
+      return;
     this.error.set(null);
     this.pending.set({
       kind: "issuance",
@@ -260,10 +274,21 @@ export class AdminWorkspaceStore {
   }
   async execute() {
     const operation = this.pending();
+    if (operation && !this.mutationsEnabled()) {
+      this.pending.set(null);
+      this.error.set(
+        new AdminApiError(
+          "READ_ONLY",
+          "Este painel está disponível somente para consulta. Nenhuma operação foi enviada.",
+        ),
+      );
+      return;
+    }
     if (
       !operation ||
       this.mutating() ||
       !this.session.ready() ||
+      !this.mutationsEnabled() ||
       this.session.reauthenticationRequired() ||
       (this.error() && !this.error()!.retryable)
     )
