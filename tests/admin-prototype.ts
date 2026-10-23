@@ -9,8 +9,13 @@ import {
   AdminBackend,
 } from "../src/app/admin/data-access/admin-api.service";
 import { AdminAuth } from "../src/app/admin/auth/admin-auth.service";
+import {
+  ADMIN_CONFIG,
+  ADMIN_TARGETS,
+} from "../src/app/admin/auth/admin.config";
 import type {
   Inspection,
+  AdminSession,
   EvidenceView,
   EventView,
   DecisionInput,
@@ -22,6 +27,7 @@ import type {
 } from "../src/app/admin/data-access/admin.models";
 
 const scenario = new URLSearchParams(location.search).get("scenario");
+const target = scenario === "prod-readonly" ? "PROD" : "DEV";
 const now = () => new Date().toISOString();
 const claims: Inspection[] = Array.from({ length: 23 }, (_, i) => ({
   view: {
@@ -111,16 +117,24 @@ const fixture: AdminBackend = {
       );
     const reauthenticationRequired =
       scenario === "reauth" && sessionChecks++ === 0;
-    return of({
-      contractVersion: "1.2.0",
-      environment: "DEV",
+    const common = {
       authenticated: true,
       reauthenticationRequired,
       reauthenticateBy: new Date(
         Date.now() + (reauthenticationRequired ? -1000 : 300000),
       ).toISOString(),
       serverNow: now(),
-    });
+    } as const;
+    const session: AdminSession =
+      target === "PROD"
+        ? {
+            ...common,
+            contractVersion: "1.3.0",
+            environment: "PROD",
+            mutationsEnabled: false,
+          }
+        : { ...common, contractVersion: "1.2.0", environment: "DEV" };
+    return of(session);
   },
   counts: () =>
     scenario === "error"
@@ -230,6 +244,7 @@ const routes = ADMIN_ROUTES.map((route) => ({
   path: "admin",
   providers: [
     ...(route.providers ?? []),
+    { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS[target] },
     { provide: ADMIN_BACKEND, useValue: fixture },
     {
       provide: AdminAuth,

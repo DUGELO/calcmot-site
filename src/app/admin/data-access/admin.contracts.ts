@@ -8,7 +8,8 @@ export interface ClaimView {
 export interface Page<T> {items:T[]; nextCursor:string|null; serverNow:string}
 export interface Counts {counts:Record<ClaimState,number>; serverNow:string}
 export interface AdminSession {
-  contractVersion:'1.2.0'; environment:'DEV'; authenticated:true; reauthenticationRequired:boolean;
+  contractVersion:'1.3.0'; environment:'DEV'|'PROD'; authenticated:true; reauthenticationRequired:boolean;
+  mutationsEnabled:boolean;
   reauthenticateBy:string; serverNow:string;
 }
 export type DecisionKind = 'APPROVE'|'REJECT'|'REQUEST_MORE'|'OWNERSHIP_CONFLICT';

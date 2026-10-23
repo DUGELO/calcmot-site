@@ -1,4 +1,16 @@
 export * from "./admin.contracts";
+import type { AdminSession as ContractSession } from "./admin.contracts";
+/** Transitional reader for the deployed DEV 1.2 service and coordinated 1.3 release. */
+export type AdminSession =
+  | ContractSession
+  | (Omit<
+      ContractSession,
+      "contractVersion" | "mutationsEnabled" | "environment"
+    > & {
+      contractVersion: "1.2.0";
+      environment: "DEV";
+      mutationsEnabled?: never;
+    });
 import type {
   ClaimState,
   DecisionInput,

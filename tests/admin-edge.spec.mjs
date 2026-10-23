@@ -23,6 +23,18 @@ const env = {
     },
   },
 };
+assert.throws(() =>
+  withAdminRouting({ fetch: async () => new Response("public") }, "UNKNOWN"),
+);
+const prodShell = withAdminRouting(
+  { fetch: async () => new Response("public") },
+  "PROD",
+);
+const prodResponse = await prodShell.fetch(
+  new Request("https://calcmot.com.br/admin"),
+  env,
+);
+assert.equal(prodResponse.headers.get("X-CalcMot-Environment"), "PROD");
 for (const path of [
   "/admin",
   "/admin/",
@@ -88,7 +100,7 @@ for (const path of [
   assert.equal(response.headers.has("X-CalcMot-Environment"), false);
 }
 assert.equal(publicCalls, 8);
-assert.equal(assetCalls, 5);
+assert.equal(assetCalls, 6); // Five DEV shells plus the explicit read-only PROD shell.
 const head = await handler.fetch(
   new Request("https://calcmot.com.br/admin", { method: "HEAD" }),
   env,

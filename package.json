@@ -19,7 +19,10 @@
     "test:admin:ui": "node scripts/serve-admin-prototype.mjs",
     "qa:admin:build": "node scripts/verify-admin-build.mjs",
     "build:cloudflare": "node scripts/build-cloudflare.mjs",
-    "test:admin:edge": "node tests/admin-edge.spec.mjs"
+    "test:admin:edge": "node tests/admin-edge.spec.mjs",
+    "build:admin:dev": "ng build --configuration production,admin-staging --output-path dist/calcmot-admin-dev",
+    "build:admin:prod": "ng build --configuration production,admin-production --output-path dist/calcmot-admin-prod",
+    "test:admin:environment": "node tests/admin-build-environment.spec.mjs"
   },
   "dependencies": {
     "@angular/common": "^21.2.0",

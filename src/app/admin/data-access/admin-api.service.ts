@@ -1,7 +1,24 @@
 import { Injectable, InjectionToken, inject } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, catchError, defer, switchMap, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse,
+} from "@angular/common/http";
+import {
+  Observable,
+  catchError,
+  defer,
+  filter,
+  map,
+  switchMap,
+  throwError,
+} from "rxjs";
 import { AdminAuth } from "../auth/admin-auth.service";
+import { ADMIN_CONFIG } from "../auth/admin.config";
+import {
+  adminWritesEnabled,
+  isCompatibleSession,
+} from "../auth/admin-environment";
 import type {
   AdminSession,
   Counts,
@@ -140,9 +157,45 @@ function segment(id: string): string {
 }
 @Injectable()
 export class AdminApi implements AdminBackend {
+  private readonly config = inject(ADMIN_CONFIG);
   private readonly auth = inject(AdminAuth);
   private readonly http = inject(HttpClient);
+  private checkEnvironment(value: string | null) {
+    if (
+      !["DEV", "PROD"].includes(this.config.environment) ||
+      value !== this.config.environment
+    )
+      throw new AdminApiError(
+        "ENVIRONMENT_MISMATCH",
+        "O serviço não corresponde ao ambiente deste painel. Nenhum resultado foi aplicado. Recarregue ou contate o responsável.",
+      );
+  }
   private request<T>(
+    path: string,
+    intent?: MutationIntent<unknown>,
+  ): Observable<T> {
+    return defer(() => {
+      this.checkEnvironment(this.config.environment);
+      if (intent && !adminWritesEnabled(this.config))
+        throw new AdminApiError(
+          "READ_ONLY",
+          "Este painel está disponível somente para consulta.",
+        );
+      return this.send<T>(path, intent);
+    }).pipe(
+      catchError((error) => {
+        if (error instanceof HttpErrorResponse && error.status > 0) {
+          try {
+            this.checkEnvironment(error.headers.get("X-CalcMot-Environment"));
+          } catch (mismatch) {
+            return throwError(() => mismatch);
+          }
+        }
+        return throwError(() => adminError(error));
+      }),
+    );
+  }
+  private send<T>(
     path: string,
     intent?: MutationIntent<unknown>,
   ): Observable<T> {
@@ -153,6 +206,7 @@ export class AdminApi implements AdminBackend {
           cache: "no-store",
           redirect: "error",
           transferCache: false,
+          observe: "events",
           timeout: 20000,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -162,17 +216,38 @@ export class AdminApi implements AdminBackend {
                   "Content-Type": "application/json",
                   "If-Match": `"${intent.revision}"`,
                   "Idempotency-Key": intent.key,
+                  "X-CalcMot-Expected-Environment": this.config.environment,
                 }
               : {}),
           },
           ...(intent ? { body: intent.body } : {}),
         }),
       ),
-      catchError((error) => throwError(() => adminError(error))),
+      filter(
+        (event): event is HttpResponse<T> => event instanceof HttpResponse,
+      ),
+      map((response) => {
+        this.checkEnvironment(response.headers.get("X-CalcMot-Environment"));
+        if (response.body === null)
+          throw new AdminApiError(
+            "INVALID_RESPONSE",
+            "O serviço retornou uma resposta incompleta.",
+          );
+        return response.body;
+      }),
     );
   }
   session() {
-    return this.request<AdminSession>("/session");
+    return this.request<AdminSession>("/session").pipe(
+      map((session) => {
+        if (!isCompatibleSession(session, this.config.environment))
+          throw new AdminApiError(
+            "CONTRACT_MISMATCH",
+            "O painel e o serviço precisam ser atualizados juntos. Contate o responsável.",
+          );
+        return session;
+      }),
+    );
   }
   counts() {
     return this.request<Counts>("/claims/counts");

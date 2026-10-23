@@ -1,7 +1,6 @@
-const privateHeaders = {
+const basePrivateHeaders = {
   "Cache-Control": "no-store",
   "X-Robots-Tag": "noindex, nofollow, noarchive",
-  "X-CalcMot-Environment": "DEV",
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "no-referrer",
   "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
@@ -23,7 +22,13 @@ const privatePath = (path) =>
   /^\/admin(?:\/|$)/.test(path) || /^\/index\.csr(?:[/.]|$)/.test(path);
 
 /** Document routing only. This Worker never authenticates, proxies or fetches private data. */
-export function withAdminRouting(publicHandler) {
+export function withAdminRouting(publicHandler, environment = "DEV") {
+  if (environment !== "DEV" && environment !== "PROD")
+    throw new Error("Unknown administrative build environment.");
+  const privateHeaders = {
+    ...basePrivateHeaders,
+    "X-CalcMot-Environment": environment,
+  };
   return {
     async fetch(request, env, context) {
       const url = new URL(request.url);

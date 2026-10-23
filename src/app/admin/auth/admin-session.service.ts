@@ -1,4 +1,12 @@
-import { DestroyRef, Injectable, inject, signal } from "@angular/core";
+import {
+  DestroyRef,
+  Injectable,
+  computed,
+  inject,
+  signal,
+} from "@angular/core";
+import { ADMIN_CONFIG, AdminEnvironment } from "./admin.config";
+import { isCompatibleSession, sessionWritesEnabled } from "./admin-environment";
 import { Subject, firstValueFrom } from "rxjs";
 import { AdminAuth } from "./admin-auth.service";
 import {
@@ -9,11 +17,17 @@ import {
 
 @Injectable()
 export class AdminSessionService {
+  private readonly config = inject(ADMIN_CONFIG);
+  readonly targetEnvironment = this.config.environment;
   readonly auth = inject(AdminAuth);
   private readonly api = inject(ADMIN_BACKEND);
   private timer: ReturnType<typeof setTimeout> | undefined;
   private attempt = 0;
-  readonly environment = signal<"DEV" | null>(null);
+  readonly environment = signal<AdminEnvironment | null>(null);
+  private readonly serverWritesEnabled = signal(false);
+  readonly mutationsEnabled = computed(
+    () => this.ready() && this.serverWritesEnabled(),
+  );
   readonly ready = signal(false);
   readonly reauthenticationRequired = signal(true);
   readonly busy = signal(false);
@@ -45,11 +59,7 @@ export class AdminSessionService {
       await this.auth.login(wasReady);
       const session = await firstValueFrom(this.api.session());
       if (attempt !== this.attempt) return false;
-      if (
-        session.contractVersion !== "1.2.0" ||
-        session.environment !== "DEV" ||
-        session.authenticated !== true
-      )
+      if (!isCompatibleSession(session, this.config.environment))
         throw new AdminApiError(
           "CONTRACT_MISMATCH",
           "O painel e o serviço precisam ser atualizados juntos. Contate o responsável.",
@@ -71,6 +81,7 @@ export class AdminSessionService {
           remaining,
         );
       this.environment.set(session.environment);
+      this.serverWritesEnabled.set(sessionWritesEnabled(session, this.config));
       this.ready.set(true);
       return true;
     } catch (error) {
@@ -78,9 +89,12 @@ export class AdminSessionService {
       const failure = adminError(error);
       if (
         wasReady &&
-        !["AUTH_REQUIRED", "FORBIDDEN", "CONTRACT_MISMATCH"].includes(
-          failure.code,
-        )
+        ![
+          "AUTH_REQUIRED",
+          "FORBIDDEN",
+          "CONTRACT_MISMATCH",
+          "ENVIRONMENT_MISMATCH",
+        ].includes(failure.code)
       )
         this.error.set(failure);
       else this.invalidate(failure);
@@ -93,10 +107,14 @@ export class AdminSessionService {
     clearTimeout(this.timer);
     this.reauthenticationRequired.set(true);
   }
+  disableMutations() {
+    this.serverWritesEnabled.set(false);
+  }
   invalidate(error: AdminApiError | null = null) {
     this.attempt++;
     clearTimeout(this.timer);
     this.ready.set(false);
+    this.serverWritesEnabled.set(false);
     this.environment.set(null);
     this.reauthenticationRequired.set(true);
     this.invalidation.next();

@@ -6,9 +6,32 @@ import {
   ElementRef,
   Injector,
   runInInjectionContext,
+  signal,
 } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, Subject, firstValueFrom, of, throwError } from "rxjs";
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+  HttpResponse,
+} from "@angular/common/http";
+import {
+  Observable,
+  Subject,
+  catchError,
+  firstValueFrom,
+  map,
+  of,
+  throwError,
+} from "rxjs";
+import {
+  ADMIN_CONFIG,
+  ADMIN_TARGETS,
+  AdminConfig,
+} from "../src/app/admin/auth/admin.config";
+import {
+  isCompatibleSession,
+  sessionWritesEnabled,
+} from "../src/app/admin/auth/admin-environment";
 import {
   AdminApi,
   ADMIN_BACKEND,
@@ -80,8 +103,11 @@ const requests: {
   options: Record<string, unknown>;
 }[] = [];
 let response: Observable<unknown> = of({});
+let responseEnvironment: string | null = "DEV";
+let remoteSession: unknown = session;
 const apiInjector = Injector.create({
   providers: [
+    { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
     { provide: AdminAuth, useValue: { token: async () => "synthetic-token" } },
     {
       provide: HttpClient,
@@ -92,7 +118,25 @@ const apiInjector = Injector.create({
           options: Record<string, unknown>,
         ) => {
           requests.push({ method, url, options });
-          return response;
+          const headers = new HttpHeaders(
+            responseEnvironment === null
+              ? {}
+              : { "X-CalcMot-Environment": responseEnvironment },
+          );
+          return (url.endsWith("/session") ? of(remoteSession) : response).pipe(
+            map((body) => new HttpResponse({ body, headers })),
+            catchError((error: unknown) =>
+              throwError(() =>
+                error instanceof HttpErrorResponse
+                  ? new HttpErrorResponse({
+                      status: error.status,
+                      error: error.error,
+                      headers,
+                    })
+                  : error,
+              ),
+            ),
+          );
         },
       },
     },
@@ -117,6 +161,7 @@ await test("HTTP boundary uses bearer, no cookies/cache/TransferState and exact 
   assert.equal(r.options["cache"], "no-store");
   assert.equal(r.options["redirect"], "error");
   assert.equal(r.options["transferCache"], false);
+  assert.equal(r.options["observe"], "events");
   assert.equal(r.options["timeout"], 20000);
   assert.equal(
     (r.options["headers"] as Record<string, string>)["X-CalcMot-Admin"],
@@ -128,7 +173,7 @@ await test("Mutation headers and body preserve the same intention on retry", asy
   response = of({ view });
   await firstValueFrom(api.decide(view.claimId, intent));
   await firstValueFrom(api.decide(view.claimId, intent));
-  const [a, b] = requests.slice(-2);
+  const [a, b] = requests.filter((r) => r.method === "POST").slice(-2);
   assert.deepEqual(a.options, b.options);
   assert.equal(
     (a.options["headers"] as Record<string, string>)["If-Match"],
@@ -175,6 +220,197 @@ await test("Network failure is recoverable without fictitious success", async ()
 await test("Path traversal identifiers never become requests", () => {
   assert.throws(() => api.detail(".."), AdminApiError);
   assert.throws(() => api.detail("<script>"), AdminApiError);
+});
+
+function apiFor(config: AdminConfig) {
+  const injector = Injector.create({
+    parent: apiInjector,
+    providers: [{ provide: ADMIN_CONFIG, useValue: config }],
+  });
+  return runInInjectionContext(injector, () => new AdminApi());
+}
+await test("DEV supports deployed 1.2 and coordinated 1.3 sessions without accepting PROD", async () => {
+  for (const version of ["1.2.0", "1.3.0"]) {
+    remoteSession =
+      version === "1.3.0"
+        ? { ...session, contractVersion: version, mutationsEnabled: true }
+        : session;
+    assert.equal((await firstValueFrom(api.session())).environment, "DEV");
+  }
+  for (const body of [
+    null,
+    {},
+    { ...session, environment: "PROD" },
+    { ...session, environment: "UNKNOWN" },
+    { ...session, contractVersion: "1.4.0" },
+  ]) {
+    remoteSession = body;
+    await assert.rejects(firstValueFrom(api.session()), AdminApiError);
+  }
+  remoteSession = session;
+});
+await test("Missing, invalid or wrong environment headers never deliver administrative data", async () => {
+  response = of({ privatePayload: "synthetic-not-for-templates" });
+  for (const header of [null, "PROD", "unknown", "DEV, PROD"]) {
+    responseEnvironment = header;
+    let delivered = false;
+    await assert.rejects(
+      firstValueFrom(
+        api.counts().pipe(
+          map((value) => {
+            delivered = true;
+            return value;
+          }),
+        ),
+      ),
+      (error: unknown) =>
+        error instanceof AdminApiError && error.code === "ENVIRONMENT_MISMATCH",
+    );
+    assert.equal(delivered, false);
+  }
+  responseEnvironment = "DEV";
+});
+await test("Error responses must also match the configured environment", async () => {
+  responseEnvironment = "PROD";
+  response = throwError(
+    () => new HttpErrorResponse({ status: 403, error: { code: "FORBIDDEN" } }),
+  );
+  await assert.rejects(
+    firstValueFrom(api.counts()),
+    (error: unknown) =>
+      error instanceof AdminApiError && error.code === "ENVIRONMENT_MISMATCH",
+  );
+  responseEnvironment = "DEV";
+});
+await test("PROD reads require 1.3 and never fall back to DEV or legacy PROD", async () => {
+  const prod = apiFor(ADMIN_TARGETS.PROD);
+  responseEnvironment = "PROD";
+  remoteSession = {
+    ...session,
+    contractVersion: "1.3.0",
+    environment: "PROD",
+    mutationsEnabled: false,
+  };
+  assert.equal((await firstValueFrom(prod.session())).environment, "PROD");
+  remoteSession = { ...session, environment: "PROD" };
+  await assert.rejects(
+    firstValueFrom(prod.session()),
+    (error: unknown) =>
+      error instanceof AdminApiError && error.code === "CONTRACT_MISMATCH",
+  );
+  responseEnvironment = "DEV";
+  remoteSession = session;
+  await assert.rejects(
+    firstValueFrom(prod.session()),
+    (error: unknown) =>
+      error instanceof AdminApiError && error.code === "ENVIRONMENT_MISMATCH",
+  );
+});
+await test("PROD writes are blocked before token or HTTP even if configured enabled", async () => {
+  const prod = apiFor({ ...ADMIN_TARGETS.PROD, mutationsEnabled: true });
+  const before = requests.length;
+  const intents = [
+    prod.decide(view.claimId, {
+      key: "synthetic",
+      revision: 0,
+      body: decision,
+    }),
+    prod.addEvidence(view.claimId, {
+      key: "synthetic",
+      revision: 0,
+      body: {
+        kind: "AUXILIARY",
+        category: "SUPPORT_RECORD",
+        originKey: "synthetic",
+        reference: "synthetic",
+      },
+    }),
+    prod.issue(view.claimId, {
+      key: "synthetic",
+      revision: 0,
+      body: {
+        approvalEventId: "synthetic",
+        confirmation: { claimId: view.claimId, permanentCoreOnly: true },
+      },
+    }),
+  ];
+  for (const operation of intents)
+    await assert.rejects(
+      firstValueFrom(operation),
+      (error: unknown) =>
+        error instanceof AdminApiError && error.code === "READ_ONLY",
+    );
+  assert.equal(requests.length, before);
+});
+await test("Old DEV tab binds a write to DEV and rejects a different response environment", async () => {
+  responseEnvironment = "PROD";
+  response = throwError(
+    () =>
+      new HttpErrorResponse({ status: 503, error: { code: "RETRY_LATER" } }),
+  );
+  await assert.rejects(
+    firstValueFrom(
+      api.decide(view.claimId, {
+        key: "synthetic",
+        revision: 0,
+        body: decision,
+      }),
+    ),
+    (error: unknown) =>
+      error instanceof AdminApiError && error.code === "ENVIRONMENT_MISMATCH",
+  );
+  assert.equal(
+    (requests.at(-1)!.options["headers"] as Record<string, string>)[
+      "X-CalcMot-Expected-Environment"
+    ],
+    "DEV",
+  );
+  responseEnvironment = "DEV";
+});
+await test("Unknown build target fails closed before HTTP", async () => {
+  const invalid = apiFor({
+    ...ADMIN_TARGETS.DEV,
+    environment: "UNKNOWN",
+  } as unknown as AdminConfig);
+  const before = requests.length;
+  await assert.rejects(firstValueFrom(invalid.counts()), AdminApiError);
+  assert.equal(requests.length, before);
+  assert.equal(isCompatibleSession(session, "PROD"), false);
+});
+await test("Server write flag is mandatory for 1.3 and cannot enable PROD", () => {
+  const modern: AdminSession = {
+    ...session,
+    contractVersion: "1.3.0",
+    mutationsEnabled: true,
+  };
+  assert.equal(sessionWritesEnabled(session, ADMIN_TARGETS.DEV), true);
+  assert.equal(sessionWritesEnabled(modern, ADMIN_TARGETS.DEV), true);
+  assert.equal(
+    sessionWritesEnabled(
+      { ...modern, mutationsEnabled: false },
+      ADMIN_TARGETS.DEV,
+    ),
+    false,
+  );
+  assert.equal(
+    sessionWritesEnabled(
+      { ...modern, environment: "PROD" },
+      { ...ADMIN_TARGETS.PROD, mutationsEnabled: true },
+    ),
+    false,
+  );
+  assert.equal(
+    isCompatibleSession({ ...session, contractVersion: "1.3.0" }, "DEV"),
+    false,
+  );
+  assert.equal(
+    isCompatibleSession({ ...modern, mutationsEnabled: "true" }, "DEV"),
+    false,
+  );
+  assert.equal(
+    isCompatibleSession({ ...session, mutationsEnabled: true }, "DEV"),
+    false,
+  );
 });
 
 function fixture() {
@@ -267,7 +503,12 @@ function fixture() {
     },
   };
   let needsReauth = false;
+  const writesEnabled = signal(true);
   const sessionState = {
+    mutationsEnabled: writesEnabled,
+    disableMutations: () => {
+      writesEnabled.set(false);
+    },
     reauthenticationRequired: () => needsReauth,
     requireReauthentication: () => {
       needsReauth = true;
@@ -278,6 +519,7 @@ function fixture() {
   };
   const injector = Injector.create({
     providers: [
+      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
       { provide: DestroyRef, useValue: ref },
       { provide: ADMIN_BACKEND, useValue: backend },
       { provide: AdminSessionService, useValue: sessionState },
@@ -294,6 +536,9 @@ function fixture() {
     decisions,
     issues,
     failDecision: () => (failDecision = true),
+    disableWrites: () => {
+      writesEnabled.set(false);
+    },
     freshAuthentication: () => {
       needsReauth = false;
     },
@@ -529,7 +774,9 @@ await test("Granted cases never prepare reopening or other decisions", async () 
   f.destroy();
 });
 await test("Reopening form emits only REQUEST_MORE and a justified reason", () => {
-  const injector = Injector.create({ providers: [] });
+  const injector = Injector.create({
+    providers: [{ provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV }],
+  });
   const form = runInInjectionContext(injector, () => new ReviewFormComponent());
   Object.defineProperty(form, "mode", { value: () => "reopen" });
   const emitted: DecisionInput[] = [];
@@ -553,8 +800,45 @@ await test("Reopening form emits only REQUEST_MORE and a justified reason", () =
     },
   ]);
 });
+await test("Read-only policy cancels pending write and prevents preparing other writes", async () => {
+  const f = fixture();
+  await f.store.open(view.claimId);
+  f.store.prepareDecision(decision);
+  f.disableWrites();
+  await f.store.execute();
+  assert.equal(f.decisions.length, 0);
+  assert.equal(f.store.pending(), null);
+  assert.equal(f.store.error()?.code, "READ_ONLY");
+  f.store.prepareEvidence({
+    kind: "AUXILIARY",
+    category: "SUPPORT_RECORD",
+    originKey: "synthetic",
+    reference: "synthetic",
+  });
+  f.store.prepareDecision(decision);
+  assert.equal(f.store.pending(), null);
+  f.destroy();
+});
+await test("Environment mismatch invalidates session and clears private data and intent", async () => {
+  const f = fixture();
+  await f.store.open(view.claimId);
+  f.store.prepareDecision(decision);
+  f.backend.counts = () =>
+    throwError(
+      () => new AdminApiError("ENVIRONMENT_MISMATCH", "Different environment"),
+    );
+  f.store.load();
+  assert.equal(f.store.detail(), null);
+  assert.equal(f.store.pending(), null);
+  assert.deepEqual(f.store.claims(), []);
+  assert.deepEqual(f.store.evidence(), []);
+  assert.deepEqual(f.store.events(), []);
+  f.destroy();
+});
 await test("Presentational review validates locally with no API provider", () => {
-  const injector = Injector.create({ providers: [] });
+  const injector = Injector.create({
+    providers: [{ provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV }],
+  });
   const form = runInInjectionContext(injector, () => new ReviewFormComponent());
   let emitted = false;
   form.review.subscribe(() => (emitted = true));
@@ -563,7 +847,9 @@ await test("Presentational review validates locally with no API provider", () =>
   assert.equal(emitted, false);
 });
 await test("Presentational filters reject invalid protocol without API provider", () => {
-  const injector = Injector.create({ providers: [] });
+  const injector = Injector.create({
+    providers: [{ provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV }],
+  });
   const list = runInInjectionContext(
     injector,
     () => new RequestsListComponent(),
@@ -577,6 +863,7 @@ await test("Presentational filters reject invalid protocol without API provider"
 await test("Confirmation requires an explicit checkbox without backend access", () => {
   const injector = Injector.create({
     providers: [
+      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
       {
         provide: ElementRef,
         useValue: { nativeElement: { querySelector: () => null } },
@@ -595,11 +882,81 @@ await test("Confirmation requires an explicit checkbox without backend access", 
   dialog.submit();
   assert.equal(calls, 1);
 });
+await test("Session state combines explicit target and backend write policy without environment fallback", async () => {
+  for (const [config, body, expectedReady, expectedWrites] of [
+    [ADMIN_TARGETS.DEV, session, true, true],
+    [
+      ADMIN_TARGETS.DEV,
+      { ...session, contractVersion: "1.3.0", mutationsEnabled: false },
+      true,
+      false,
+    ],
+    [
+      ADMIN_TARGETS.DEV,
+      { ...session, contractVersion: "1.3.0", mutationsEnabled: true },
+      true,
+      true,
+    ],
+    [
+      ADMIN_TARGETS.PROD,
+      {
+        ...session,
+        contractVersion: "1.3.0",
+        environment: "PROD",
+        mutationsEnabled: false,
+      },
+      true,
+      false,
+    ],
+    [ADMIN_TARGETS.PROD, session, false, false],
+    [
+      ADMIN_TARGETS.DEV,
+      {
+        ...session,
+        contractVersion: "1.3.0",
+        environment: "PROD",
+        mutationsEnabled: false,
+      },
+      false,
+      false,
+    ],
+  ] as const) {
+    const callbacks: (() => void)[] = [];
+    const injector = Injector.create({
+      providers: [
+        { provide: ADMIN_CONFIG, useValue: config },
+        {
+          provide: DestroyRef,
+          useValue: { onDestroy: (fn: () => void) => callbacks.push(fn) },
+        },
+        {
+          provide: AdminAuth,
+          useValue: { login: async () => {}, logout: async () => {} },
+        },
+        { provide: ADMIN_BACKEND, useValue: { session: () => of(body) } },
+      ],
+    });
+    const state = runInInjectionContext(
+      injector,
+      () => new AdminSessionService(),
+    );
+    await state.login();
+    assert.equal(state.ready(), expectedReady);
+    assert.equal(state.mutationsEnabled(), expectedWrites);
+    assert.equal(
+      state.environment(),
+      expectedReady ? config.environment : null,
+    );
+    state.invalidate();
+    callbacks.forEach((fn) => fn());
+  }
+});
 await test("Stale recent-auth deadline permits reading and marks mutations for reauthentication", async () => {
   let invalidated = 0;
   const callbacks: (() => void)[] = [];
   const injector = Injector.create({
     providers: [
+      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
       {
         provide: DestroyRef,
         useValue: { onDestroy: (fn: () => void) => callbacks.push(fn) },
@@ -661,6 +1018,7 @@ await test("Cancelling Google reauthentication preserves reading and logout clea
   let release: (() => void) | undefined;
   const injector = Injector.create({
     providers: [
+      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
       {
         provide: DestroyRef,
         useValue: { onDestroy: (fn: () => void) => callbacks.push(fn) },
@@ -705,6 +1063,7 @@ await test("A denied account can start a new Google login before reauthenticatio
   let checks = 0;
   const injector = Injector.create({
     providers: [
+      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
       { provide: DestroyRef, useValue: { onDestroy: () => {} } },
       {
         provide: AdminAuth,
