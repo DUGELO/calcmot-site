@@ -40,7 +40,7 @@ O relatório detalhado identificou dois cliques mobile em outros contextos do si
 
 *24/10 é parcial; taxas diárias em coortes pequenas são voláteis.*
 
-Definição provisória **ativação operacional D0**: usuário da coorte de primeira sessão com ao menos um `overlay_shown` no mesmo dia. A condição mede a funcionalidade central do app, não monetização, margem, satisfação ou consentimento. O denominador usa usuários com `first_open` e o numerador usuários com `overlay_shown` agrupados por `first_session_date`. Auditar diferenças eventuais de coorte antes de usar como KPI financeiro.
+Definição provisória **ativação operacional D0**: usuário da coorte de primeira sessão com ao menos um `overlay_shown` no mesmo dia. No repositório Android `DUGELO/CalcMot`, o evento é emitido em `OverlayManager.kt` após a view ficar visível e o status de janela ser marcado como adicionada. Um usuário pode gerar vários eventos ao receber atualizações; por isso medir **usuários únicos**, não volume bruto de overlays. A condição mede a funcionalidade central do app, não monetização, margem, satisfação ou consentimento. O denominador usa usuários com `first_open` e o numerador usuários com `overlay_shown` agrupados por `first_session_date`. Auditar diferenças eventuais de coorte antes de usar como KPI financeiro.
 
 **Primeira origem de usuário nas 58 primeiras aberturas:** `google-play / organic`: 41; `(direct) / (none)`: 17. Não indica que 41 vieram de SEO do site; é atribuição dentro da propriedade do aplicativo.
 
