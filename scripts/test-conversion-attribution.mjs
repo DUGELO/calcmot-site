@@ -13,6 +13,7 @@ assert.equal(pageGroup('/ferramentas/corrida-vale-a-pena/'), 'ride_calculator');
 assert.equal(pageGroup('/'), 'home');
 assert.equal(pageGroup('/calculadora-ganhos-motorista-app/'), 'app_calculator');
 assert.equal(safePlacement('header_mobile'), 'header_mobile');
+assert.equal(safePlacement('how_it_works_play'), 'how_it_works_play');
 assert.equal(safePlacement('PII/?abc'), 'other_link');
 assert.equal(trackedDestination('/ferramentas/corrida-vale-a-pena/', 'https://calcmot.com.br/'), 'ride_calculator');
 assert.equal(trackedDestination('https://play.google.com/store/apps/details?id=br.com.calcmot', 'https://calcmot.com.br/'), 'play_store');
