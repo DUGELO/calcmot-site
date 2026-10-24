@@ -47,6 +47,11 @@ jobs:
           npm run test:admin
           npm run test:admin:edge
 
+      - name: Validar utilitário de dimensões GA4 sem credenciais
+        run: |
+          node --check scripts/ga4-register-custom-dimensions.mjs
+          node scripts/ga4-register-custom-dimensions.mjs --plan
+
       - name: Testar motor financeiro
         run: npm run test:calculator
 
