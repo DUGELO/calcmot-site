@@ -11,7 +11,7 @@ const SITE_HOSTS = new Set(['calcmot.com.br', 'www.calcmot.com.br']);
 const PLACEMENTS = new Set([
   'header_desktop', 'header_mobile', 'header_cta', 'footer_nav', 'footer_play',
   'home_hero', 'home_hero_cta', 'home_comparison', 'app_page_hero', 'app_page_play',
-  'calculator_result', 'calculator_real_offer', 'cta_band', 'other_link',
+  'calculator_result', 'calculator_real_offer', 'cta_band', 'how_it_works_play', 'other_link',
 ]);
 const PAGES = new Set<PageGroup>([
   'home','ride_calculator','app_calculator','how_it_works','privacy','support',
