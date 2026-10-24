@@ -44,6 +44,8 @@ Definição provisória **ativação operacional D0**: usuário da coorte de pri
 
 **Primeira origem de usuário nas 58 primeiras aberturas:** `google-play / organic`: 41; `(direct) / (none)`: 17. Não indica que 41 vieram de SEO do site; é atribuição dentro da propriedade do aplicativo.
 
+**Cruzamento exploratório de ativação D0 por origem:** dos 28 usuários com `overlay_shown` D0, 19 foram atribuídos a `google-play / organic`, 8 a `(direct) / (none)` e 1 a `(not set)`. Este último não apresenta correspondência com `first_open` segmentado por origem no período; portanto **não** usar os quocientes por origem como taxas oficiais nem fazer reconciliação usuário a usuário a partir de agregados. Investigar no GA4 o preenchimento e a consistência da atribuição primeiro.
+
 **Coortes maduras, retorno funcional D7 (métrica específica, não D7 padrão do GA4):**
 - Coorte 15/10: 14 usuários com `overlay_shown` em 22/10, de 67 `first_open` em 15/10 → **20,9%**.
 - Coorte 16/10: 4 usuários com `overlay_shown` em 23/10, de 44 `first_open` em 16/10 → **9,1%**.
