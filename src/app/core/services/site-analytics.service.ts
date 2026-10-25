@@ -66,6 +66,13 @@ export class SiteAnalyticsService {
     browser.gtag('event', event, { tool_id: 'ride_calculator' });
   }
 
+  /** Eventos do auditor: somente nomes predefinidos, sem documentos, PII ou valores. */
+  trackAuditorEvent(event: 'web_auditor_viewed'|'web_auditor_upload_started'|'web_auditor_extraction_completed'|'web_auditor_review_needed'|'web_auditor_exported'|'web_auditor_failed'): void {
+    const browser = this.document.defaultView as AnalyticsWindow | null;
+    if (!browser || !this.initialized || !browser.gtag) return;
+    browser.gtag('event', event, { tool_id: 'earnings_auditor' });
+  }
+
   /** Eventos de conversão categóricos, sem URL/referrer bruto, valores ou identificadores. */
   private readonly trackNavigationClick = (event: MouseEvent): void => {
     const browser = this.document.defaultView as AnalyticsWindow | null;
