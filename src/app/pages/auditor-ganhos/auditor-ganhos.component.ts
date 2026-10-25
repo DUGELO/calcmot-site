@@ -79,7 +79,7 @@ export class AuditorGanhosComponent {
   this.inProgress.set(true);
   try {
    for(const file of files) await this.processFile(file);
-  } finally{this.inProgress.set(false);}
+  } finally{this.inProgress.set(false);(this.document.defaultView as (Window & {turnstile?:{reset:()=>void}})|null)?.turnstile?.reset();}
  }
  private async processFile(file:File){
   if(file.type!=='application/pdf'||file.size<16||file.size>4*1024*1024){this.error.set('Arquivo rejeitado: use PDF de até 4 MiB.');return;}
