@@ -5,11 +5,14 @@ const date = x => typeof x === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(x) && !Num
 export function validateExtraction(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('JSON de extração inválido');
   if (value.platform !== 'Uber') throw Error('Documento não reconhecido como demonstrativo Uber');
-  if (value.documentType !== 'earnings_statement') throw Error('Tipo de PDF da Uber não suportado');
+  if (!['earnings_statement','annual_earnings_statement'].includes(value.documentType)) throw Error('Tipo de PDF da Uber não suportado');
   const report = { platform:'Uber', documentType: value.documentType, periodStart: value.periodStart ?? null, periodEnd:value.periodEnd ?? null };
   const issues = [];
   if (!date(report.periodStart) || !date(report.periodEnd) || report.periodStart > report.periodEnd)
     issues.push('PERIODO_INDEFINIDO');
+  if (value.documentType === 'annual_earnings_statement' && date(report.periodStart) && date(report.periodEnd) &&
+    (report.periodStart !== report.periodStart.slice(0,4)+'-01-01' ||
+     report.periodEnd !== report.periodStart.slice(0,4)+'-12-31')) issues.push('PERIODO_ANUAL_INCONSISTENTE');
   for (const field of MONEY_FIELDS) {
     if (!Object.hasOwn(value,field) || !nullableCents(value[field])) throw Error('Campo monetário inválido: '+field);
     report[field]=value[field];
@@ -37,6 +40,21 @@ export function validateExtraction(value) {
   }
   return {report,issues,status:issues.length?'review':'ready'};
 }
+export function periodsOverlap(a,b) {
+  return date(a?.periodStart) && date(a?.periodEnd) && date(b?.periodStart) && date(b?.periodEnd) &&
+    a.periodStart <= b.periodEnd && b.periodStart <= a.periodEnd;
+}
+// Prefer the official full-year statement over embedded monthly totals, never add both.
+export function selectCanonicalReports(rows) {
+  const accepted = rows.filter(x => x.status === 'ready' && x.report);
+  const ranked = [...accepted].sort((a,b)=>Number(b.report.documentType === 'annual_earnings_statement') - Number(a.report.documentType === 'annual_earnings_statement'));
+  const selected = [], excluded = [];
+  for (const item of ranked) {
+    if (selected.some(other => periodsOverlap(item.report,other.report))) excluded.push(item);
+    else selected.push(item);
+  }
+  return {selected,excluded};
+}
 export function fiscalEstimate(reports,{taxYear,profile,eligible,confirmedGross}={}) {
   const rules = {2025:'PF_PASSENGER_TRANSPORT_2025_60_40',2026:'PF_PASSENGER_TRANSPORT_2026_60_40'};
   if (!Object.hasOwn(rules,taxYear) || profile !== 'pf' || eligible !== true || confirmedGross !== true)
@@ -46,13 +64,15 @@ export function fiscalEstimate(reports,{taxYear,profile,eligible,confirmedGross}
   if (reports.some(r => !date(r.periodStart) || !date(r.periodEnd) ||
     r.periodStart.slice(0,4) !== String(taxYear) || r.periodEnd.slice(0,4) !== String(taxYear)))
     return {status:'review_required',reason:'Os demonstrativos precisam pertencer integralmente ao ano-calendário selecionado'};
+  if (reports.some((r,i)=>reports.slice(0,i).some(prev=>periodsOverlap(prev,r))))
+    return {status:'review_required',reason:'Períodos sobrepostos: documentos anuais e mensais não podem ser somados'};
   const gross=reports.reduce((a,r)=>a+r.grossPassengerCents,0);
   if (!Number.isSafeInteger(gross)) return {status:'review_required',reason:'Valores excedem limite seguro'};
   const taxable=Math.ceil(gross*60/100);
   return {status:'indicative',taxYear,grossBaseCents:gross,minimumTaxableCents:taxable,maximumNonTaxableCents:gross-taxable,rule:rules[taxYear],notice:'Estimativa sujeita a verificação de base, renda adicional e regras da Receita. Não é declaração nem DARF.'};
 }
 export function consolidate(rows) {
-  const accepted=rows.filter(x=>x.status==='ready' && x.report);
+  const {selected:accepted,excluded}=selectCanonicalReports(rows);
   const totals=Object.fromEntries(MONEY_FIELDS.map(k=>[k,accepted.some(x=>x.report[k]===null)?null:accepted.reduce((a,x)=>a+x.report[k],0)]));
-  return {acceptedCount:accepted.length,excludedCount:rows.length-accepted.length,totals};
+  return {acceptedCount:accepted.length,excludedCount:rows.length-accepted.length,overlapExcludedCount:excluded.length,totals};
 }
