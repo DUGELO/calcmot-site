@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, afterNextRender, inject, signal } from '@angular/core';
+import { AUDITOR_TURNSTILE_SITE_KEY } from '../../core/constants/auditor.config';
 import { PageMetaService } from '../../core/services/page-meta.service';
 import { SiteAnalyticsService } from '../../core/services/site-analytics.service';
 import { webPageJsonLd, webSiteJsonLd } from '../../core/seo/structured-data';
@@ -36,7 +37,7 @@ export class AuditorGanhosComponent {
  protected readonly fiscalOptIn=signal(false);
  protected readonly money=money;
  protected readonly fields=FIELDS.map(key=>({key,label:FIELD_LABELS[key]}));
- protected readonly turnstileSiteKey=''; // Define public site key before launching; no requests while absent.
+ protected readonly turnstileSiteKey=AUDITOR_TURNSTILE_SITE_KEY;
  protected readonly totalDocumentCount=()=>this.documents().length;
  protected readonly approved=()=>this.documents().filter(d=>d.status==='ready');
  protected readonly totals=()=>{
@@ -56,6 +57,7 @@ export class AuditorGanhosComponent {
  private readonly document=inject(DOCUMENT);
  private readonly meta=inject(PageMetaService);
  constructor(){
+  afterNextRender(()=>{if(!this.turnstileSiteKey)return;const script=this.document.createElement('script');script.async=true;script.defer=true;script.src='https://challenges.cloudflare.com/turnstile/v0/api.js';this.document.head.appendChild(script);});
   this.meta.apply({title:'Auditor de Ganhos e IR Facilitado | CalcMot',description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,'Auditor de Ganhos CalcMot',DESCRIPTION)]});
  }
  private track(event:string){this.analytics.trackToolEvent(event as never);}
