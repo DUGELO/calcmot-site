@@ -16,8 +16,8 @@
       } @else {
         <p role="status" class="auditor__warning">Processamento indisponível: configuração de segurança pendente. O formulário está em homologação.</p>
       }
-      <label for="auditor-files" class="auditor__file-label">Selecionar demonstrativo PDF (até 4 por sessão)</label>
-      <input id="auditor-files" type="file" accept="application/pdf,.pdf" multiple
+      <label for="auditor-files" class="auditor__file-label">Selecionar PDF da Uber (um por vez; até 4 na sessão)</label>
+      <input id="auditor-files" type="file" accept="application/pdf,.pdf"
              [disabled]="inProgress() || !consent() || !turnstileSiteKey" (change)="onFileChange($event)" />
       @if (inProgress()) { <p role="status">Processando documento... Aguarde o resultado da análise.</p> }
       @if (error()) { <p class="auditor__error" role="alert">{{ error() }}</p> }
