@@ -12,7 +12,7 @@ function validPdf(bytes){return bytes.length>=8 && PDF_MAGIC.every((value,i)=>by
 const EXTRACT_SCHEMA = {
  type:'object',properties:{
   platform:{type:'string',enum:['Uber','unknown']},
-  documentType:{type:'string',enum:['earnings_statement','unknown']},
+  documentType:{type:'string',enum:['earnings_statement','annual_earnings_statement','unknown']},
   periodStart:{type:'string',nullable:true},
   periodEnd:{type:'string',nullable:true},
   grossPassengerCents:{type:'integer',nullable:true},
@@ -36,7 +36,7 @@ Valores em reais devem ser expressos como centavos inteiros (R$ 15,50 -> 1550).
 Campos: grossPassengerCents=TOTAL PAGO PELOS PASSAGEIROS somente se explícito no demonstrativo;
 platformFeeCents=taxa de intermediação cobrada; driverPayoutCents=repasse efetivo ao motorista;
 tipsCents=gorjetas; incentivesCents=incentivos; reimbursementsCents=reembolsos; kilometers=distância efetivamente documentada.
-Não infira natureza tributária, CPF ou dados dos passageiros. evidence = pequenas frases justificativas, não nomes, CPF ou endereços. Se não identificar Uber, platform='unknown'. documentType='earnings_statement' somente para demonstrativo de ganhos comprovado; caso contrário 'unknown'.`;
+Não infira natureza tributária, CPF ou dados dos passageiros. evidence = pequenas frases justificativas, não nomes, CPF ou endereços. Se não identificar Uber, platform='unknown'. documentType='annual_earnings_statement' quando o período for ano inteiro (ex.: 2025), e periodStart=2025-01-01, periodEnd=2025-12-31. Para demonstrativo mensal, documentType='earnings_statement'. Caso não reconheça, 'unknown'. Diferencie ganhos brutos com viagens de extras: grossPassengerCents=ganhos brutos com viagens, tipsCents=Extras (valor dado pelo usuário). platformFeeCents=total de taxas e despesas informado (não some as taxas novamente); se a taxa regulatória vier negativa, já estará refletida no total. driverPayoutCents=ganhos líquidos totais informados. Outros bônus e reembolsos somente quando expressos. Não duplique o total bruto de viagens ao somar gorjetas.`;
 async function verifyTurnstile(token,request,env) {
   if(typeof token!=='string'||token.length<10||token.length>2048)return false;
   const body=new URLSearchParams({secret:env.TURNSTILE_SECRET_KEY,response:token});
