@@ -34,9 +34,33 @@ Worker não guarda documento, texto de comprovante nem resposta Gemini após ate
 - Duplicata exata → bloqueio por SHA-256 em memória.
 - Sobreposição temporal → marcador de revisão; não somar ao consolidado.
 - Repasses ausentes ou bruto ausente → bloqueio ou pendência.
-- Fiscal: somente PF elegível ano 2025, bruto comprovado; 60% mínimo tributável, 40% máximo isento. **Atenção**: o guia original 20/80 para passageiros está errado conforme Receita. Para 2026/MEI, nenhum cálculo fiscal automático.
+- Fiscal: somente PF elegível anos 2025 ou 2026, bruto comprovado; 60% mínimo tributável, 40% máximo isento. **Atenção**: o guia original 20/80 para passageiros está errado conforme Receita. Para MEI, nenhum cálculo fiscal automático; para 2026, somente divisão 60/40 de receita comprovada, sem imposto devido.
 - Não disponibilizar código de ficha oficial ou DARF baseado em uma extração não verificada.
 - Extração em produção e resultado de consumo financeiro do provedor não foram validados sem credenciais.
 
 ## Rollback
 Reverter apenas o PR/merge desta branch e o vínculo público; remover `GEMINI_API_KEY` e `TURNSTILE_SECRET_KEY` após rollback, se exclusivos. Sem migração e sem dados históricos para apagar. Preservar integridade do gateway `/api/*` e do painel `/admin`.
+
+
+## Homologação documental de 25/10/2026 (sem envio de PII ao repositório)
+O usuário forneceu seis PDFs Uber reais (24 páginas): anual 2025, novembro e dezembro 2025, janeiro, fevereiro e março 2026. Inspeção local com extração de texto (sem chamadas externas) confirmou os seguintes valores, exclusivamente para teste e sem dados de identificação:
+
+| Período | Bruto total | Taxas totais | Repasse | Viagens brutas | Extras |
+|---|---:|---:|---:|---:|---:|
+| Ano 2025 | R$ 18.442,54 | R$ 3.065,91 | R$ 15.376,63 | R$ 18.413,54 | R$ 29,00 |
+| Nov 2025 | R$ 5.306,09 | R$ 927,88 | R$ 4.378,21 | R$ 5.284,09 | R$ 22,00 |
+| Dez 2025 | R$ 1.842,82 | R$ 241,01 | R$ 1.601,81 | R$ 1.842,82 | R$ 0,00 |
+| Jan 2026 | R$ 16,01 | R$ 4,01 | R$ 12,00 | R$ 16,01 | R$ 0,00 |
+| Fev 2026 | R$ 776,43 | R$ 91,60 | R$ 684,83 | R$ 776,43 | R$ 0,00 |
+| Mar 2026 | R$ 108,16 | R$ 27,53 | R$ 80,63 | R$ 108,16 | R$ 0,00 |
+
+Resultados locais: seis arquivos e 24 páginas legíveis, reconciliação bruto - taxa = repasse nos seis, ganho bruto de viagens + extras = total nos seis, identificação do período anual sobreposto e ajuste regulatório negativo de R$ 2,80 dentro do total anual. Os documentos reais NÃO foram commitados e não poderão ser distribuídos em artifacts. O teste manual de texto extraído NÃO prova resultado da API Gemini. O endpoint real continua pendente de configuração das credenciais, Turnstile e acesso seguro de homologação.
+
+### Correções de contrato identificadas pelos PDFs
+- Documento com cabeçalho apenas `2025` é relatório anual e deve ocupar o intervalo 01/01–31/12; relatório anual prevalece na consolidação sobre meses com interseção.
+- O campo `grossPassengerCents` contém somente `Ganhos brutos com viagens`. `Extras (valor dado pelo usuário)` é separado como gorjetas; não duplicar o total da página 1.
+- `Taxas regulatórias (-R$ 2,80)` no anual 2025 é ajuste de sinal, não taxa positiva. O total de taxas (R$ 3.065,91) já contém esse ajuste.
+- O resumo Uber informa expressamente que não é nota fiscal ou informe de rendimentos: relatório financeiro não equivale automaticamente à declaração fiscal ou identificação da fonte pagadora.
+
+### Avaliação LGPD preliminar — ainda não é parecer jurídico
+As seis amostras incluem identificação pessoal. Não anexar originais ao PR nem a logs, fixtures ou artifacts. Somente publicar os valores agregados sem vínculo à pessoa no material técnico. O controlador deverá informar finalidade, fornecedor externo Google, base legal, contato e direitos do titular; documentar transferência internacional, retenção do fornecedor, possíveis suboperadores e processo de incidente. Consentimento específico na interface não elimina outras obrigações da LGPD. Os dados são efêmeros no backend próprio conforme código atual, mas **não é correto prometer eliminação imediata dos sistemas do fornecedor externo**. Validar contrato/plano pago antes de produção. Chave API compartilhada em canal de conversa deve ser rotacionada antes de configuração como segredo Worker.
