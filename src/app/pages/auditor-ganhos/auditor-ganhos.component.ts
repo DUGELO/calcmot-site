@@ -55,10 +55,10 @@ export class AuditorGanhosComponent {
  };
  private readonly analytics=inject(SiteAnalyticsService);
  private readonly document=inject(DOCUMENT);
- private readonly meta=inject(PageMetaService);
+ private readonly pageMeta=inject(PageMetaService);
  constructor(){
   afterNextRender(()=>{if(!this.turnstileSiteKey)return;const script=this.document.createElement('script');script.async=true;script.defer=true;script.src='https://challenges.cloudflare.com/turnstile/v0/api.js';this.document.head.appendChild(script);});
-  this.meta.apply({title:'Auditor de Ganhos e IR Facilitado | CalcMot',description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,'Auditor de Ganhos CalcMot',DESCRIPTION)]});
+  this.pageMeta.apply({title:'Auditor de Ganhos e IR Facilitado | CalcMot',description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,'Auditor de Ganhos CalcMot',DESCRIPTION)]});
  }
  private track(event:string){this.analytics.trackToolEvent(event as never);}
  protected changeConsent(event:Event){this.consent.set((event.target as HTMLInputElement).checked);}
