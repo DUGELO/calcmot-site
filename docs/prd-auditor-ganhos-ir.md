@@ -71,3 +71,15 @@ T6: teste Gemini com PDF real autorizado e credenciais de ambiente deve ser exec
 | Identificar formato | Gemini estruturado | Não aceitar tipo desconhecido | `auditor-api.mjs`, `auditor-core.mjs` | `test-auditor.mjs` | rejeitar documento sem tipo comprovado |
 | Proteger dados | LGPD minimização | Remover CPF/email de evidência retornada | `auditor-core.mjs` | `test-auditor.mjs` | não revelar padrão CPF/email |
 | Fiscal por ano | Receita 60/40 | Apenas PF elegível, ano coerente | `auditor-core.mjs`, `auditor-ganhos.component.ts` | `test-auditor.mjs` | 2025/26 versionados, demais bloqueados |
+
+
+## Revisão de homologação dos demonstrativos reais (25/10/2026)
+Seis resumos Uber (24 páginas) inspecionados localmente, sem subir PDF pessoal ao GitHub. A amostra revela dois formatos: `earnings_statement` mensal e `annual_earnings_statement` anual. Os relatórios mensais de novembro e dezembro de 2025 estão contidos no resumo anual 2025; contabilizar os três somaria rendimentos em duplicidade. O contrato de extração distingue `Ganhos brutos com viagens` (transporte) de `Extras (valor dado pelo usuário)` (gorjetas); o total bruto inclui ambos. O total de taxas inclui ajuste regulatório negativo no ano 2025, enquanto o repasse reconcilia com o total bruto menos taxa. Corrigidos classificação anual, preferência por agregação anual, saída fiscal por ano e restrição de schema. Validações locais de PDF: 6/6 documentos com contas consistentes. Teste real do Gemini e equivalência jurídica receita tributável seguem pendentes. 
+
+### Matriz complementar
+| Requisito | Evidência | Regra determinística | Arquivo | Teste/aceite |
+|---|---|---|---|---|
+| Agrupar períodos | Anual 2025 e meses 11/12/25 | Preferir anual em períodos sobrepostos, nunca somar ambos | `cloudflare/auditor-core.mjs` e componente | `scripts/test-auditor.mjs`: total canônico único |
+| Tipificar relatório | PDF Uber anual possui apenas `2025` no cabeçalho | Ano inteiro em 01/01..31/12; não inventar datas | Schema Gemini | Fixture anual sintética |
+| Corrigir sinais | Ajuste regulatório -R$ 2,80 | Taxa líquida já apresentada no total, não reaplicar | Prompt e validação | Reconciliação exata em centavos |
+| LGPD e segredo | PDFs com identificadores | Nunca commitar documentos; rotação da chave exposta | `docs/release/auditor-ganhos-homologacao.md` | Revisão pré-produção |
