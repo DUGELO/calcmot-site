@@ -47,7 +47,7 @@ export class AuditorGanhosComponent {
  };
  protected readonly taxPreview=()=>{
   const docs=this.approved();
-  if(!this.fiscalOptIn()||this.taxProfile()!=='pf'||this.taxYear()!==2025||!this.eligible()||!this.confirmedGross()||docs.length===0||docs.some(x=>x.report.grossPassengerCents===null))
+  if(!this.fiscalOptIn()||this.taxProfile()!=='pf'||![2025,2026].includes(this.taxYear())||!this.eligible()||!this.confirmedGross()||docs.length===0||docs.some(x=>x.report.grossPassengerCents===null || x.report.periodStart?.slice(0,4)!==String(this.taxYear()) || x.report.periodEnd?.slice(0,4)!==String(this.taxYear())))
     return null;
   const gross=docs.reduce((s,x)=>s+(x.report.grossPassengerCents||0),0);
   const taxable=Math.ceil(gross*60/100);
