@@ -6,7 +6,7 @@ import { SiteAnalyticsService } from '../../core/services/site-analytics.service
 import { webPageJsonLd, webSiteJsonLd } from '../../core/seo/structured-data';
 
 type Field='grossPassengerCents'|'platformFeeCents'|'driverPayoutCents'|'tipsCents'|'incentivesCents'|'reimbursementsCents';
-type Report={platform:'Uber';documentType:'earnings_statement';periodStart:string|null;periodEnd:string|null;grossPassengerCents:number|null;platformFeeCents:number|null;driverPayoutCents:number|null;tipsCents:number|null;incentivesCents:number|null;reimbursementsCents:number|null;kilometers:number|null;evidence:Partial<Record<Field,string>>};
+type Report={platform:'Uber';documentType:'earnings_statement'|'annual_earnings_statement';periodStart:string|null;periodEnd:string|null;grossPassengerCents:number|null;platformFeeCents:number|null;driverPayoutCents:number|null;tipsCents:number|null;incentivesCents:number|null;reimbursementsCents:number|null;kilometers:number|null;evidence:Partial<Record<Field,string>>};
 type Item={hash:string;name:string;report:Report;issues:string[];status:'ready'|'review'};
 const FIELD_LABELS:Record<Field,string>={
  grossPassengerCents:'Total pago pelos passageiros (se comprovado)',
@@ -40,13 +40,17 @@ export class AuditorGanhosComponent {
  protected readonly turnstileSiteKey=AUDITOR_TURNSTILE_SITE_KEY;
  protected readonly totalDocumentCount=()=>this.documents().length;
  protected readonly approved=()=>this.documents().filter(d=>d.status==='ready');
+ protected readonly canonicalApproved=()=>{
+  const sorted=[...this.approved()].sort((a,b)=>Number(b.report.documentType==='annual_earnings_statement')-Number(a.report.documentType==='annual_earnings_statement'));
+  return sorted.filter((item,index)=>!sorted.slice(0,index).some(other=>other.report.periodStart && other.report.periodEnd && item.report.periodStart && item.report.periodEnd && other.report.periodStart<=item.report.periodEnd && item.report.periodStart<=other.report.periodEnd));
+ };
  protected readonly totals=()=>{
-  const docs=this.approved();
+  const docs=this.canonicalApproved();
   const add=(key:Field):number|null=> docs.every(item=>item.report[key]!==null)?docs.reduce((s,x)=>s+(x.report[key]||0),0):null;
   return {count:docs.length,fee:add('platformFeeCents'),payout:add('driverPayoutCents'),gross:add('grossPassengerCents')};
  };
  protected readonly taxPreview=()=>{
-  const docs=this.approved();
+  const docs=this.canonicalApproved();
   if(!this.fiscalOptIn()||this.taxProfile()!=='pf'||![2025,2026].includes(this.taxYear())||!this.eligible()||!this.confirmedGross()||docs.length===0||docs.some(x=>x.report.grossPassengerCents===null || x.report.periodStart?.slice(0,4)!==String(this.taxYear()) || x.report.periodEnd?.slice(0,4)!==String(this.taxYear())))
     return null;
   const gross=docs.reduce((s,x)=>s+(x.report.grossPassengerCents||0),0);
@@ -73,7 +77,7 @@ export class AuditorGanhosComponent {
   input.value='';
   if(!this.consent()){this.error.set('Leia e aceite o tratamento temporário do documento antes do envio.');return;}
   if(!files.length)return;
-  if(this.documents().length+files.length>4){this.error.set('Nesta sessão, envie no máximo quatro documentos.');return;}
+  if(this.documents().length+files.length>8){this.error.set('Nesta sessão, envie no máximo quatro documentos.');return;}
   if(!this.turnstileSiteKey){this.error.set('O serviço está preparado, mas a verificação de segurança ainda precisa ser configurada.');return;}
   this.error.set('');this.info.set('');
   this.inProgress.set(true);
@@ -99,7 +103,9 @@ export class AuditorGanhosComponent {
    if(!response.ok||!data.report||!data.status)throw Error(data.code??'O serviço não conseguiu analisar o documento.');
    // Distinct date ranges are not silently added together when they overlap.
    const overlapped=this.documents().some(x=>x.report.periodStart&&x.report.periodEnd&&data.report?.periodStart&&data.report?.periodEnd && x.report.periodStart<=data.report.periodEnd&&data.report.periodStart<=x.report.periodEnd);
-   const issues=[...(data.issues??[]),...(overlapped?['PERIODOS_SOBREPOSTOS']:[])];
+   const issues=[...(data.issues??[])];
+   // Overlapping annual summaries remain visible but excluded from canonical calculations.
+   if(overlapped)this.info.set('Foi detectado um período sobreposto. O consolidado seleciona uma única fonte.');
    const item:Item={hash:digest,name:file.name.slice(0,100),report:data.report,issues,status:issues.length?'review':'ready'};
    this.documents.update(old=>[...old,item]);
    this.track(issues.length?'web_auditor_review_needed':'web_auditor_extraction_completed');
@@ -130,7 +136,7 @@ export class AuditorGanhosComponent {
  protected discard(hash:string){this.documents.update(items=>items.filter(x=>x.hash!==hash));this.fiscalOptIn.set(false);}
  protected clear(){this.documents.set([]);this.error.set('');this.info.set('Os dados desta sessão foram apagados da memória do navegador.');this.fiscalOptIn.set(false);}
  protected downloadCsv(){
-   const docs=this.approved();
+   const docs=this.canonicalApproved();
    if(!docs.length)return;
    const heading='Plataforma;Inicio;Fim;Bruto_passageiros_R$;Taxa_plataforma_R$;Repasse_R$;Gorjetas_R$;Incentivos_R$;Reembolsos_R$';
    const asValue=(v:number|null)=>v===null?'':(v/100).toFixed(2).replace('.',',');
