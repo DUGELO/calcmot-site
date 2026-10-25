@@ -69,7 +69,7 @@ export class AuditorGanhosComponent {
  protected onFiscalOptIn(event:Event){this.fiscalOptIn.set((event.target as HTMLInputElement).checked);}
  protected async onFileChange(event:Event){
   const input=event.target as HTMLInputElement;
-  const files=[...(input.files??[])];
+  const files=Array.from(input.files ?? []);
   input.value='';
   if(!this.consent()){this.error.set('Leia e aceite o tratamento temporário do documento antes do envio.');return;}
   if(!files.length)return;
