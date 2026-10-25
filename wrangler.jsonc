@@ -13,8 +13,11 @@
     "directory": "dist/calcmot-cloudflare/browser",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
-    "run_worker_first": ["/admin", "/admin/*", "/api", "/api/*", "/index.csr*"],
+    "run_worker_first": ["/admin", "/admin/*", "/api", "/api/*", "/auditor-interno/analisar", "/index.csr*"],
   },
+  "ratelimits": [
+    { "name": "AUDITOR_RATE_LIMITER", "namespace_id": "1649026", "simple": { "limit": 3, "period": 60 } },
+  ],
   "observability": { "enabled": true },
   "build": { "command": "npm run build:cloudflare" },
 }
