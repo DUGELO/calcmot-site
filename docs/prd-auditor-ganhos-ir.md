@@ -13,7 +13,7 @@ Disponibilizar auditor gratuito PDF Uber → extração automática → conferê
 - Receita: Manual da Declaração 2026: https://www.gov.br/receitafederal/pt-br/assuntos/meu-imposto-de-renda/preenchimento/manual-mir/rendimentos/rendimentos-do-trabalho
 - Fonte 2026: https://www.gov.br/receitafederal/pt-br/centrais-de-conteudo/publicacoes/perguntas-e-respostas/dirpf/p-r-irpf-2026-v1-00-2026-04-23.pdf
 
-**Proteção fiscal:** emitir prévia 60/40 exclusivamente se pessoa física confirmar elegibilidade, ano-calendário 2025 e base bruta validada. É simulação não vinculante, não apura DARF, não escolhe código de ficha, não transmite declarações. Se PDF não distinguir bruto/passagens, mostrar pendência. MEI, MEI Caminhoneiro, rendas diversas e ano-calendário 2026 permanecem fora do motor fiscal até validação normativa separada. Impostos pessoais do motorista exigem verificar outras rendas, deduções, fonte pagadora e períodos com profissional habilitado.
+**Proteção fiscal:** emitir prévia 60/40 exclusivamente se pessoa física confirmar elegibilidade, ano-calendário 2025 ou 2026 (mesma regra legal 60/40 para transporte de passageiros) e base bruta validada. É simulação não vinculante, não apura DARF, não escolhe código de ficha, não transmite declarações. Se PDF não distinguir bruto/passagens, mostrar pendência. MEI, MEI Caminhoneiro, rendas diversas e cálculo do imposto devido permanecem fora do motor fiscal até validação normativa separada. Para 2026, somente a separação indicativa 60/40 é calculada; tabelas, redução de IR, Carnê-Leão e DARF continuam pendentes. Impostos pessoais do motorista exigem verificar outras rendas, deduções, fonte pagadora e períodos com profissional habilitado.
 
 ## Requisitos e fluxos
 R1: upload de **um PDF por vez, até 4 MiB**, tipo MIME e magic bytes verificados no cliente e Worker, bloqueando arquivos ambíguos. Processar até quatro sequencialmente na sessão; sem filas/persistência antes de comprovar volume.
@@ -22,7 +22,7 @@ R3: resposta canônica com proveniência por campo, valor ausente como null, nú
 R4: esquema/verificação de taxas e repasse, duplicatas SHA-256, sobreposições sinalizadas. Documentos inconsistentes e duplicados não entram no consolidado sem resolução.
 R5: exibir totais de taxas, repasses e categorias com distinção entre faturamento bruto demonstrado e valor efetivamente recebido. Não chamar saldo de lucro se custos do veículo não forem apurados.
 R6: botão CSV para relatório e botão apagar sessão. Arquivos nunca são enviados ao GA4.
-R7: IR prévio condicionado ao bruto comprovado, pessoa física e ano 2025. Nunca exigir revisão campo a campo quando documento for consistente.
+R7: IR prévio condicionado ao bruto comprovado, pessoa física e anos 2025/2026. Nunca exigir revisão campo a campo quando documento for consistente.
 R8: interface mobile-first, contrastes, estado de erro/progresso, acessibilidade e informações de privacidade.
 R9: backend protegido por Cloudflare Turnstile **validado no servidor** e Cloudflare Rate Limiting binding. Se segurança/segredo não estiver configurado, fail closed (503) — não liberar endpoint público desprotegido.
 
@@ -39,7 +39,7 @@ Variáveis: `GEMINI_API_KEY`, `TURNSTILE_SECRET_KEY`; binding `AUDITOR_RATE_LIMI
 PDF malicioso, PDF com prompt injection, PDF enorme, abusos anônimos, conteúdo sensível de passageiros e cobrança descontrolada: validar magic bytes e tamanho; não reter originais; não instruir o modelo a seguir textos do PDF; não refletir prompts/respostas em logs; limitar requisições, 1 PDF/request e orçamento no console do fornecedor. Apenas segredo de backend com Turnstile e limiter; não confiar em header IP arbitrário fora do Cloudflare. Deve haver revisão de termos LGPD e consentimento separado antes da liberação.
 
 ## Critérios e testes
-T1: testes do motor determinístico: 60/40 de base inteira, arredondamento sem perda, ausência de bruto gera bloqueio fiscal, PF/MEI/ano não elegível bloqueados.
+T1: testes do motor determinístico: 60/40 de base inteira, arredondamento sem perda, ausência de bruto gera bloqueio fiscal, PF/MEI/ano não elegível bloqueados e ano do documento deve coincidir.
 T2: testes do validador: enums, valores ausentes, negativos, datas inválidas, inconsistência contábil.
 T3: Worker: POST apenas, magic PDF, limite tamanho, Turnstile, segredo indisponível, timeout e erro do provedor, origem e no-store, sem fuga de /api.
 T4: testes do fluxo Angular em CI: upload, erro, revisão, exportação, exclusão, layout mobile; não simular Gemini pago como validação real.
@@ -57,3 +57,17 @@ T6: teste Gemini com PDF real autorizado e credenciais de ambiente deve ser exec
 
 ## Implantação, rollback e pendências
 **NUNCA** publicar diretamente: abrir PR draft, CI, revisão de provas PDF Uber (com dados anonimizados), revisão fiscal por contador, auditoria de segurança, secret/binding Turnstile + Gemini, limites de orçamento e aceite da política de privacidade. Rollback via revert do merge e remoção dos bindings (sem dados persistidos). Para ativação real verificar consumo, limites e falhas em produção por amostragem; somente com autorização.
+
+
+## Incremento de 25/10/2026 — rastreabilidade e segurança
+- Evidência: Receita Federal, regra legal 60/40 do transporte de passageiros; hipótese: valores apresentados como base bruta em versões diferentes do relatório Uber podem variar semanticamente. A interpretação da IA não substitui a validação da origem dos valores.
+- `documentType='earnings_statement'` agora é obrigatório e validado. Campos essenciais com valor monetário e evidência vazia seguem para revisão localizada; CPF e emails que apareçam na evidência são redigidos antes da resposta.
+- Regras versionadas `PF_PASSENGER_TRANSPORT_2025_60_40` e `PF_PASSENGER_TRANSPORT_2026_60_40`: separação de parcelas somente, sem cálculo de imposto. Relatórios fora do ano escolhido não entram nessa prévia.
+- Não considerar as pontuações de confiança sugeridas na pesquisa como precisão empiricamente validada: enquanto não houver corpus real validado, critério de evidência + coerência controla apenas o fluxo determinístico.
+- Lacunas honestas frente ao produto-alvo: comprovantes não são persistidos, consolidação é só da sessão, ausência de fila e de login; não há PDF de saída, controle automático de despesas operacionais ou modelo fiscal completo. Necessário E2E real e corpus autorizado antes de produção.
+
+| Requisito | Evidência | Regra | Implementação | Teste | Aceite |
+|---|---|---|---|---|---|
+| Identificar formato | Gemini estruturado | Não aceitar tipo desconhecido | `auditor-api.mjs`, `auditor-core.mjs` | `test-auditor.mjs` | rejeitar documento sem tipo comprovado |
+| Proteger dados | LGPD minimização | Remover CPF/email de evidência retornada | `auditor-core.mjs` | `test-auditor.mjs` | não revelar padrão CPF/email |
+| Fiscal por ano | Receita 60/40 | Apenas PF elegível, ano coerente | `auditor-core.mjs`, `auditor-ganhos.component.ts` | `test-auditor.mjs` | 2025/26 versionados, demais bloqueados |
