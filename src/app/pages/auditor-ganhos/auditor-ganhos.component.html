@@ -81,7 +81,7 @@
           </select>
         </label>
         <label>Ano-calendário
-          <select (change)="changeYear($event)"><option value="2025">2025</option><option value="2026">2026 — aguarda revisão fiscal específica</option></select>
+          <select (change)="changeYear($event)"><option value="2025">2025</option><option value="2026">2026 — base PF 60/40 informativa (sem cálculo de imposto)</option></select>
         </label>
         <label class="auditor__check"><input type="checkbox" [checked]="eligible()" (change)="onEligible($event)" /> Confirmo que desempenho pessoalmente o transporte de passageiros como pessoa física e que cumpro as condições aplicáveis.</label>
         <label class="auditor__check"><input type="checkbox" [checked]="confirmedGross()" (change)="onGross($event)" /> Confirmei que todos os valores de bruto correspondem a rendimentos elegíveis, sem duplicatas ou períodos faltantes.</label>
