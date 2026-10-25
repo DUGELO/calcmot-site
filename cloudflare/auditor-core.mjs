@@ -5,7 +5,8 @@ const date = x => typeof x === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(x) && !Num
 export function validateExtraction(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('JSON de extração inválido');
   if (value.platform !== 'Uber') throw Error('Documento não reconhecido como demonstrativo Uber');
-  const report = { platform:'Uber', documentType: 'earnings_statement', periodStart: value.periodStart ?? null, periodEnd:value.periodEnd ?? null };
+  if (value.documentType !== 'earnings_statement') throw Error('Tipo de PDF da Uber não suportado');
+  const report = { platform:'Uber', documentType: value.documentType, periodStart: value.periodStart ?? null, periodEnd:value.periodEnd ?? null };
   const issues = [];
   if (!date(report.periodStart) || !date(report.periodEnd) || report.periodStart > report.periodEnd)
     issues.push('PERIODO_INDEFINIDO');
@@ -22,22 +23,33 @@ export function validateExtraction(value) {
     const potential = report.grossPassengerCents - report.platformFeeCents + (report.tipsCents ?? 0) + (report.incentivesCents ?? 0) + (report.reimbursementsCents ?? 0);
     if (Math.abs(potential-report.driverPayoutCents)>100) issues.push('RECONCILIACAO_PENDENTE');
   }
+  if (!value.evidence || typeof value.evidence !== 'object' || Array.isArray(value.evidence)) throw Error('Origem documental ausente');
   report.evidence = {};
   for (const field of MONEY_FIELDS) {
-    const e=value.evidence && typeof value.evidence === 'object' && value.evidence[field];
-    report.evidence[field] = typeof e === 'string' ? e.slice(0,120) : '';
+    const e=value.evidence[field];
+    if (typeof e !== 'string') throw Error('Evidência inválida: '+field);
+    // Evidence is a short category/label, never an unbounded quote or personal identifier.
+    report.evidence[field] = e.replace(/\b\d{3}\.\d{3}\.\d{3}-\d{2}\b/g,'[redigido]')
+      .replace(/\b\d{11}\b/g,'[redigido]')
+      .replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi,'[redigido]').slice(0,120).trim();
+    if (report[field] !== null && !report.evidence[field] && (field === 'grossPassengerCents' || field === 'driverPayoutCents'))
+      issues.push('EVIDENCIA_'+(field === 'grossPassengerCents' ? 'BRUTO' : 'REPASSE')+'_AUSENTE');
   }
   return {report,issues,status:issues.length?'review':'ready'};
 }
 export function fiscalEstimate(reports,{taxYear,profile,eligible,confirmedGross}={}) {
-  if (taxYear !== 2025 || profile !== 'pf' || eligible !== true || confirmedGross !== true)
-    return {status:'review_required',reason:'Enquadramento PF, ano 2025 e base bruta precisam de confirmação'};
+  const rules = {2025:'PF_PASSENGER_TRANSPORT_2025_60_40',2026:'PF_PASSENGER_TRANSPORT_2026_60_40'};
+  if (!Object.hasOwn(rules,taxYear) || profile !== 'pf' || eligible !== true || confirmedGross !== true)
+    return {status:'review_required',reason:'Enquadramento PF e origem da base bruta precisam de confirmação'};
   if (!Array.isArray(reports)||!reports.length || reports.some(r=>r.grossPassengerCents===null || r.grossPassengerCents===undefined || !nullableCents(r.grossPassengerCents)))
     return {status:'review_required',reason:'Base bruta de transporte não comprovada'};
+  if (reports.some(r => !date(r.periodStart) || !date(r.periodEnd) ||
+    r.periodStart.slice(0,4) !== String(taxYear) || r.periodEnd.slice(0,4) !== String(taxYear)))
+    return {status:'review_required',reason:'Os demonstrativos precisam pertencer integralmente ao ano-calendário selecionado'};
   const gross=reports.reduce((a,r)=>a+r.grossPassengerCents,0);
   if (!Number.isSafeInteger(gross)) return {status:'review_required',reason:'Valores excedem limite seguro'};
   const taxable=Math.ceil(gross*60/100);
-  return {status:'indicative',taxYear:2025,grossBaseCents:gross,minimumTaxableCents:taxable,maximumNonTaxableCents:gross-taxable,rule:'PF_PASSENGER_TRANSPORT_2025_60_40',notice:'Estimativa sujeita a verificação de base, renda adicional e regras da Receita. Não é declaração nem DARF.'};
+  return {status:'indicative',taxYear,grossBaseCents:gross,minimumTaxableCents:taxable,maximumNonTaxableCents:gross-taxable,rule:rules[taxYear],notice:'Estimativa sujeita a verificação de base, renda adicional e regras da Receita. Não é declaração nem DARF.'};
 }
 export function consolidate(rows) {
   const accepted=rows.filter(x=>x.status==='ready' && x.report);
