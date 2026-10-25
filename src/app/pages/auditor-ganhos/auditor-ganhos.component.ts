@@ -61,10 +61,10 @@ export class AuditorGanhosComponent {
  private readonly document=inject(DOCUMENT);
  private readonly pageMeta=inject(PageMetaService);
  constructor(){
-  afterNextRender(()=>{if(!this.turnstileSiteKey)return;const script=this.document.createElement('script');script.async=true;script.defer=true;script.src='https://challenges.cloudflare.com/turnstile/v0/api.js';this.document.head.appendChild(script);});
+  afterNextRender(()=>{this.track('web_auditor_viewed');if(!this.turnstileSiteKey)return;const script=this.document.createElement('script');script.async=true;script.defer=true;script.src='https://challenges.cloudflare.com/turnstile/v0/api.js';this.document.head.appendChild(script);});
   this.pageMeta.apply({title:'Auditor de Ganhos e IR Facilitado | CalcMot',description:DESCRIPTION,path:PATH,structuredData:[webSiteJsonLd(),webPageJsonLd(PATH,'Auditor de Ganhos CalcMot',DESCRIPTION)]});
  }
- private track(event:string){this.analytics.trackToolEvent(event as never);}
+ private track(event:'web_auditor_viewed'|'web_auditor_upload_started'|'web_auditor_extraction_completed'|'web_auditor_review_needed'|'web_auditor_exported'|'web_auditor_failed'){this.analytics.trackAuditorEvent(event);}
  protected changeConsent(event:Event){this.consent.set((event.target as HTMLInputElement).checked);}
  protected changeProfile(event:Event){this.taxProfile.set((event.target as HTMLSelectElement).value as 'pf'|'mei'|'unknown');this.fiscalOptIn.set(false);}
  protected changeYear(event:Event){this.taxYear.set(Number((event.target as HTMLSelectElement).value));this.fiscalOptIn.set(false);}
@@ -80,6 +80,7 @@ export class AuditorGanhosComponent {
   if(this.documents().length+files.length>8){this.error.set('Nesta sessão, envie no máximo quatro documentos.');return;}
   if(!this.turnstileSiteKey){this.error.set('O serviço está preparado, mas a verificação de segurança ainda precisa ser configurada.');return;}
   this.error.set('');this.info.set('');
+  this.track('web_auditor_upload_started');
   this.inProgress.set(true);
   try {
    for(const file of files) await this.processFile(file);
