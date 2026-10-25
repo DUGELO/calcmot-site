@@ -93,6 +93,18 @@ export const PRIVACIDADE_COPY: PageCopy = {
       bullets: ['Histórico opcional', 'Dados confirmados por você', 'Sem endereços, prints ou texto bruto'],
     },
     {
+      id: 'auditor',
+      eyebrow: 'Ferramenta web',
+      title: 'Auditor de ganhos: PDFs e IA',
+      paragraphs: [
+        'A ferramenta web Auditor de Ganhos é diferente do aplicativo Android. Somente quando você concorda e envia um PDF da Uber, o documento é transmitido ao serviço de backend do CalcMot e ao fornecedor Google Gemini para extrair os campos financeiros necessários.',
+        'O PDF pode conter nome, CPF, endereço, dados de corridas e de terceiros. Remova dados desnecessários antes do envio. O processamento de PDFs usa uma API externa; a política de retenção do Google depende do serviço contratado e não é controlada pelo botão de exclusão local.',
+        'A versão inicial não cria conta nem mantém histórico no servidor do CalcMot. Os valores extraídos ficam na memória da página enquanto ela está aberta e podem ser apagados com o botão da ferramenta. Não enviamos conteúdo dos PDFs, CPF nem valores monetários aos eventos de analytics.',
+        'Não usamos os documentos para transmitir sua declaração de imposto de renda. Para dúvidas sobre seus dados e os direitos previstos na LGPD, utilize o canal de suporte identificado neste site.',
+      ],
+      note: 'O processamento fica indisponível quando as proteções contra abuso ou as credenciais do backend não estiverem configuradas.',
+    },
+    {
       id: 'controle',
       eyebrow: 'Controle',
       title: 'Você pode pausar quando quiser',
