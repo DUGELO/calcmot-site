@@ -3,7 +3,7 @@
     <p class="eyebrow">Ferramenta gratuita · Novo</p>
     <h1 id="auditor-title">Auditor de ganhos e IR facilitado</h1>
     <p class="lead">Envie um demonstrativo PDF da Uber, confira taxas e repasses e obtenha um resumo financeiro. A IA ajuda a ler documentos; valores fiscais exigem comprovação.</p>
-    <p class="auditor__note">Sem cadastro · Até 4 PDFs por sessão · 4 MiB por arquivo · Os arquivos não ficam armazenados no CalcMot</p>
+    <p class="auditor__note">Sem cadastro · Até 8 PDFs por sessão · 4 MiB por arquivo · Os arquivos não ficam armazenados no CalcMot</p>
 
     <section class="auditor__panel" aria-labelledby="upload-title">
       <h2 id="upload-title">1. Envie seu PDF da Uber</h2>
@@ -16,7 +16,7 @@
       } @else {
         <p role="status" class="auditor__warning">Processamento indisponível: configuração de segurança pendente. O formulário está em homologação.</p>
       }
-      <label for="auditor-files" class="auditor__file-label">Selecionar PDF da Uber (um por vez; até 4 na sessão)</label>
+      <label for="auditor-files" class="auditor__file-label">Selecionar PDF da Uber (um por vez; até 8 na sessão)</label>
       <input id="auditor-files" type="file" accept="application/pdf,.pdf"
              [disabled]="inProgress() || !consent() || !turnstileSiteKey" (change)="onFileChange($event)" />
       @if (inProgress()) { <p role="status">Processando documento... Aguarde o resultado da análise.</p> }
@@ -60,13 +60,13 @@
       </section>
       <section class="auditor__panel" aria-labelledby="financial-title">
         <h2 id="financial-title">3. Seu resumo financeiro</h2>
-        <p>{{ totals().count }} documento(s) aprovado(s) de {{ totalDocumentCount() }}. Resultados parciais não representam lucro nem rendimento tributável.</p>
+        <p>{{ totals().count }} documento(s) sem sobreposição contabilizado(s) de {{ totalDocumentCount() }}. Resultados parciais não representam lucro nem rendimento tributável.</p>
         <div class="auditor__stats">
           <div class="stat"><span class="stat__label">Bruto documentado</span><strong class="stat__value">{{ money(totals().gross) }}</strong></div>
           <div class="stat"><span class="stat__label">Taxas informadas</span><strong class="stat__value">{{ money(totals().fee) }}</strong></div>
           <div class="stat"><span class="stat__label">Repasse informado</span><strong class="stat__value">{{ money(totals().payout) }}</strong></div>
         </div>
-        <p class="auditor__note">Para calcular lucro operacional são necessários custos do veículo. Repasse não é sinônimo de lucro.</p>
+        <p class="auditor__note">O cálculo não soma novamente um resumo anual aos meses que ele abrange. Para calcular lucro operacional são necessários custos do veículo. Repasse não é sinônimo de lucro.</p>
         <div class="auditor__actions">
           <button type="button" [disabled]="!approved().length" (click)="downloadCsv()">Exportar CSV dos valores conferidos</button>
           <button type="button" class="auditor__secondary" (click)="clear()">Apagar dados da sessão</button>
