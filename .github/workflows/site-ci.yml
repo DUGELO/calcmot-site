@@ -52,7 +52,7 @@ jobs:
           node --check scripts/ga4-register-custom-dimensions.mjs
           node scripts/ga4-register-custom-dimensions.mjs --plan
 
-      - name: Auditor: regras fiscais e validador sem credenciais
+      - name: "Auditor: regras fiscais e validador sem credenciais"
         run: npm run test:auditor
 
       - name: Testar motor financeiro
@@ -87,6 +87,18 @@ jobs:
 
       - name: Smoke test E2E Angular mobile-first
         run: python scripts/e2e-mobile-smoke.py
+
+      - name: Auditor E2E desktop e mobile com fronteiras simuladas
+        run: python scripts/e2e-auditor.py
+
+      - name: Evidências visuais do auditor com dados sintéticos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: auditor-e2e-synthetic
+          path: .angular/auditor-e2e/
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Validar eventos GA4 com hostname de produção simulado
         run: python scripts/e2e-analytics-production.py

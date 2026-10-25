@@ -16,7 +16,7 @@ Disponibilizar auditor gratuito PDF Uber → extração automática → conferê
 **Proteção fiscal:** emitir prévia 60/40 exclusivamente se pessoa física confirmar elegibilidade, ano-calendário 2025 ou 2026 (mesma regra legal 60/40 para transporte de passageiros) e base bruta validada. É simulação não vinculante, não apura DARF, não escolhe código de ficha, não transmite declarações. Se PDF não distinguir bruto/passagens, mostrar pendência. MEI, MEI Caminhoneiro, rendas diversas e cálculo do imposto devido permanecem fora do motor fiscal até validação normativa separada. Para 2026, somente a separação indicativa 60/40 é calculada; tabelas, redução de IR, Carnê-Leão e DARF continuam pendentes. Impostos pessoais do motorista exigem verificar outras rendas, deduções, fonte pagadora e períodos com profissional habilitado.
 
 ## Requisitos e fluxos
-R1: upload de **um PDF por vez, até 4 MiB**, tipo MIME e magic bytes verificados no cliente e Worker, bloqueando arquivos ambíguos. Processar até quatro sequencialmente na sessão; sem filas/persistência antes de comprovar volume.
+R1: upload de **um PDF por vez, até 4 MiB**, tipo MIME e magic bytes verificados no cliente e Worker, bloqueando arquivos ambíguos. Processar até oito sequencialmente na sessão; sem filas/persistência antes de comprovar volume.
 R2: Gemini no backend (segredo `GEMINI_API_KEY`, nunca cliente), `responseMimeType: application/json`, campos obrigatórios de esquema, texto PDF como dado não confiável, timeout. Não usar IA para regra fiscal.
 R3: resposta canônica com proveniência por campo, valor ausente como null, números monetários em centavos; não tolerar valor de origem não identificável.
 R4: esquema/verificação de taxas e repasse, duplicatas SHA-256, sobreposições sinalizadas. Documentos inconsistentes e duplicados não entram no consolidado sem resolução.
@@ -83,3 +83,12 @@ Seis resumos Uber (24 páginas) inspecionados localmente, sem subir PDF pessoal 
 | Tipificar relatório | PDF Uber anual possui apenas `2025` no cabeçalho | Ano inteiro em 01/01..31/12; não inventar datas | Schema Gemini | Fixture anual sintética |
 | Corrigir sinais | Ajuste regulatório -R$ 2,80 | Taxa líquida já apresentada no total, não reaplicar | Prompt e validação | Reconciliação exata em centavos |
 | LGPD e segredo | PDFs com identificadores | Nunca commitar documentos; rotação da chave exposta | `docs/release/auditor-ganhos-homologacao.md` | Revisão pré-produção |
+
+## Operação final: contrato revisado em 25/10/2026
+
+- Total bruto explícito `grossTotalCents` separado de viagens, gorjetas e incentivos; conciliação exata em centavos. Ausência continua null.
+- Parser estrutural, oito páginas, 4 MiB, formatos com object streams comprimidos recusados neste MVP; sem renderização/execução de PDF no servidor.
+- Sitekey pública obtida do Worker por `/auditor-interno/config`; segredos, limitação e atestado documental de tratamento são gates de disponibilidade.
+- Tokens novos por envio; cancelamento/exclusão impedem resposta tardia de repovoar a sessão.
+- Ano fiscal escolhido filtra a prévia. Extras positivos ou ausentes exigem classificação e bloqueiam só a saída fiscal.
+- [Revisão LGPD/fiscal e pendências contratuais](release/auditor-ganhos-lgpd-fiscal.md). O objetivo atual autoriza release controlado após os gates, substituindo a restrição histórica de autorização da primeira versão do PRD. Não habilitar com gates incompletos.

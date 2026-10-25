@@ -48,6 +48,9 @@ export class SiteAnalyticsService {
     this.document.addEventListener('click', this.trackNavigationClick, { capture: true });
     if (pageGroup(browser.location.pathname) === 'ride_calculator') this.trackCalculatorView(browser);
 
+    // Financial documents must not start a session replay on a direct visit.
+    // The auditor also masks its complete DOM for navigation within the SPA.
+    if (/^\/ferramentas\/auditor-ganhos-ir(?:\/|$)/.test(browser.location.pathname)) return;
     browser.clarity = browser.clarity || Object.assign(
       (...args: unknown[]) => { (browser.clarity!.q ||= []).push(args); },
       { q: [] as unknown[][] },

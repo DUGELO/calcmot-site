@@ -1,3 +1,2 @@
-// Cloudflare Turnstile public site key (not secret). Configure before launch.
-// Empty by default => UI safely disables uploads.
-export const AUDITOR_TURNSTILE_SITE_KEY = '';
+// Sitekey pública configurada por ambiente no Worker (AUDITOR_TURNSTILE_SITE_KEY).
+// O Angular consulta /auditor-interno/config; nunca configurar chaves de IA aqui.

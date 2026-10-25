@@ -90,6 +90,15 @@ try {
     assert.equal(response.status, 404);
     assert.match(response.headers.get("Content-Type"), /application\/json/);
   }
+  const auditorConfig = await runtime.dispatchFetch("https://calcmot.com.br/auditor-interno/config");
+  assert.equal(auditorConfig.status, 200);
+  assert.deepEqual(await auditorConfig.json(), {enabled:false,siteKey:""});
+  const auditorRequest = await runtime.dispatchFetch("https://calcmot.com.br/auditor-interno/analisar", {
+    method:"POST",headers:{Origin:"https://calcmot.com.br"},body:"synthetic-no-credentials",
+  });
+  assert.equal(auditorRequest.status,503);
+  assert.match(auditorRequest.headers.get("Cache-Control"),/no-store/);
+  assert.equal((await auditorRequest.json()).code,"UNAVAILABLE");
   for (const path of [
     "/",
     "/como-funciona/",

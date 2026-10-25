@@ -1,12 +1,13 @@
 // Pure, auditable domain validation. No Gemini dependency and no retained documents.
-export const MONEY_FIELDS = Object.freeze(['grossPassengerCents','platformFeeCents','driverPayoutCents','tipsCents','incentivesCents','reimbursementsCents']);
+export const MONEY_FIELDS = Object.freeze(['grossPassengerCents','platformFeeCents','driverPayoutCents','tipsCents','incentivesCents','reimbursementsCents','grossTotalCents']);
 const nullableCents = x => x === null || (Number.isSafeInteger(x) && x >= 0 && x <= 100_000_000_00);
 const date = x => typeof x === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(x) && !Number.isNaN(Date.parse(x)) && new Date(x+'T00:00:00Z').toISOString().slice(0,10) === x;
 export function validateExtraction(value) {
   if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error('JSON de extração inválido');
   if (value.platform !== 'Uber') throw Error('Documento não reconhecido como demonstrativo Uber');
   if (!['earnings_statement','annual_earnings_statement'].includes(value.documentType)) throw Error('Tipo de PDF da Uber não suportado');
-  const report = { platform:'Uber', documentType: value.documentType, periodStart: value.periodStart ?? null, periodEnd:value.periodEnd ?? null };
+  // Never reflect arbitrary model strings (names, addresses, instructions) in dates.
+  const report = { platform:'Uber', documentType: value.documentType, periodStart: date(value.periodStart)?value.periodStart:null, periodEnd:date(value.periodEnd)?value.periodEnd:null };
   const issues = [];
   if (!date(report.periodStart) || !date(report.periodEnd) || report.periodStart > report.periodEnd)
     issues.push('PERIODO_INDEFINIDO');
@@ -21,22 +22,27 @@ export function validateExtraction(value) {
   report.kilometers=value.kilometers;
   if (report.grossPassengerCents === null) issues.push('BRUTO_NAO_COMPROVADO');
   if (report.driverPayoutCents === null) issues.push('REPASSE_NAO_COMPROVADO');
+  if (report.grossTotalCents === null) issues.push('TOTAL_BRUTO_NAO_COMPROVADO');
   // Do not assert gross-fee=payout; tips, incentives and reimbursements can change reconciliation.
   if (report.grossPassengerCents !== null && report.platformFeeCents !== null && report.driverPayoutCents !== null) {
-    const potential = report.grossPassengerCents - report.platformFeeCents + (report.tipsCents ?? 0) + (report.incentivesCents ?? 0) + (report.reimbursementsCents ?? 0);
-    if (Math.abs(potential-report.driverPayoutCents)>100) issues.push('RECONCILIACAO_PENDENTE');
+    const parts = ['grossPassengerCents','tipsCents','incentivesCents'];
+    if (parts.every(k=>report[k]!==null) && report.grossTotalCents!==null &&
+        parts.reduce((sum,k)=>sum+report[k],0)!==report.grossTotalCents) issues.push('COMPOSICAO_BRUTO_PENDENTE');
+    if (report.grossTotalCents!==null && report.reimbursementsCents!==null &&
+        report.grossTotalCents-report.platformFeeCents+report.reimbursementsCents!==report.driverPayoutCents) issues.push('RECONCILIACAO_PENDENTE');
+    if (report.grossTotalCents===null || report.reimbursementsCents===null) issues.push('RECONCILIACAO_INCOMPLETA');
   }
+  if (report.platformFeeCents===null) issues.push('TAXAS_NAO_COMPROVADAS');
   if (!value.evidence || typeof value.evidence !== 'object' || Array.isArray(value.evidence)) throw Error('Origem documental ausente');
   report.evidence = {};
   for (const field of MONEY_FIELDS) {
     const e=value.evidence[field];
     if (typeof e !== 'string') throw Error('Evidência inválida: '+field);
     // Evidence is a short category/label, never an unbounded quote or personal identifier.
-    report.evidence[field] = e.replace(/\b\d{3}\.\d{3}\.\d{3}-\d{2}\b/g,'[redigido]')
-      .replace(/\b\d{11}\b/g,'[redigido]')
-      .replace(/[\w.+-]+@[\w.-]+\.[a-z]{2,}/gi,'[redigido]').slice(0,120).trim();
-    if (report[field] !== null && !report.evidence[field] && (field === 'grossPassengerCents' || field === 'driverPayoutCents'))
-      issues.push('EVIDENCIA_'+(field === 'grossPassengerCents' ? 'BRUTO' : 'REPASSE')+'_AUSENTE');
+    // Return only allowlisted provenance, never free-form model text with PII.
+    const labels={grossPassengerCents:'Ganhos brutos com viagens',grossTotalCents:'Ganhos brutos totais',platformFeeCents:'Total de taxas e despesas',driverPayoutCents:'Ganhos líquidos totais',tipsCents:'Extras (valor dado pelo usuário)',incentivesCents:'Ganhos promocionais',reimbursementsCents:'Reembolsos'};
+    report.evidence[field]=e.trim()?labels[field]:'';
+    if (report[field] !== null && !report.evidence[field]) issues.push('EVIDENCIA_AUSENTE_'+field);
   }
   return {report,issues,status:issues.length?'review':'ready'};
 }
@@ -68,7 +74,9 @@ export function fiscalEstimate(reports,{taxYear,profile,eligible,confirmedGross}
     return {status:'review_required',reason:'Períodos sobrepostos: documentos anuais e mensais não podem ser somados'};
   const gross=reports.reduce((a,r)=>a+r.grossPassengerCents,0);
   if (!Number.isSafeInteger(gross)) return {status:'review_required',reason:'Valores excedem limite seguro'};
-  const taxable=Math.ceil(gross*60/100);
+  if (reports.some(r=>['tipsCents','incentivesCents','reimbursementsCents'].some(k=>r[k]!==0)))
+    return {status:'review_required',reason:'Extras, incentivos e reembolsos exigem classificação fiscal própria; valores ausentes não são zero'};
+  const taxable=Number((BigInt(gross)*60n+99n)/100n);
   return {status:'indicative',taxYear,grossBaseCents:gross,minimumTaxableCents:taxable,maximumNonTaxableCents:gross-taxable,rule:rules[taxYear],notice:'Estimativa sujeita a verificação de base, renda adicional e regras da Receita. Não é declaração nem DARF.'};
 }
 export function consolidate(rows) {
