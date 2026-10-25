@@ -11,6 +11,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: 'como-funciona', renderMode: RenderMode.Prerender },
   { path: 'calculadora-ganhos-motorista-app', renderMode: RenderMode.Prerender },
   { path: 'ferramentas/corrida-vale-a-pena', renderMode: RenderMode.Prerender },
+  { path: 'ferramentas/auditor-ganhos-ir', renderMode: RenderMode.Prerender },
   { path: 'privacidade', renderMode: RenderMode.Prerender },
   { path: 'suporte', renderMode: RenderMode.Prerender },
   { path: '**', renderMode: RenderMode.Server },
