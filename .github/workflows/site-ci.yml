@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main, feat/site-ci-growth-prd]
   push:
-    branches: [main]
+    branches: [main, feat/auditor-ganhos-ir-mvp]
   workflow_dispatch:
 
 # O deploy continua exclusivamente na integração GitHub -> Cloudflare.
