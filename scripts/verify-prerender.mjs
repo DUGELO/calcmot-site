@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'dist/calcmot-site/browser');
 const read = (path) => readFileSync(resolve(output, path), 'utf8');
-const routes = ['', 'como-funciona', 'calculadora-ganhos-motorista-app', 'ferramentas/corrida-vale-a-pena', 'privacidade', 'suporte'];
+const routes = ['', 'como-funciona', 'calculadora-ganhos-motorista-app', 'ferramentas/corrida-vale-a-pena', 'ferramentas/auditor-ganhos-ir', 'privacidade', 'suporte'];
 const failures = [];
 
 for (const route of routes) {
