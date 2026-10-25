@@ -1,10 +1,15 @@
 import assert from 'node:assert/strict';
-import {validateExtraction,fiscalEstimate,consolidate} from '../cloudflare/auditor-core.mjs';
+import {validateExtraction,fiscalEstimate,consolidate,selectCanonicalReports} from '../cloudflare/auditor-core.mjs';
 const sample={platform:'Uber',documentType:'earnings_statement',periodStart:'2025-03-01',periodEnd:'2025-03-07',
  grossPassengerCents:100001,platformFeeCents:20000,driverPayoutCents:80001,
  tipsCents:0,incentivesCents:0,reimbursementsCents:0,kilometers:152,
  evidence:{grossPassengerCents:'total pago pelos passageiros',platformFeeCents:'taxa da Uber',driverPayoutCents:'repasse',tipsCents:'nenhum',incentivesCents:'nenhum',reimbursementsCents:'nenhum'}};
 const ok=validateExtraction(sample);
+const annual=validateExtraction({...sample,documentType:'annual_earnings_statement',periodStart:'2025-01-01',periodEnd:'2025-12-31',grossPassengerCents:1841354,platformFeeCents:306591,driverPayoutCents:1537663,tipsCents:2900});
+assert.equal(annual.status,'ready');
+assert.equal(selectCanonicalReports([ok,annual]).selected.length,1);
+assert.equal(consolidate([ok,annual]).totals.driverPayoutCents,1537663);
+assert.equal(fiscalEstimate([ok.report,annual.report],{taxYear:2025,profile:'pf',eligible:true,confirmedGross:true}).status,'review_required');
 assert.equal(ok.status,'ready');assert.deepEqual(ok.issues,[]);
 assert.equal(consolidate([ok]).totals.driverPayoutCents,80001);
 const tax=fiscalEstimate([ok.report],{taxYear:2025,profile:'pf',eligible:true,confirmedGross:true});
