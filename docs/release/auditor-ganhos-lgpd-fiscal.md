@@ -26,7 +26,7 @@ A consulta à lista oficial não identificou substituição da regra de passagei
 
 | Elemento | Tratamento previsto / evidência necessária |
 |---|---|
-| Controlador | Responsável pela operação do CalcMot. **Nome/razão social e identificação formal ainda precisam ser confirmados pelo proprietário**; não inferir uma pessoa jurídica a partir do GitHub. |
+| Controlador | Eduardo Oliveira, informado expressamente pelo proprietário em 25/10/2026. Canal público autorizado: eduardangelo20001@gmail.com. Titularidade da caixa e atendimento efetivo ainda não testados; não inferir outra grafia a partir da conta Google. |
 | Operadores / demais agentes | Cloudflare: entrega/execução Worker e desafio Turnstile; Google: extração Gemini conforme plano contratado. Papéis para metadados próprios podem ser de controlador independente conforme contrato. Confirmar entidades contratantes e suboperadores. |
 | Titulares | Motorista que envia seu próprio demonstrativo. Não solicitar documentos de passageiros. |
 | Categorias | PDF pode conter nome, CPF, endereço e dados de corridas; só períodos, categorias financeiras, quilometragem e rótulos de origem são devolvidos. Nome de arquivo permanece local e é substituído por `demonstrativo.pdf` no upload. |
@@ -68,6 +68,15 @@ Estado: exposição em conversa conhecida; rotação e revogação **não conclu
 Procedimento: restringir serviço e evitar novos envios; preservar metadados mínimos e linha do tempo privada; rotacionar em versão não promovida, validar e revogar anterior; apurar acesso a dados e custos; classificar risco/dano; comunicar responsável e, quando aplicável, ANPD/titulares no prazo legal; registrar decisões, contenção e correção. Não comunicar incidente à ANPD em nome do controlador sem representação/autorização específica. Chave comprometida não implica automaticamente vazamento dos PDFs.
 
 ## Pendências externas de liberação
+
+### Atualização após acesso autenticado — 25/10/2026
+
+- Projeto Gemini identificado no AI Studio: `gen-lang-client-0493370776`, número `821407219804`, nome CalcMot. É diferente do projeto Firebase `calcmot`. Credencial existente restrita à Gemini API e vinculada a conta de serviço. Não foi usado nem copiado o valor da credencial exposta.
+- AI Studio confirmou **nível gratuito**. O proprietário decidiu **manter gratuito e bloquear PDFs pessoais**. Portanto o gate de processamento NÃO pode ser aprovado; manter `AUDITOR_DATA_PROCESSING_APPROVED` ausente/false. Não enviar originais nem cópias apenas visualmente ocultadas, não habilitar billing e não declarar homologação Gemini. Somente dados integralmente sintéticos podem ser utilizados em futura validação gratuita com credencial segura.
+- [Termos Gemini](https://ai.google.dev/gemini-api/terms), vigentes desde 23/03/2026, e [retenção](https://ai.google.dev/gemini-api/docs/zdr) reconferidos: serviços não pagos não recebem informações pessoais/confidenciais; serviço pago não equivale a garantia de retenção zero. Essa restrição contratual é distinta da avaliação da base legal LGPD.
+- Controlador/canal informados pelo proprietário e incluídos na política em preparação. Contratos, mecanismo internacional e prazo real de retenção continuam sem aprovação. Não houve aprovação jurídica profissional nem publicação da política atualizada.
+- Widget Turnstile exclusivo criado, Managed, hostname `calcmot.com.br`, sem pre-clearance e sem instalação no Worker. Uma saída de ferramenta de leitura da tela incluiu indevidamente o segredo gerado. Valor/fingerprint não registrados neste documento. Tratar esse segredo como exposto: **rotacionar antes de qualquer uso**, verificar a invalidação da credencial anterior e evitar screenshots da tela de chaves. Nenhum PDF nem dado de motorista foi enviado ao widget.
+- Rotação Gemini e remediação Turnstile não concluídas. A interface de automação exige intervenção do proprietário para troca de credenciais; telas de administração preparadas. O pedido para manter gratuito não revoga a necessidade de conter credenciais expostas.
 
 1. Acesso Google Cloud/AI Studio para identificar projeto, credencial, billing, restrições, cotas, consumo, modelos e contratos; substituir/revogar chave.
 2. Acesso Cloudflare para auditar conta/ambientes, configurar secrets e sitekey por ambiente, verificar namespace IDs exclusivos, quota/custo e telemetria sem corpos.

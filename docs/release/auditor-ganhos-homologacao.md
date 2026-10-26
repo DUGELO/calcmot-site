@@ -98,3 +98,31 @@ Base main verificada inicialmente: `b4200894ee9e08bebfb0b3ca9d7f3681bb48dae5`; h
 - Varredura de 156 commits: sem padrão da chave Gemini exposta; ocorrências AIza são configuração pública Firebase. Zero PDFs rastreados no repositório. Não extrapolar para artifacts remotos não auditados.
 
 Os checks **do novo commit remoto** precisam ser acompanhados antes de declarar CI verde; evidências antigas não aprovam automaticamente este diff. Publicação, rotação de chaves, contas/contratos, limites reais de custo, preview seguro e rollback remoto seguem bloqueados por acesso externo.
+
+## Retomada autenticada — 25/10/2026
+
+Esta seção atualiza os bloqueios históricos de acesso acima. Google Cloud e Cloudflare foram acessados pelo navegador após login do proprietário. O proprietário determinou **manter Gemini gratuito e bloquear PDFs pessoais**. Essa decisão impede a homologação real dos seis PDFs e o lançamento conforme os gates originais; não substituí-la por consentimento ou por PDFs apenas visualmente ocultados.
+
+| Item | Evidência atual |
+|---|---|
+| Projeto Gemini | `gen-lang-client-0493370776` / `821407219804` (CalcMot), separado do Firebase `calcmot`; nível gratuito confirmado no AI Studio. |
+| Credencial | Existente restrita à Gemini API, vinculada a conta de serviço, sem restrição de aplicativo. Não impor referenciador HTTP a Worker backend; restrição por IP exige saída estável comprovada. Valor não utilizado. Rotação/revogação continuam pendentes. |
+| Modelo/cotas | Painel autenticado lista Gemini 2.5 Flash Lite com 10 RPM, 250.000 TPM e 20 RPD; máximos de uso exibidos iguais a zero nos últimos 28 dias. Painel não equivale a `models.list` autenticado ou teste de geração, e métricas têm atraso. Nenhuma chamada de inferência foi feita nesta retomada. |
+| Cloudflare | Conta/Worker corretos confirmados; produção `calcmot-site`, main `b4200894ee9e08bebfb0b3ca9d7f3681bb48dae5`, versão ativa exibida `b515b469` a 100%. Preview da branch existente; produção sem variáveis/secrets do auditor e sem os limiters da branch. Nenhuma promoção/configuração de produção realizada. |
+| Turnstile | Widget `CalcMot Auditor - Producao`, Managed, hostname `calcmot.com.br`, sem pre-clearance. Criado, **não instalado nem homologado**. Segredo apareceu indevidamente em uma saída de leitura de tela: tratar como exposto e rotacionar antes de instalar. Nenhum segredo/fingerprint incluído nos arquivos do projeto. |
+| Privacidade | Eduardo Oliveira / `eduardangelo20001@gmail.com`, dados fornecidos expressamente pelo proprietário e incluídos no código da política. E-mail preservado exatamente como informado. Atendimento real e contratos ainda não certificados; política atualizada ainda não publicada. |
+| Produção HTTP | GET da rota do auditor seguiu redirecionamento e terminou na home `https://calcmot.com.br/`, HTTP 200. Não comprova operação da funcionalidade. |
+| Rollback | Versão ativa identificada acima é candidata à recuperação futura, não um teste de rollback executado. Nenhum deploy novo para reverter. |
+
+### QA desta retomada
+
+- `npm ci --no-audit --no-fund`: PASS, 555 pacotes. Todas as sete suítes/guardrails solicitadas: PASS; 34/34 testes Worker/segurança e 41/41 administrativos, mais assertions fiscais, calculadora, analytics e edge.
+- `npm run build`, `npm run build:cloudflare`, `verify-prerender`, `verify-admin-build`, GA4 `--plan` e Wrangler dry-run: PASS. Builds finais incluem controlador, contato e aviso de bloqueio no plano gratuito; sete rotas prerenderizadas.
+- E2E auditor: 4/4 cenários, 0 erros JS, 320/390/1280 px + configuração indisponível; upload, dedup, exceções, anual, exportação, ano fiscal, exclusão/cancelamento, quota, PDF inválido, labels/teclado/layout. Turnstile/Gemini simulados, PDFs sintéticos.
+- E2E calculadora: 4/4 larguras (320/390/768/1024); analytics: 3/3 cenários, domínio simulado e fornecedores interceptados. Nenhum evento financeiro real enviado.
+- `verify-admin-workerd`: falha inicial `ECONNRESET` no Windows reproduzida com Node 24 e 22.16.0 após POST recusado antes de consumir corpo. Assets isolados passaram. `Connection: close` somente nesse POST de teste evita reutilizar a conexão encerrada. Script definitivo PASS com Node 22.16.0 e data workerd local `2026-10-13`, preservando todos os asserts e a configuração de produção.
+- Python Playwright 1.58.0 e Chromium instalados em ambiente de QA isolado `.angular/qa-venv`, sem dependência nova do produto. Evidências visuais locais em `.angular/auditor-e2e` e `.angular/release-evidence`, somente dados sintéticos ou lista de widget sem segredo.
+- Nenhum PDF rastreado no Git e nenhum PDF encontrado na pasta autorizada `Documents/ChatGPT` nesta retomada. Não executar busca invasiva nem solicitar reenvio enquanto o plano gratuito impedir o uso desses documentos.
+- Varredura atual de padrões de credenciais: somente configuração pública Firebase no código rastreado. Histórico contém a sigla textual FAQ, que não é credencial. Isso não certifica artifacts remotos, forks ou conversas.
+
+**LANÇAMENTO BLOQUEADO**: opção gratuita impede PDFs pessoais; rotação Gemini/Turnstile e instalação segura não concluídas; contratos/transferência/retencão, endpoint staging real, homologação dos seis PDFs, custos, monitoramento e rollback operacional permanecem gates. O CI do novo commit desta atualização deve ser confirmado remotamente. Não fazer merge nem promover produção só porque o build passou.
