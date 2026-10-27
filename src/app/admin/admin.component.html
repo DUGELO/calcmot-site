@@ -12,8 +12,12 @@
     <div class="environment-banner" role="status">
       @if (session.targetEnvironment === "DEV") {
         Homologação DEV · Operações restritas ao ambiente de desenvolvimento.
+      } @else if (!session.ready()) {
+        Produção · Acesso restrito.
+      } @else if (session.mutationsEnabled()) {
+        Produção · Operações autorizadas pela sessão. Emissão exige confirmação individual.
       } @else {
-        Destino configurado: PROD · Somente consulta. Escritas desativadas.
+        Produção · Somente consulta. Escritas desativadas pelo serviço.
       }
     </div>
     @if (error(); as failure) {
@@ -49,7 +53,7 @@
         <h1>Cuidado em cada decisão.</h1>
         <p>
           @if (session.targetEnvironment === "PROD") {
-            Entre com sua conta autorizada para consultar solicitações com
+            Entre com sua conta autorizada para administrar solicitações com
             segurança.
           } @else {
             Entre com sua conta autorizada para avaliar solicitações de

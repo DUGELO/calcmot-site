@@ -3,6 +3,12 @@
 Branch local: `codex/admin-policy-handoff`, baseada em `origin/main` b420089.
 Sem publicação, alteração de gates ou operação real nesta implementação.
 
+Atualização de escopo autorizada: o build PROD permite operações apenas quando
+uma sessão compatível do backend retorna `mutationsEnabled:true`. O bloqueio
+anterior fixo em DEV foi removido; build desativado, sessão false/incompatível e
+autenticação antiga continuam bloqueando o fluxo. Banner distingue acesso restrito,
+somente consulta e operações autorizadas. Nenhum gate backend foi alterado.
+
 ## Fluxo
 
 1. A ferramenta privada escuta somente `127.0.0.1:8971` e oferece o link
