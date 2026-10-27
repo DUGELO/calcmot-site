@@ -19,16 +19,19 @@ import { filter, map } from "rxjs";
 import { AdminShellComponent } from "./layout/admin-shell.component";
 import { OperationConfirmationComponent } from "./review/operation-confirmation.component";
 import { AdminSessionService } from "./auth/admin-session.service";
+import { AdminPolicyBootstrap } from "./auth/admin-policy-bootstrap.service";
+import { PolicyBootstrapPanelComponent } from "./auth/policy-bootstrap-panel.component";
 import { AdminWorkspaceStore } from "./data-access/admin-workspace.store";
 @Component({
   selector: "app-admin",
   standalone: true,
-  imports: [RouterOutlet, AdminShellComponent, OperationConfirmationComponent],
+  imports: [RouterOutlet, AdminShellComponent, OperationConfirmationComponent, PolicyBootstrapPanelComponent],
   templateUrl: "./admin.component.html",
   styleUrl: "./admin.component.scss",
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
+  readonly policyBootstrap = inject(AdminPolicyBootstrap);
   readonly session = inject(AdminSessionService);
   readonly store = inject(AdminWorkspaceStore);
   private readonly router = inject(Router);

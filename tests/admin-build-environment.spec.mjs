@@ -41,7 +41,7 @@ const prodEnv = await readFile(
 );
 assert.match(defaultEnv, /environment: "DEV"/);
 assert.match(prodEnv, /environment: "PROD"/);
-assert.match(prodEnv, /mutationsEnabled: false/);
+assert.match(prodEnv, /mutationsEnabled: true/);
 console.log(
   "Admin build selection passed: explicit file replacements, unchanged default DEV and invalid target rejection.",
 );

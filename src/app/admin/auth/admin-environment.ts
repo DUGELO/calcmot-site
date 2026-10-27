@@ -22,9 +22,9 @@ export function isCompatibleSession(
   );
 }
 
-/** PROD is deliberately read-only in this preparation, even if misconfigured true. */
+/** Build capability is necessary; the authoritative session must also permit writes. */
 export function adminWritesEnabled(config: AdminConfig): boolean {
-  return config.environment === "DEV" && config.mutationsEnabled === true;
+  return (config.environment === "DEV" || config.environment === "PROD") && config.mutationsEnabled === true;
 }
 
 export function sessionWritesEnabled(

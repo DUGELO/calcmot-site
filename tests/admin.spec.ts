@@ -1,5 +1,6 @@
 import { testTelemetryBoundary } from "./admin-telemetry.spec";
 import "@angular/compiler";
+import { testPolicyBootstrap } from "./admin-policy-bootstrap.spec";
 import assert from "node:assert/strict";
 import {
   DestroyRef,
@@ -306,8 +307,8 @@ await test("PROD reads require 1.3 and never fall back to DEV or legacy PROD", a
       error instanceof AdminApiError && error.code === "ENVIRONMENT_MISMATCH",
   );
 });
-await test("PROD writes are blocked before token or HTTP even if configured enabled", async () => {
-  const prod = apiFor({ ...ADMIN_TARGETS.PROD, mutationsEnabled: true });
+await test("Disabled PROD build writes are blocked before token or HTTP", async () => {
+  const prod = apiFor({ ...ADMIN_TARGETS.PROD, mutationsEnabled: false });
   const before = requests.length;
   const intents = [
     prod.decide(view.claimId, {
@@ -377,7 +378,7 @@ await test("Unknown build target fails closed before HTTP", async () => {
   assert.equal(requests.length, before);
   assert.equal(isCompatibleSession(session, "PROD"), false);
 });
-await test("Server write flag is mandatory for 1.3 and cannot enable PROD", () => {
+await test("PROD writes require both build capability and a compatible enabled server session", () => {
   const modern: AdminSession = {
     ...session,
     contractVersion: "1.3.0",
@@ -395,10 +396,12 @@ await test("Server write flag is mandatory for 1.3 and cannot enable PROD", () =
   assert.equal(
     sessionWritesEnabled(
       { ...modern, environment: "PROD" },
-      { ...ADMIN_TARGETS.PROD, mutationsEnabled: true },
+      ADMIN_TARGETS.PROD,
     ),
-    false,
+    true,
   );
+  assert.equal(sessionWritesEnabled({ ...modern, environment: "PROD", mutationsEnabled: false }, ADMIN_TARGETS.PROD), false);
+  assert.equal(sessionWritesEnabled({ ...modern, environment: "PROD" }, { ...ADMIN_TARGETS.PROD, mutationsEnabled: false }), false);
   assert.equal(
     isCompatibleSession({ ...session, contractVersion: "1.3.0" }, "DEV"),
     false,
@@ -413,7 +416,7 @@ await test("Server write flag is mandatory for 1.3 and cannot enable PROD", () =
   );
 });
 
-function fixture() {
+function fixture(config: AdminConfig = ADMIN_TARGETS.DEV) {
   let current: Inspection = {
     view: { ...view },
     latestDecision: null,
@@ -519,7 +522,7 @@ function fixture() {
   };
   const injector = Injector.create({
     providers: [
-      { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS.DEV },
+      { provide: ADMIN_CONFIG, useValue: config },
       { provide: DestroyRef, useValue: ref },
       { provide: ADMIN_BACKEND, useValue: backend },
       { provide: AdminSessionService, useValue: sessionState },
@@ -542,12 +545,28 @@ function fixture() {
     freshAuthentication: () => {
       needsReauth = false;
     },
+    expireAuthentication: () => { needsReauth = true; },
     setList: (fn: (q: ClaimQuery) => Observable<Page<ClaimView>>) =>
       (listOverride = fn),
     invalidate: () => destroyed.next(),
     destroy: () => callbacks.forEach((fn) => fn()),
   };
 }
+await test("PROD capability never bypasses expired authentication or replays an intent", async () => {
+  const f = fixture(ADMIN_TARGETS.PROD);
+  await f.store.open(view.claimId);
+  f.store.prepareDecision(decision);
+  f.expireAuthentication();
+  await f.store.execute();
+  assert.equal(f.decisions.length, 0);
+  assert.ok(f.store.pending());
+  f.freshAuthentication();
+  assert.equal(f.decisions.length, 0);
+  await f.store.execute();
+  assert.equal(f.decisions.length, 1);
+  assert.equal(f.issues.length, 0);
+  f.destroy();
+});
 await test("Approval updates authoritative revision without issuing grant", async () => {
   const f = fixture();
   await f.store.open(view.claimId);
@@ -909,6 +928,7 @@ await test("Session state combines explicit target and backend write policy with
       false,
     ],
     [ADMIN_TARGETS.PROD, session, false, false],
+    [ADMIN_TARGETS.PROD, { ...session, contractVersion: "1.3.0", environment: "PROD", mutationsEnabled: true }, true, true],
     [
       ADMIN_TARGETS.DEV,
       {
@@ -1103,5 +1123,6 @@ await test(
   "Public monitoring is isolated from administration",
   testTelemetryBoundary,
 );
+await test("Private policy handoff requires challenge, consent and fresh identity without replay", testPolicyBootstrap);
 await tick();
 console.log(`${passed} administrative tests passed. Synthetic fixtures only.`);

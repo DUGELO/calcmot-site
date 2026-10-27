@@ -23,10 +23,10 @@ const firebase: AdminConfig["firebase"] = {
 };
 export const ADMIN_TARGETS: Readonly<Record<AdminEnvironment, AdminConfig>> = {
   DEV: { environment: "DEV", mutationsEnabled: true, firebase },
-  PROD: { environment: "PROD", mutationsEnabled: false, firebase },
+  PROD: { environment: "PROD", mutationsEnabled: true, firebase },
 };
 // Deliberate source/build choice, never inferred from hostname or browser storage.
-// Changing this value requires a coordinated release. PROD stays read-only.
+// Backend session and per-operation authorization remain authoritative in both environments.
 export const ADMIN_BUILD_TARGET: AdminEnvironment = environment.admin.environment;
 export const ADMIN_CONFIG = new InjectionToken<AdminConfig>("ADMIN_CONFIG", {
   providedIn: "root",

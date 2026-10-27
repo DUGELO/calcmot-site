@@ -82,6 +82,11 @@ export function withAdminRouting(publicHandler, environment = "DEV") {
       return new Response(request.method === "HEAD" ? null : html, {
         headers: {
           ...privateHeaders,
+          // Fixed loopback receiver only on the explicit PROD entry document.
+          ...(environment === "PROD" && /^\/admin\/?$/.test(url.pathname)
+            ? { "Content-Security-Policy": privateHeaders["Content-Security-Policy"].replace(
+                "connect-src 'self'", "connect-src 'self' http://127.0.0.1:8971") }
+            : {}),
           "Content-Type": "text/html; charset=utf-8",
         },
       });

@@ -35,6 +35,9 @@ const prodResponse = await prodShell.fetch(
   env,
 );
 assert.equal(prodResponse.headers.get("X-CalcMot-Environment"), "PROD");
+assert.match(prodResponse.headers.get("Content-Security-Policy"), /http:\/\/127\.0\.0\.1:8971(?:;| )/);
+const prodSubroute = await prodShell.fetch(new Request("https://calcmot.com.br/admin/solicitacoes"), env);
+assert.doesNotMatch(prodSubroute.headers.get("Content-Security-Policy"), /127\.0\.0\.1/);
 for (const path of [
   "/admin",
   "/admin/",
@@ -100,7 +103,7 @@ for (const path of [
   assert.equal(response.headers.has("X-CalcMot-Environment"), false);
 }
 assert.equal(publicCalls, 8);
-assert.equal(assetCalls, 6); // Five DEV shells plus the explicit read-only PROD shell.
+assert.equal(assetCalls, 7); // Five DEV shells and two PROD documents.
 const head = await handler.fetch(
   new Request("https://calcmot.com.br/admin", { method: "HEAD" }),
   env,
