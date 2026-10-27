@@ -88,6 +88,8 @@
         }
         <small>A autorização é verificada pelo serviço em cada operação.</small>
       </div>
+    } @else if (policyBootstrap.active()) {
+      <admin-policy-bootstrap />
     } @else {
       <router-outlet />
     }

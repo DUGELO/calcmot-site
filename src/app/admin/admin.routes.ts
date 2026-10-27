@@ -4,6 +4,7 @@ import { AdminApi, ADMIN_BACKEND } from "./data-access/admin-api.service";
 import { AdminWorkspaceStore } from "./data-access/admin-workspace.store";
 import { AdminAuth } from "./auth/admin-auth.service";
 import { AdminSessionService } from "./auth/admin-session.service";
+import { AdminPolicyBootstrap } from "./auth/admin-policy-bootstrap.service";
 export const ADMIN_ROUTES: Routes = [
   {
     path: "",
@@ -13,6 +14,7 @@ export const ADMIN_ROUTES: Routes = [
       { provide: ADMIN_BACKEND, useExisting: AdminApi },
       AdminAuth,
       AdminSessionService,
+      AdminPolicyBootstrap,
       AdminWorkspaceStore,
     ],
     loadComponent: () =>

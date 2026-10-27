@@ -1,5 +1,6 @@
 import { testTelemetryBoundary } from "./admin-telemetry.spec";
 import "@angular/compiler";
+import { testPolicyBootstrap } from "./admin-policy-bootstrap.spec";
 import assert from "node:assert/strict";
 import {
   DestroyRef,
@@ -1103,5 +1104,6 @@ await test(
   "Public monitoring is isolated from administration",
   testTelemetryBoundary,
 );
+await test("Private policy handoff requires challenge, consent and fresh identity without replay", testPolicyBootstrap);
 await tick();
 console.log(`${passed} administrative tests passed. Synthetic fixtures only.`);
