@@ -48,6 +48,9 @@ export class SiteAnalyticsService {
     this.document.addEventListener('click', this.trackNavigationClick, { capture: true });
     if (pageGroup(browser.location.pathname) === 'ride_calculator') this.trackCalculatorView(browser);
 
+    // Financial documents must not start a session replay on a direct visit.
+    // The auditor also masks its complete DOM for navigation within the SPA.
+    if (/^\/ferramentas\/auditor-ganhos-ir(?:\/|$)/.test(browser.location.pathname)) return;
     browser.clarity = browser.clarity || Object.assign(
       (...args: unknown[]) => { (browser.clarity!.q ||= []).push(args); },
       { q: [] as unknown[][] },
@@ -64,6 +67,13 @@ export class SiteAnalyticsService {
     const browser = this.document.defaultView as AnalyticsWindow | null;
     if (!browser || !this.initialized || !browser.gtag) return;
     browser.gtag('event', event, { tool_id: 'ride_calculator' });
+  }
+
+  /** Eventos do auditor: somente nomes predefinidos, sem documentos, PII ou valores. */
+  trackAuditorEvent(event: 'web_auditor_viewed'|'web_auditor_upload_started'|'web_auditor_extraction_completed'|'web_auditor_review_needed'|'web_auditor_exported'|'web_auditor_failed'): void {
+    const browser = this.document.defaultView as AnalyticsWindow | null;
+    if (!browser || !this.initialized || !browser.gtag) return;
+    browser.gtag('event', event, { tool_id: 'earnings_auditor' });
   }
 
   /** Eventos de conversão categóricos, sem URL/referrer bruto, valores ou identificadores. */

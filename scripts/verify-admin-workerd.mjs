@@ -90,6 +90,19 @@ try {
     assert.equal(response.status, 404);
     assert.match(response.headers.get("Content-Type"), /application\/json/);
   }
+  const auditorConfig = await runtime.dispatchFetch("https://calcmot.com.br/auditor-interno/config");
+  assert.equal(auditorConfig.status, 200);
+  assert.deepEqual(await auditorConfig.json(), {enabled:false,siteKey:""});
+  const auditorRequest = await runtime.dispatchFetch("https://calcmot.com.br/auditor-interno/analisar", {
+    // This deliberately rejected POST returns before consuming its body. On
+    // Windows, workerd closes that socket; Undici can otherwise reuse it for
+    // the next assets request and report ECONNRESET. Close this test connection
+    // explicitly; retain every fail-closed and public-routing assertion below.
+    method:"POST",headers:{Origin:"https://calcmot.com.br",Connection:"close"},body:"synthetic-no-credentials",
+  });
+  assert.equal(auditorRequest.status,503);
+  assert.match(auditorRequest.headers.get("Cache-Control"),/no-store/);
+  assert.equal((await auditorRequest.json()).code,"UNAVAILABLE");
   for (const path of [
     "/",
     "/como-funciona/",

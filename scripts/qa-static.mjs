@@ -35,6 +35,7 @@ const routePaths = () => {
 
 const PAGES = [
   { route: '', copy: null, component: 'src/app/pages/home/home-page.component.ts' },
+  { route: '/ferramentas/auditor-ganhos-ir', copy: null, component: 'src/app/pages/auditor-ganhos/auditor-ganhos.component.ts' },
   {
     route: '/como-funciona',
     copy: 'src/app/core/constants/pages/como-funciona.copy.ts',
@@ -133,6 +134,7 @@ const EXPECTED_ROUTES = [
   'como-funciona',
   'calculadora-ganhos-motorista-app',
   'ferramentas/corrida-vale-a-pena',
+  'ferramentas/auditor-ganhos-ir',
   'privacidade',
   'suporte',
 ];

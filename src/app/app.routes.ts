@@ -36,6 +36,11 @@ export const routes: Routes = [
     title: 'Calculadora de Corrida Uber e 99: Vale a Pena? | CalcMot',
   },
   {
+    path: 'ferramentas/auditor-ganhos-ir',
+    loadComponent: () => import('./pages/auditor-ganhos/auditor-ganhos.component').then(m => m.AuditorGanhosComponent),
+    title: 'Auditor de Ganhos e IR Facilitado | CalcMot',
+  },
+  {
     path: 'privacidade',
     component: PrivacidadePageComponent,
     title: 'Privacidade: o que o CalcMot lê e o que ele não faz — CalcMot',

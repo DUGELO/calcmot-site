@@ -1,0 +1,100 @@
+<section data-clarity-mask="true" class="section auditor" aria-labelledby="auditor-title">
+  <div class="container container--narrow">
+    <p class="eyebrow">Ferramenta gratuita · Novo</p>
+    <h1 id="auditor-title">Auditor de ganhos e IR facilitado</h1>
+    <p class="lead">Envie um demonstrativo PDF da Uber, confira taxas e repasses e obtenha um resumo financeiro. A IA ajuda a ler documentos; valores fiscais exigem comprovação.</p>
+    <p class="auditor__note">Sem cadastro · Até 8 PDFs por sessão · 4 MiB e até 8 páginas por arquivo · Os arquivos não ficam armazenados no CalcMot</p>
+
+    <section class="auditor__panel" aria-labelledby="upload-title">
+      <h2 id="upload-title">1. Envie seu PDF da Uber</h2>
+      <p>Use um demonstrativo de ganhos baixado da plataforma. Por enquanto, PDFs da 99 e imagens ainda não são suportados.</p>
+      <label class="auditor__check"><input type="checkbox" [checked]="consent()" (change)="changeConsent($event)" />
+        <span>Concordo com a leitura do meu PDF pelo CalcMot e Google Gemini para este relatório. O CalcMot não guarda o arquivo; o Google pode reter dados por tempo limitado para segurança. Posso apagar a sessão e não enviar novos documentos. Removi dados desnecessários de terceiros. <a href="/privacidade/" target="_blank" rel="noopener">Como meus dados são tratados</a>.</span>
+      </label>
+      <div id="auditor-turnstile"></div>
+      @if (!turnstileSiteKey()) {
+        <p role="status" class="auditor__warning">Processamento indisponível: configuração de segurança pendente. O formulário está em homologação.</p>
+      }
+      <label for="auditor-files" class="auditor__file-label">Selecionar PDF da Uber (um por vez; até 8 na sessão)</label>
+      <input id="auditor-files" type="file" accept="application/pdf,.pdf"
+             [disabled]="inProgress() || !consent() || !securityReady()" (change)="onFileChange($event)" />
+      @if (inProgress()) { <p role="status">Processando documento... Aguarde o resultado da análise.</p><button type="button" (click)="clear()">Cancelar e apagar dados da sessão</button> }
+      @if (error()) { <p class="auditor__error" role="alert">{{ error() }}</p> }
+      @if (info()) { <p role="status">{{ info() }}</p> }
+    </section>
+
+    @if (documents().length) {
+      <section class="auditor__panel" aria-labelledby="review-title">
+        <h2 id="review-title">2. Confira resultados e pendências</h2>
+        <p>Relatórios identificados como pendentes ficam fora da soma até a revisão. Só use valores que você puder comprovar.</p>
+        @for (item of documents(); track item.hash) {
+          <article class="auditor__item">
+            <div class="auditor__row">
+              <h3>{{ item.name }}</h3>
+              <span>{{ item.status === 'ready' ? 'Pronto para consolidar' : 'Revisão necessária' }}</span>
+            </div>
+            <p>{{ item.report.periodStart || 'Início não identificado' }} — {{ item.report.periodEnd || 'Fim não identificado' }}</p>
+            @if (item.issues.length) { <p class="auditor__warning">Pendências: {{ item.issues.join(', ') }}</p> }
+            <dl>
+              @for (field of fields; track field.key) {
+                <div class="auditor__datum">
+                  <dt>{{ field.label }}</dt>
+                  <dd>{{ money(item.report[field.key]) }}</dd>
+                  @if (item.status === 'review') {
+                    <label class="auditor__edit">Corrigir valor (R$):
+                      <input inputmode="decimal" type="text" placeholder="Ex.: 123,45"
+                        [attr.aria-label]="'Corrigir '+field.label"
+                        (change)="changeField(item.hash,field.key,$event)" />
+                    </label>
+                  }
+                </div>
+              }
+            </dl>
+            <div class="auditor__actions">
+              @if (item.status === 'review') { <button type="button" (click)="confirmItem(item.hash)">Confirmar após conferir PDF</button> }
+              <button type="button" class="auditor__secondary" (click)="discard(item.hash)">Excluir documento</button>
+            </div>
+          </article>
+        }
+      </section>
+      <section class="auditor__panel" aria-labelledby="financial-title">
+        <h2 id="financial-title">3. Seu resumo financeiro</h2>
+        <p>{{ totals().count }} documento(s) sem sobreposição contabilizado(s) de {{ totalDocumentCount() }}. Resultados parciais não representam lucro nem rendimento tributável.</p>
+        <div class="auditor__stats">
+          <div class="stat"><span class="stat__label">Bruto documentado</span><strong class="stat__value">{{ money(totals().gross) }}</strong></div>
+          <div class="stat"><span class="stat__label">Taxas informadas</span><strong class="stat__value">{{ money(totals().fee) }}</strong></div>
+          <div class="stat"><span class="stat__label">Repasse informado</span><strong class="stat__value">{{ money(totals().payout) }}</strong></div>
+        </div>
+        <p class="auditor__note">O cálculo não soma novamente um resumo anual aos meses que ele abrange. Para calcular lucro operacional são necessários custos do veículo. Repasse não é sinônimo de lucro.</p>
+        <div class="auditor__actions">
+          <button type="button" [disabled]="!approved().length" (click)="downloadCsv()">Exportar CSV dos valores conferidos</button>
+          <button type="button" class="auditor__secondary" (click)="clear()">Apagar dados da sessão</button>
+        </div>
+      </section>
+      <section class="auditor__panel" aria-labelledby="tax-title">
+        <h2 id="tax-title">4. Prévia fiscal informativa</h2>
+        <p>O cálculo para pessoa física exige que o total pago pelos passageiros seja identificável e corresponda à base bruta elegível. O extrato da Uber pode não informar isso.</p>
+        <label for="auditor-tax-profile">Enquadramento</label>
+          <select id="auditor-tax-profile" (change)="changeProfile($event)">
+            <option value="unknown">Não sei informar</option><option value="pf">Pessoa física</option><option value="mei">MEI / pessoa jurídica</option>
+          </select>
+        <label for="auditor-tax-year">Ano-calendário</label>
+          <select id="auditor-tax-year" (change)="changeYear($event)"><option value="2025">2025</option><option value="2026">2026 — base PF 60/40 informativa (sem cálculo de imposto)</option></select>
+        <label class="auditor__check"><input type="checkbox" [checked]="eligible()" (change)="onEligible($event)" /> Confirmo que desempenho pessoalmente o transporte de passageiros como pessoa física e que cumpro as condições aplicáveis.</label>
+        <label class="auditor__check"><input type="checkbox" [checked]="confirmedGross()" (change)="onGross($event)" /> Confirmei que todos os valores de bruto correspondem a rendimentos elegíveis, sem duplicatas ou períodos faltantes.</label>
+        <label class="auditor__check"><input type="checkbox" [checked]="fiscalOptIn()" (change)="onFiscalOptIn($event)" /> Quero ver uma prévia informativa, não uma declaração ou DARF oficial.</label>
+        @if (taxPreview(); as tax) {
+          <div class="auditor__stats">
+            <div class="stat"><span class="stat__label">Base bruta conferida</span><strong class="stat__value">{{ money(tax.gross) }}</strong></div>
+            <div class="stat"><span class="stat__label">Parcela mínima tributável (60%)</span><strong class="stat__value">{{ money(tax.taxable) }}</strong></div>
+            <div class="stat"><span class="stat__label">Parcela máxima não tributável (40%)</span><strong class="stat__value">{{ money(tax.exempt) }}</strong></div>
+          </div>
+          <p class="auditor__warning">Simulação de base, não imposto a pagar. Confirme documentação, rendas e tratamento fiscal com a Receita e profissional habilitado.</p>
+        } @else {
+          <p class="auditor__warning">Prévia fiscal bloqueada até comprovação da base, elegibilidade PF e ano fiscal suportado. Gorjetas, incentivos ou reembolsos sem classificação fiscal exigem orientação profissional; o relatório financeiro continua disponível.</p>
+        }
+      </section>
+    }
+    <p class="auditor__disclaimer">Ferramenta independente de Uber, 99 e Receita Federal. Não substitui documentos oficiais nem consultoria contábil. Nenhuma declaração é transmitida.</p>
+  </div>
+</section>

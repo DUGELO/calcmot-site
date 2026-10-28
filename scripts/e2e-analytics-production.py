@@ -60,6 +60,7 @@ try:
         # Primeiro acesso: visita direta deve gerar um único evento, com origem direta.
         page.goto(ORIGIN + "/ferramentas/corrida-vale-a-pena/", wait_until="networkidle")
         expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
+        page.wait_for_function("(window.dataLayer || []).some(item => item[0] === 'event' && item[1] === 'web_calculator_viewed')")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Visualização direta: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "direct", viewed
@@ -82,10 +83,13 @@ try:
         # Entrada originada na home: a ponte de navegação deve transportar apenas
         # categorias, sem referrer bruto nem dados financeiros.
         page.goto(ORIGIN + "/", wait_until="networkidle")
+        # SSR HTML is visible before hydration; wait for the real click listener.
+        page.wait_for_function("typeof window.gtag === 'function'")
         home_link = page.locator("a[data-analytics-placement='home_hero']")
         expect(home_link).to_have_count(1)
         home_link.click()
         expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
+        page.wait_for_function("(window.dataLayer || []).some(item => item[0] === 'event' && item[1] === 'web_calculator_viewed')")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Entrada home: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "home", viewed
@@ -94,6 +98,14 @@ try:
         assert len(events(page, "page_view")) == 0, "page_view manual indevido"
         assert not errors, f"Erros JavaScript: {errors}"
         print("OK: origem home e CTA identificados, sem duplicações ou dados sensíveis")
+        page.goto(ORIGIN + "/ferramentas/auditor-ganhos-ir/", wait_until="networkidle")
+        expect(page.locator("app-root h1")).to_contain_text("Auditor de ganhos")
+        page.wait_for_function("(window.dataLayer || []).some(item => item[0] === 'event' && item[1] === 'web_auditor_viewed')")
+        auditor = events(page, "web_auditor_viewed")
+        assert auditor == [{"tool_id": "earnings_auditor"}], auditor
+        assert page.locator("script#calcmot-clarity").count() == 0, "Replay iniciado em documento financeiro"
+        expect(page.locator("section.auditor")).to_have_attribute("data-clarity-mask", "true")
+        print("OK: auditor com evento categórico único, DOM mascarado e sem iniciar Clarity")
         browser.close()
 finally:
     server.shutdown()

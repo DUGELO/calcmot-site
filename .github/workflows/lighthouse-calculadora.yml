@@ -33,6 +33,10 @@ jobs:
       - name: Instalar e compilar
         run: |
           npm ci --no-audit --no-fund
+          npm run test:auditor
+          npm run qa:static
+          npm run test:calculator
+          npm run test:analytics
           npm run build
       - name: Executar Lighthouse da rota estática
         run: npx --yes @lhci/cli@0.15.1 autorun --config=./lighthouserc.cjs
