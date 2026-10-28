@@ -85,6 +85,9 @@ jobs:
       - name: Smoke test E2E Angular mobile-first
         run: python scripts/e2e-mobile-smoke.py
 
+      - name: Regressão handoff com Router real e autenticação sintética
+        run: python scripts/e2e-policy-handoff.py
+
       - name: Validar eventos GA4 com hostname de produção simulado
         run: python scripts/e2e-analytics-production.py
 

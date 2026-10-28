@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
 import { bootstrapApplication } from "@angular/platform-browser";
-import { provideRouter, RouterOutlet } from "@angular/router";
+import { provideRouter, RouterLink, RouterOutlet } from "@angular/router";
 import { defer, delay, of, throwError } from "rxjs";
 import { ADMIN_ROUTES } from "../src/app/admin/admin.routes";
 import {
@@ -27,7 +28,24 @@ import type {
 } from "../src/app/admin/data-access/admin.models";
 
 const scenario = new URLSearchParams(location.search).get("scenario");
-const target = scenario === "prod-readonly" ? "PROD" : "DEV";
+const target = ["prod-readonly", "policy-handoff"].includes(scenario ?? "") ? "PROD" : "DEV";
+// Test-only browser origin facade. The production service keeps its official-origin guard.
+const policyDocument = new Proxy(document, {
+  get(target, property) {
+    if (property === "defaultView") return new Proxy(window, {
+      get(view, key) {
+        if (key === "location") return {
+          get hash() { return location.hash; }, get pathname() { return location.pathname; },
+          get search() { return location.search; }, origin: "https://calcmot.com.br",
+        };
+        const value = Reflect.get(view, key, view);
+        return typeof value === "function" ? value.bind(view) : value;
+      },
+    });
+    const value = Reflect.get(target, property, target);
+    return typeof value === "function" ? value.bind(target) : value;
+  },
+});
 const now = () => new Date().toISOString();
 const claims: Inspection[] = Array.from({ length: 23 }, (_, i) => ({
   view: {
@@ -246,6 +264,7 @@ const routes = ADMIN_ROUTES.map((route) => ({
     ...(route.providers ?? []),
     { provide: ADMIN_CONFIG, useValue: ADMIN_TARGETS[target] },
     { provide: ADMIN_BACKEND, useValue: fixture },
+    ...(scenario === "policy-handoff" ? [{ provide: DOCUMENT, useValue: policyDocument }] : []),
     {
       provide: AdminAuth,
       useValue: {
@@ -261,14 +280,23 @@ const routes = ADMIN_ROUTES.map((route) => ({
 @Component({
   selector: "app-prototype",
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   template: `<div
       style="padding:12px 20px;background:#282415;color:#eddda5;font:12px system-ui;text-align:center"
     >
       Protótipo local de teste · Dados sintéticos · Sem conexão com serviços
       reais
     </div>
+    @if (policyScenario) {
+      <a id="synthetic-handoff" [href]="handoff">Abrir handoff sintético nesta aba</a>
+      <a [routerLink]="['/admin']" [queryParams]="{scenario: 'policy-handoff'}"
+        [fragment]="routerFragment">Abrir handoff pelo Router</a>
+    }
     <main id="conteudo"><router-outlet /></main>`,
 })
-class PrototypeRoot {}
+class PrototypeRoot {
+  readonly policyScenario = scenario === "policy-handoff";
+  readonly handoff = "/admin?scenario=policy-handoff#policy-bootstrap=8971." + "a".repeat(64);
+  readonly routerFragment = "policy-bootstrap=8971." + "b".repeat(64);
+}
 bootstrapApplication(PrototypeRoot, { providers: [provideRouter(routes)] });

@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { DOCUMENT } from "@angular/common";
 import { DestroyRef, Injector, runInInjectionContext, signal } from "@angular/core";
 import { Subject } from "rxjs";
+import { NavigationEnd, Router } from "@angular/router";
 import { ADMIN_CONFIG, ADMIN_TARGETS } from "../src/app/admin/auth/admin.config";
 import { AdminSessionService } from "../src/app/admin/auth/admin-session.service";
 import { AdminPolicyBootstrap } from "../src/app/admin/auth/admin-policy-bootstrap.service";
@@ -19,14 +20,22 @@ export async function testPolicyBootstrap(): Promise<void> {
       reauthenticate: async () => { calls.push("reauth"); return true; },
       auth: { token: async () => { calls.push("token"); return "synthetic-sdk-token"; } } };
     const history: string[] = [];
+    const events = new Subject<NavigationEnd>();
+    const location = { hash, origin, pathname: "/admin", search: "" };
+    const listeners = new Map<string, () => void>();
+    const destroyed: (() => void)[] = [];
     const injector = Injector.create({ providers: [
-      { provide: DOCUMENT, useValue: { defaultView: { location: { hash, origin, pathname: "/admin", search: "" },
-        history: { state: {}, replaceState: (_state: unknown, _title: string, path: string) => history.push(path) } } } },
+      { provide: DOCUMENT, useValue: { defaultView: { location,
+        addEventListener: (name: string, listener: () => void) => listeners.set(name, listener),
+        removeEventListener: (name: string) => listeners.delete(name),
+        history: { state: {}, replaceState: (_state: unknown, _title: string, path: string) => { history.push(path); location.hash = ""; } } } } },
+      { provide: Router, useValue: { events } },
       { provide: ADMIN_CONFIG, useValue: target === "PROD" ? ADMIN_TARGETS.PROD : ADMIN_TARGETS.DEV },
       { provide: AdminSessionService, useValue: session },
-      { provide: DestroyRef, useValue: { onDestroy: () => () => undefined } },
+      { provide: DestroyRef, useValue: { onDestroy: (fn: () => void) => { destroyed.push(fn); return () => undefined; } } },
     ] });
-    return { flow: runInInjectionContext(injector, () => new AdminPolicyBootstrap()), session, calls, history, invalidated };
+    return { flow: runInInjectionContext(injector, () => new AdminPolicyBootstrap()), session, calls, history, invalidated, location, listeners, events,
+      destroy: () => injector.destroy() };
   };
   try {
     for (const hash of ["#policy-bootstrap=9000." + nonce, "#policy-bootstrap=8971.bad", "#policy-bootstrap=https://evil/" + nonce]) {
@@ -34,6 +43,18 @@ export async function testPolicyBootstrap(): Promise<void> {
     }
     assert.equal(create(undefined, "DEV").flow.active(), false);
     assert.equal(create(undefined, "PROD", "https://evil.example").flow.active(), false);
+    const later = create("");
+    later.location.hash = "#policy-bootstrap=8971." + nonce;
+    later.listeners.get("hashchange")!();
+    assert.equal(later.flow.active(), true); assert.equal(later.location.hash, "");
+    later.flow.cancel();
+    later.location.hash = "#policy-bootstrap=8971." + nonce;
+    later.events.next(new NavigationEnd(1, "/admin", "/admin"));
+    assert.equal(later.flow.active(), false); assert.equal(later.location.hash, "");
+    later.location.hash = "#policy-bootstrap=8971." + "c".repeat(64);
+    later.events.next(new NavigationEnd(2, "/admin", "/admin"));
+    assert.equal(later.flow.active(), true);
+    later.destroy(); assert.equal(later.listeners.size, 0); assert.equal(later.flow.active(), false);
     const requests: { url: string; init?: RequestInit }[] = [];
     globalThis.fetch = async (url, init) => {
       requests.push({ url: String(url), init });

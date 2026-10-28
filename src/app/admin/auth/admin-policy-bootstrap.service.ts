@@ -1,6 +1,8 @@
 import { DOCUMENT } from "@angular/common";
 import { DestroyRef, Injectable, computed, inject, signal } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter } from "rxjs";
 import { ADMIN_CONFIG } from "./admin.config";
 import { AdminSessionService } from "./admin-session.service";
 
@@ -18,7 +20,9 @@ export class AdminPolicyBootstrap {
   private readonly document = inject(DOCUMENT);
   private readonly config = inject(ADMIN_CONFIG);
   private readonly session = inject(AdminSessionService);
+  private readonly router = inject(Router);
   private nonce: string | null = null;
+  private lastFragment = "";
   private challengeExpires = 0;
   private attempt = 0;
   private controller: AbortController | null = null;
@@ -30,20 +34,38 @@ export class AdminPolicyBootstrap {
 
   constructor() {
     const view = this.document.defaultView;
+    this.captureFragment();
+    const capture = () => this.captureFragment();
+    view?.addEventListener("hashchange", capture);
+    this.router.events.pipe(
+      filter((event) => event instanceof NavigationEnd), takeUntilDestroyed(),
+    ).subscribe(capture);
+    this.session.invalidated.pipe(takeUntilDestroyed()).subscribe(() => this.cancel());
+    inject(DestroyRef).onDestroy(() => {
+      view?.removeEventListener("hashchange", capture);
+      this.cancel();
+    });
+  }
+
+  private captureFragment(): void {
+    const view = this.document.defaultView;
     const fragment = view?.location.hash ?? "";
     if (fragment.startsWith("#policy-bootstrap=")) {
       // Consume before SDK preparation, rendering or any network request.
       view!.history.replaceState(view!.history.state, "", view!.location.pathname + view!.location.search);
       const match = /^#policy-bootstrap=8971\.([a-f0-9]{64})$/.exec(fragment);
-      if (match && this.config.environment === "PROD" &&
+      if (match && fragment !== this.lastFragment && !this.busy() && this.config.environment === "PROD" &&
           view!.location.origin === "https://calcmot.com.br" &&
           /^\/admin\/?$/.test(view!.location.pathname)) {
+        this.lastFragment = fragment;
         this.nonce = match[1];
+        this.challengeExpires = 0;
+        this.receipt.set(null);
+        this.message.set("");
+        this.state.set("idle");
         this.active.set(true);
       }
     }
-    this.session.invalidated.pipe(takeUntilDestroyed()).subscribe(() => this.cancel());
-    inject(DestroyRef).onDestroy(() => this.cancel());
   }
 
   async connect(): Promise<void> {
