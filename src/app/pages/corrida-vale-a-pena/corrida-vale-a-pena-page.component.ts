@@ -87,7 +87,7 @@ export class CorridaValeAPenaPageComponent implements OnDestroy {
     this.aiController=controller;
     this.aiLoading.set(true);this.aiError.set('');this.aiResult.set(null);
     const slowTimeout=setTimeout(()=>{if(this.aiController===controller)this.aiSlow.set(true);},8000);
-    const timeout=setTimeout(()=>controller.abort(),35000);
+    const timeout=setTimeout(()=>controller.abort(),45000);
     try{
       const response=await fetch('/api/tools/ride-insights',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({inputs:this.inputs(),context:this.context(),goal:this.analysisGoal()}),signal:controller.signal});
       const data=await response.json();

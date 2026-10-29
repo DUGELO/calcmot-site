@@ -26,10 +26,10 @@ assert.equal((await handler.fetch(request({inputs,context:'x'.repeat(9000)}),env
 const originalFetch=globalThis.fetch;
 try {
   globalThis.fetch=async(url,options)=>{
-    assert.equal(url,'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent');
+    assert.equal(url,'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent');
     const payload=JSON.parse(options.body);
     assert.equal(payload.systemInstruction.parts[0].text,CALCMOT_RIDE_PROMPT);
-    assert.equal(payload.generationConfig.thinkingConfig,undefined);
+    assert.deepEqual(payload.generationConfig.thinkingConfig,{thinkingLevel:'low'});
     const facts=JSON.parse(payload.contents[0].parts[0].text).fatos;
     assert.equal(facts.kmTotal,12);assert.equal(facts.minutosTotal,24);assert.equal(facts.receitaPorKm,1.5);assert.equal(facts.saldo,11.4);
     return Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(fixture)}]}}]});
@@ -51,7 +51,9 @@ try {
   };
   assert.equal((await handler.fetch(request({inputs:{...inputs,tripKm:'1,005',pickupKm:'0',costPerKm:'1'},context:'Quero conferir os gastos dessa corrida.'}),env)).status,200);
   globalThis.fetch=async()=>new Response('quota',{status:429});
-  assert.equal((await handler.fetch(request(),env)).status,502);
+  const quota=await handler.fetch(request(),env);
+  assert.equal(quota.status,429);
+  assert.equal((await quota.json()).code,'AI_PROVIDER_LIMIT');
   globalThis.fetch=async()=>Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:'{}'}]}}]});
   assert.equal((await handler.fetch(request(),env)).status,502);
   globalThis.fetch=async()=>{throw new Error('network');};

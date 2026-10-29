@@ -6,9 +6,10 @@ A calculadora continua local. Somente o botão **Analisar com CalcMot** envia os
 
 1. Configure a chave como segredo no Worker de destino: `npx wrangler secret put GEMINI_API_KEY`. Nunca coloque a chave em environment Angular, código ou arquivo versionado.
 2. O binding `RIDE_AI_LIMITER` no `wrangler.jsonc` permite 3 tentativas por IP por minuto, por localização Cloudflare. Reserve o namespace 1002 para essa ferramenta na conta. Esse limite não substitui cotas e alertas de cobrança no projeto Google.
-3. O modelo padrão é `gemini-flash-latest`, conforme solicitado; `GEMINI_MODEL` permite fixar uma versão compatível com structured outputs. O alias latest pode mudar de versão: valide o comportamento antes de publicar. Não fixamos parâmetros de thinking específicos de uma geração. Verifique disponibilidade e cotas no projeto Google.
-4. Faça o deploy pelo fluxo Worker + Assets existente. Não publique somente os arquivos estáticos se quiser habilitar a análise. Confirme que o gateway não intercepta `/api/tools/ride-insights` antes deste Worker.
-5. Teste uma análise real no domínio publicado e revise a política de tratamento de dados da conta Google utilizada. Os termos de uso e tratamento variam conforme o serviço contratado.
+3. O modelo padrão agora é fixado em `gemini-3.8-flash`, com thinking baixo para reduzir latência. `GEMINI_MODEL` permite selecionar outro modelo compatível com structured outputs. O Flash 2.5 retornou 404/indisponível para novos usuários nos testes deste projeto, portanto não é alternativa padrão.
+4. `GEMINI_FALLBACK_MODEL` é opcional e fica desativado quando ausente. Só configure um modelo após validar o schema, as contas e a qualidade com a chave/projeto reais. O fallback é usado apenas após falhas transitórias; erros de configuração, cota ou conteúdo não acionam troca automática.
+5. Faça o deploy pelo fluxo Worker + Assets existente. Não publique somente os arquivos estáticos se quiser habilitar a análise. Confirme que o gateway não intercepta `/api/tools/ride-insights` antes deste Worker.
+6. Teste uma análise real no domínio publicado e revise a política de tratamento de dados da conta Google utilizada. Os termos de uso e tratamento variam conforme o serviço contratado.
 
 Sem chave ou binding, o endpoint retorna 503 com mensagem legível; o cálculo permanece disponível.
 
@@ -25,7 +26,9 @@ Sem chave ou binding, o endpoint retorna 503 com mensagem legível; o cálculo p
 
 ## Garantias e limites
 
-O endpoint exige POST JSON da mesma origem, limita o corpo a 8 KiB, valida números e contexto, recalcula os indicadores no servidor, restringe a saída por schema e aplica timeout de 30 segundos (35 segundos no cliente). Texto da IA é renderizado como texto Angular, sem HTML. Editar os dados invalida a resposta anterior e cancela a espera no navegador. Cancelar no navegador não garante cancelamento de uma chamada já recebida pelo Google.
+O endpoint exige POST JSON da mesma origem, limita o corpo a 8 KiB, valida números e contexto, recalcula os indicadores no servidor e restringe a saída por schema. Cada ação permite até duas tentativas no modelo principal e uma no fallback explicitamente configurado, com backoff de 1 s/2 s mais jitter e respeito a Retry-After. Há limite de 12 s por tentativa, 40 s totais e 45 s no cliente. O limite por IP conta a ação; cada tentativa pode consumir cota no Google. Não há retry automático de 400/401/402/403/404/429, bloqueio de conteúdo ou resposta inválida. Texto da IA é renderizado como texto Angular, sem HTML. Editar os dados invalida a resposta anterior e cancela a espera no navegador. O sinal de cancelamento é propagado, mas não garante cancelamento de uma chamada já recebida pelo Google.
+
+Falhas têm códigos distintos: USER_RATE_LIMIT (limite local), AI_PROVIDER_LIMIT (limite do Google), AI_CONFIGURATION (chave/modelo/parâmetros), AI_BUSY (indisponibilidade transitória), AI_TIMEOUT, AI_NETWORK, AI_CONTENT_BLOCKED e AI_INVALID_RESPONSE. Mensagens de usuário não revelam detalhes da conta. Logs técnicos contêm somente modelo, número da tentativa e status/código, nunca chave, IP, prompt ou resposta. Não há repetição em segundo plano após encerrar a ação.
 
 O prompt está em `cloudflare/ride-analysis-prompt.mjs`. A resposta contém veredito, diagnóstico, insights com impacto/ação/confiança, melhorias, preço/condições, próximo passo e até três perguntas. Sem meta ou custos suficientes, o prompt exige explicitar a insuficiência de dados. Valores de cenários extra são estimativas da IA e não substituem os indicadores calculados. Não há verificação matemática automática dos cenários gerados; revise-os antes de decidir. A orientação de negociação se aplica a serviço particular explicitamente informado, não à conversão de viagens de aplicativo.
 

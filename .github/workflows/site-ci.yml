@@ -56,7 +56,9 @@ jobs:
         run: npm run test:calculator
 
       - name: Testar contrato e limites da análise CalcMot sem API externa
-        run: node tests/ride-insights.spec.mjs
+        run: |
+          node tests/ride-insights.spec.mjs
+          node tests/gemini-ride-client.spec.mjs
 
       - name: Testar atribuição de conversões sem PII
         run: npm run test:analytics
