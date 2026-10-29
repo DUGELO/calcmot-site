@@ -1,0 +1,17 @@
+{
+  "verdict": "DADOS INSUFICIENTES",
+  "summary": "A volta vazia pode mudar o resultado. Confirme seus custos e sua meta antes de decidir.",
+  "diagnosis": "O cenário-base considera apenas os campos preenchidos. O retorno citado como possibilidade não está confirmado e não altera esses indicadores.",
+  "insights": [
+    {
+      "finding": "O retorno ainda depende de confirmação.",
+      "impact": "Se houver volta vazia, a mesma receita precisa cobrir mais quilômetros e tempo.",
+      "action": "Confirme a distância e o tempo de retorno que ficariam por sua conta.",
+      "confidence": "CONDICIONAL"
+    }
+  ],
+  "actions": ["Informe se sua meta por hora é bruta ou após custos."],
+  "pricing": "Em oferta de aplicativo, avalie o valor disponível. Sem identificar um serviço particular e os custos completos, não há preço de negociação calculável.",
+  "decision": "Confirme o retorno e a meta para comparar a operação completa.",
+  "questions": ["Qual é sua meta por hora após os custos?"]
+}

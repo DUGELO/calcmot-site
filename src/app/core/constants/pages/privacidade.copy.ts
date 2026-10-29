@@ -62,7 +62,9 @@ export const PRIVACIDADE_COPY: PageCopy = {
       title: 'O que é coletado e o que é compartilhado',
       paragraphs: [
         'A declaração de segurança de dados da ficha do app na Play Store informa: nenhum dado coletado e nenhum dado compartilhado com terceiros.',
-        'Este site não tem formulário, não tem login e não pede dados pessoais para você ler ou baixar o app.',
+        'A calculadora do site processa os campos numéricos no navegador, sem envio para fazer a conta. Ler o site ou baixar o aplicativo não exige preencher dados pessoais.',
+        'Se você escolher Analisar com CalcMot, os valores da corrida e o contexto digitado serão enviados ao Google Gemini por um endpoint do CalcMot para gerar a análise da Inteligência CalcMot. Não inclua nomes, telefone, placa ou endereços exatos. A análise é opcional; a calculadora funciona sem ela.',
+        'O endpoint não grava o texto nem a resposta em banco de dados. A infraestrutura pode registrar metadados técnicos da requisição, e o IP é usado para limitar o número de análises. O tratamento pelo Google segue os termos do serviço Gemini utilizado.',
       ],
       note: 'A ficha do app na Play Store é onde aparece a declaração de dados da versão publicada.',
     },

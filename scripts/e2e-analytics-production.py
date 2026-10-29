@@ -59,7 +59,7 @@ try:
 
         # Primeiro acesso: visita direta deve gerar um único evento, com origem direta.
         page.goto(ORIGIN + "/ferramentas/corrida-vale-a-pena/", wait_until="networkidle")
-        expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
+        expect(page.locator("app-root h1")).to_contain_text("Essa corrida vale a pena?")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Visualização direta: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "direct", viewed
@@ -85,7 +85,7 @@ try:
         home_link = page.locator("a[data-analytics-placement='home_hero']")
         expect(home_link).to_have_count(1)
         home_link.click()
-        expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
+        expect(page.locator("app-root h1")).to_contain_text("Essa corrida vale a pena?")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Entrada home: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "home", viewed

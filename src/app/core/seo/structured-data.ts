@@ -78,6 +78,17 @@ export function faqJsonLd(items: readonly { question: string; answer: string }[]
   };
 }
 
+/** Only destinations that actually exist and are linked on the page. */
+export function breadcrumbJsonLd(items: readonly { name: string; path: string }[]): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem', position: index + 1, name: item.name, item: absoluteUrl(item.path),
+    })),
+  };
+}
+
 /** Calculadora web gratuita: dados estruturados sem alegações de avaliações ou ganhos. */
 export function rideCalculatorWebAppJsonLd(path: string, description: string): JsonLd {
   return withUrl(

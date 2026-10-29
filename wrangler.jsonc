@@ -16,5 +16,8 @@
     "run_worker_first": ["/admin", "/admin/*", "/api", "/api/*", "/index.csr*"],
   },
   "observability": { "enabled": true },
+  "ratelimits": [
+    { "name": "RIDE_AI_LIMITER", "namespace_id": "1002", "simple": { "limit": 3, "period": 60 } },
+  ],
   "build": { "command": "npm run build:cloudflare" },
 }
