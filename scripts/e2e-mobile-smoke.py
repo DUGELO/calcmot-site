@@ -29,9 +29,9 @@ try:
             page = browser.new_page(viewport={"width": width, "height": 844})
             page.on("pageerror", lambda error: errors.append(str(error)))
             page.goto(f"{base}/ferramentas/corrida-vale-a-pena/", wait_until="networkidle")
-            expect(page.locator("app-root h1")).to_contain_text("Calculadora de corrida Uber e 99")
+            expect(page.locator("app-root h1")).to_contain_text("Essa corrida vale a pena?")
             expect(page.locator(".calculator__metric")).to_have_count(0)
-            expect(page.get_by_text("Seu resultado aparece aqui")).to_be_visible()
+            expect(page.locator("#fare")).to_have_value("")
             assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), (
                 f"Overflow horizontal detectado em {width}px"
             )
@@ -47,6 +47,9 @@ try:
                 )).to_be_visible()
 
             # A primeira ação realmente usa o motor Angular, sem exibir resultado prévio.
+            page.locator("#fare").fill("18")
+            page.locator("#tripKm").fill("10")
+            page.locator("#tripMinutes").fill("20")
             page.get_by_role("button", name="Calcular minha corrida").click()
             expect(page.locator(".calculator__metric")).to_have_count(4)
             expect(page.locator(".calculator__metric").first).to_contain_text("1,80")
@@ -57,7 +60,7 @@ try:
             expect(page.locator("#fare")).to_have_attribute("aria-invalid", "true")
 
             # O exemplo completo inclui busca, abre os opcionais e recalcula.
-            page.get_by_role("button", name="Usar exemplo completo").click()
+            page.get_by_role("button", name="Usar exemplo", exact=True).click()
             expect(page.locator(".calculator__extras")).to_have_attribute("open", "")
             page.get_by_role("button", name="Calcular minha corrida").click()
             expect(page.locator(".calculator__metric").first).to_contain_text("1,50")
