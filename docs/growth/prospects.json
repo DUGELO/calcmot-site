@@ -1,0 +1,538 @@
+{
+  "project": "CalcMot",
+  "officialUrl": "https://calcmot.com.br/",
+  "playStoreUrl": "https://play.google.com/store/apps/details?id=br.com.calcmot",
+  "policy": "Nenhum cadastro, pitch ou backlink deve ser marcado como realizado sem comprovante; proíbem-se envios em massa, links pagos e troca compulsória de backlinks.",
+  "targets": [
+    {
+      "id": "launching-next",
+      "name": "Launching Next",
+      "kind": "directory",
+      "submitUrl": "https://www.launchingnext.com/submit/",
+      "cost": "free",
+      "priority": "A",
+      "eligibility": "ready",
+      "notes": "Formulário; nome, email e anti-bot; avaliação editorial",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://www.launchingnext.com/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "Free form accepted; queue receipt 170739; independent working Android product with website."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://www.launchingnext.com/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "Free form accepted; queue receipt 170739; independent working Android product with website."
+        },
+        "free": {
+          "value": true,
+          "url": "https://www.launchingnext.com/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "id": "product-hunt",
+      "name": "Product Hunt",
+      "kind": "directory",
+      "submitUrl": "https://www.producthunt.com/launch",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Conta pessoal, onboarding, imagens e descrição de produto",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "pitchwall",
+      "name": "PitchWall",
+      "kind": "directory",
+      "submitUrl": "https://pitchwall.co/submit",
+      "cost": "free_with_wait",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Plano Free Launch, espera mínima anunciada de 30 dias; confirmar condições no envio",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "peerpush",
+      "name": "PeerPush",
+      "kind": "directory",
+      "submitUrl": "https://peerpush.com/submit",
+      "cost": "free_option",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Aceita site ou Google Play; seleção de plano grátis após gerar ficha",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "peerlist",
+      "name": "Peerlist Launchpad",
+      "kind": "community",
+      "submitUrl": "https://peerlist.io/launchpad",
+      "cost": "unknown",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Comunidade de makers; avaliar regras e elegibilidade para app brasileiro",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "devto",
+      "name": "DEV Community",
+      "kind": "editorial_self",
+      "submitUrl": "https://dev.to/new",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Artigo técnico original sobre o desenvolvimento do CalcMot; sem autopromoção vazia",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "distrito",
+      "name": "Distrito - Cadastro de Startups",
+      "kind": "startup_database",
+      "submitUrl": "https://materiais.distrito.me/cadastro-startups",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Formulário de startup; perfil público com backlink não garantido",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "founders-club",
+      "name": "Founders Club Open",
+      "kind": "startup_database",
+      "submitUrl": "https://hub.foundersclub.com.br/open",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "account",
+      "notes": "Conta e aprovação podem ser necessárias; vitrine pública de startups",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "inova-simples",
+      "name": "Inova Simples - Fale Conosco",
+      "kind": "editorial_form",
+      "submitUrl": "https://inovasimples.com.br/fale-conosco",
+      "cost": "free_to_pitch",
+      "priority": "A",
+      "eligibility": "ready",
+      "notes": "Formulário aceita propostas de pautas e apresentação de startup; publicação depende de redação",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "motoristas-app",
+      "name": "Motoristas de Aplicativos",
+      "kind": "editorial_contact",
+      "submitUrl": "https://www.motoristasdeaplicativos.com.br/contato/",
+      "cost": "free_to_pitch",
+      "priority": "A",
+      "eligibility": "manual",
+      "notes": "Contato de portal focado no mesmo público; não pressupor inserção de link",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "mobilidade360",
+      "name": "Mobilidade360",
+      "kind": "editorial_contact",
+      "submitUrl": "https://mobilidade360.com/contato/",
+      "cost": "free_to_pitch",
+      "priority": "A",
+      "eligibility": "manual",
+      "notes": "Aceita sugestões de pauta; abordagem deve ter fato e utilidade reais",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "detrans",
+      "name": "Portal Detrans do Brasil",
+      "kind": "editorial_contact",
+      "submitUrl": "https://detransdobrasil.com.br/envie-uma-pauta/",
+      "cost": "free_to_pitch",
+      "priority": "A",
+      "eligibility": "manual",
+      "notes": "Canal para sugestão de pauta; sem garantia de publicação",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "carango",
+      "name": "Carango Elétrico",
+      "kind": "editorial_contact",
+      "submitUrl": "https://carangoeletrico.com.br/contato/",
+      "cost": "free_to_pitch",
+      "priority": "B",
+      "eligibility": "manual",
+      "notes": "Artigos/pautas sobre custo de veículos elétricos e híbridos; só propor se houver conteúdo específico",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "autopapo",
+      "name": "AutoPapo",
+      "kind": "editorial_contact",
+      "submitUrl": "https://autopapo.com.br/contato/",
+      "cost": "free_to_pitch",
+      "priority": "A",
+      "eligibility": "manual",
+      "notes": "Redação aceita contato; propor dados verificáveis sobre custo por km",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://autopapo.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official newsroom email explicitly listed; individual automotive operating cost pitch sent. Coverage and link discretionary."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://autopapo.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official newsroom email explicitly listed; individual automotive operating cost pitch sent. Coverage and link discretionary."
+        },
+        "free": {
+          "value": true,
+          "url": "https://autopapo.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "id": "tecnoblog",
+      "name": "Tecnoblog",
+      "kind": "editorial_contact",
+      "submitUrl": "https://tecnoblog.net/contato/",
+      "cost": "free_to_pitch",
+      "priority": "B",
+      "eligibility": "manual",
+      "notes": "Endereço oficial para sugestão de pauta; foco em produto e dados próprios",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://tecnoblog.net/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official pauta channel accepts releases; individual software metrics pitch sent. Coverage and link discretionary."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://tecnoblog.net/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official pauta channel accepts releases; individual software metrics pitch sent. Coverage and link discretionary."
+        },
+        "free": {
+          "value": true,
+          "url": "https://tecnoblog.net/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "id": "mobiletime",
+      "name": "Mobile Time",
+      "kind": "editorial_contact",
+      "submitUrl": "https://www.mobiletime.com.br/equipe/",
+      "cost": "free_to_pitch",
+      "priority": "B",
+      "eligibility": "manual",
+      "notes": "Redação oficial; foco em app e mobilidade conectada",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "saashub",
+      "name": "SaaSHub",
+      "kind": "directory",
+      "submitUrl": "https://www.saashub.com/services/submit",
+      "cost": "free_review",
+      "priority": "C",
+      "eligibility": "blocked_language",
+      "notes": "Não aceita produto sem versão em inglês; não enviar antes de adaptar landing",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "openstartups",
+      "name": "100 Open Startups",
+      "kind": "startup_database",
+      "submitUrl": "https://www.openstartups.net/site/ranking/participe.html",
+      "cost": "free_with_eligibility",
+      "priority": "C",
+      "eligibility": "requires_eligibility",
+      "notes": "Cadastro gratuito; ranking requer relações elegíveis com corporações; não gera backlink automático",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "id": "github-readme",
+      "name": "GitHub README oficial do CalcMot",
+      "kind": "owned_profile",
+      "submitUrl": "https://github.com/DUGELO/calcmot-site",
+      "cost": "free",
+      "priority": "A",
+      "eligibility": "internal_pr",
+      "notes": "Link institucional no README, realizado neste PR; publicação após merge",
+      "submissionStatus": "not_sent",
+      "publishedUrl": null,
+      "lastChecked": "2026-10-29"
+    },
+    {
+      "submissionStatus": "submitted",
+      "publishedUrl": null,
+      "id": "saasolution",
+      "name": "SaaSolution",
+      "kind": "directory",
+      "submitUrl": "https://saasolution.io/submit/",
+      "cost": "free",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://saasolution.io/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "Free submission accepted for original software; receipt 885. Portuguese product and Android scope described accurately."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://saasolution.io/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "Free submission accepted for original software; receipt 885. Portuguese product and Android scope described accurately."
+        },
+        "free": {
+          "value": true,
+          "url": "https://saasolution.io/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "submissionStatus": "published",
+      "publishedUrl": "https://indexflow.tech/directory",
+      "id": "indexflow",
+      "name": "IndexFlow",
+      "kind": "directory",
+      "submitUrl": "https://indexflow.tech/submit",
+      "cost": "free",
+      "stage": "link_confirmed",
+      "qualification": {
+        "eligible": true,
+        "url": "https://indexflow.tech/submit",
+        "checkedAt": "2026-10-29",
+        "note": "Free Finance & Analytics utility category and freemium accepted; public listing confirmed."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://indexflow.tech/submit",
+          "checkedAt": "2026-10-29",
+          "note": "Free Finance & Analytics utility category and freemium accepted; public listing confirmed."
+        },
+        "free": {
+          "value": true,
+          "url": "https://indexflow.tech/submit",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      },
+      "verification": {
+        "linkFound": true,
+        "links": [
+          {
+            "url": "https://calcmot.com.br/",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ],
+            "followed": true
+          }
+        ],
+        "noindex": false,
+        "pageNofollow": false,
+        "canonical": "https://indexflow.tech/directory",
+        "indexation": null,
+        "outcome": "present",
+        "httpStatus": 200,
+        "finalUrl": "https://indexflow.tech/directory",
+        "referringDomain": "indexflow.tech",
+        "checkedAt": "2026-10-29T18:17:40.343Z",
+        "error": null,
+        "robots": {
+          "status": 200,
+          "requiresReview": true,
+          "note": "Crawl rules require user-agent/path review; do not prove indexation."
+        },
+        "firstSeen": "2026-10-29T18:17:40.343Z",
+        "lastSeen": "2026-10-29T18:17:40.343Z",
+        "lostAt": null,
+        "history": [
+          {
+            "at": "2026-10-29T18:17:40.343Z",
+            "outcome": "present",
+            "httpStatus": 200
+          }
+        ]
+      },
+      "verificationMaxBytes": 8388608
+    },
+    {
+      "submissionStatus": "submitted",
+      "publishedUrl": null,
+      "id": "appsapk",
+      "name": "AppsApk",
+      "kind": "directory",
+      "submitUrl": "https://www.appsapk.com/submit-app/",
+      "cost": "free",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://www.appsapk.com/submit-app/",
+        "checkedAt": "2026-10-29",
+        "note": "Official free Android app editorial submission email. Free/Premium mix disclosed for editorial decision; sent only review request."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://www.appsapk.com/submit-app/",
+          "checkedAt": "2026-10-29",
+          "note": "Official free Android app editorial submission email. Free/Premium mix disclosed for editorial decision; sent only review request."
+        },
+        "free": {
+          "value": true,
+          "url": "https://www.appsapk.com/submit-app/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "submissionStatus": "submitted",
+      "publishedUrl": null,
+      "id": "olhardigital",
+      "name": "Olhar Digital",
+      "kind": "editorial_contact",
+      "submitUrl": "https://olhardigital.com.br/fale-conosco/",
+      "cost": "free_to_pitch",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://olhardigital.com.br/fale-conosco/",
+        "checkedAt": "2026-10-29",
+        "note": "Official newsroom invites pitches; individual Android work metrics pitch sent. Coverage and link discretionary."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://olhardigital.com.br/fale-conosco/",
+          "checkedAt": "2026-10-29",
+          "note": "Official newsroom invites pitches; individual Android work metrics pitch sent. Coverage and link discretionary."
+        },
+        "free": {
+          "value": true,
+          "url": "https://olhardigital.com.br/fale-conosco/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "submissionStatus": "submitted",
+      "publishedUrl": null,
+      "id": "revistaauto",
+      "name": "Revista Auto",
+      "kind": "editorial_contact",
+      "submitUrl": "https://www.revistaauto.com.br/contato/",
+      "cost": "free_to_pitch",
+      "stage": "awaiting_review",
+      "qualification": {
+        "eligible": true,
+        "url": "https://www.revistaauto.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official page explicitly invites matter suggestions; individual consumption versus total cost pitch sent."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://www.revistaauto.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official page explicitly invites matter suggestions; individual consumption versus total cost pitch sent."
+        },
+        "free": {
+          "value": true,
+          "url": "https://www.revistaauto.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      }
+    },
+    {
+      "id": "phyco",
+      "name": "Phyco",
+      "kind": "directory",
+      "submitUrl": "https://phyco.org/submit",
+      "cost": "free",
+      "eligibility": "verified",
+      "submissionStatus": "submitted",
+      "stage": "awaiting_review",
+      "publishedUrl": null,
+      "qualification": {
+        "eligible": true,
+        "url": "https://phyco.org/submit",
+        "checkedAt": "2026-10-29",
+        "note": "Travel & Transport category; free reviewed listing; correct free/Premium disclosure and media; terms authorized; email confirmation completed."
+      },
+      "evidence": {
+        "relevance": {
+          "value": true,
+          "url": "https://phyco.org/submit",
+          "checkedAt": "2026-10-29",
+          "note": "Travel & Transport category accepts website services."
+        },
+        "free": {
+          "value": true,
+          "url": "https://phyco.org/terms",
+          "checkedAt": "2026-10-29",
+          "note": "Listing is free; no purchase."
+        }
+      }
+    }
+  ]
+}

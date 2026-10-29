@@ -1,0 +1,27 @@
+name: Free backlink outreach audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 11 * * 1'
+permissions:
+  contents: read
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node --test tests/growth/*.test.mjs
+      - run: node scripts/growth-engine.mjs verify docs/growth/prospects.json growth-verification.json
+      - run: node scripts/growth-audit.mjs growth-outreach-report.md growth-verification.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: growth-outreach-report
+          path: |
+            growth-outreach-report.md
+            growth-outreach-report.json
+            growth-verification.json

@@ -1,0 +1,764 @@
+{
+  "generatedAt": "2026-10-29T18:29:05.118Z",
+  "records": 25,
+  "rawLeads": 16,
+  "opportunities": 9,
+  "declaredPublished": 1,
+  "unverifiedPublicationClaims": [],
+  "execution": {
+    "recordedEvents": 17,
+    "confirmedSubmissions": 9,
+    "confirmedFormSubmissions": 4,
+    "sentEditorialProposals": 5,
+    "totalConfirmedActions": 9,
+    "awaitingReview": [
+      {
+        "opportunityId": "launching-next",
+        "protocol": "170739",
+        "confirmationUrl": "https://www.launchingnext.com/thanks/?i=170739"
+      },
+      {
+        "opportunityId": "autopapo",
+        "protocol": "1a188db9d65b194b",
+        "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188db9d65b194b"
+      },
+      {
+        "opportunityId": "tecnoblog",
+        "protocol": "1a188dbcb9019916",
+        "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188dbcb9019916"
+      },
+      {
+        "opportunityId": "olhardigital",
+        "protocol": "1a188dbfe6fd102c",
+        "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188dbfe6fd102c"
+      },
+      {
+        "opportunityId": "appsapk",
+        "protocol": "1a188de2eede6a8b",
+        "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188de2eede6a8b"
+      },
+      {
+        "opportunityId": "saasolution",
+        "protocol": "885",
+        "confirmationUrl": "https://saasolution.io/submit/"
+      },
+      {
+        "opportunityId": "revistaauto",
+        "protocol": "1a188e1a83efa4d2",
+        "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188e1a83efa4d2"
+      },
+      {
+        "opportunityId": "phyco",
+        "protocol": null,
+        "confirmationUrl": "https://phyco.org/submit/verify"
+      }
+    ],
+    "blockedActions": 8,
+    "acquisitionCostBRL": 0
+  },
+  "stages": {
+    "discovered": 13,
+    "qualified": 0,
+    "drafted": 0,
+    "submitted": 0,
+    "awaiting_review": 8,
+    "published": 0,
+    "link_confirmed": 1,
+    "rejected": 0,
+    "blocked_external": 3,
+    "approved": 0,
+    "unavailable": 0,
+    "lost": 0
+  },
+  "verifiedLinks": 1,
+  "referringDomains": 1,
+  "lostLinks": 0,
+  "referralTraffic": null,
+  "organicClicks": null,
+  "domainAuthority": null,
+  "domainRating": null,
+  "ranked": [
+    {
+      "id": "launching-next",
+      "name": "Launching Next",
+      "executionEvents": [
+        {
+          "id": "launching-next-170739",
+          "opportunityId": "launching-next",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://www.launchingnext.com/thanks/?i=170739",
+          "protocol": "170739",
+          "evidence": "docs/growth/evidence/launching-next-submitted.jpg",
+          "observedText": "Submission Received; Status: In Queue (Estimated Wait: 4 Months)",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://www.launchingnext.com/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "Free form accepted; queue receipt 170739; independent working Android product with website."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://www.launchingnext.com/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "autopapo",
+      "name": "AutoPapo",
+      "executionEvents": [
+        {
+          "id": "email-autopapo",
+          "opportunityId": "autopapo",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188db9d65b194b",
+          "protocol": "1a188db9d65b194b",
+          "evidence": "docs/growth/evidence/editorial-sends.json",
+          "channel": "individual_email",
+          "recipient": "redacao@autopapo.com.br",
+          "subject": "Sugestão de pauta: manutenção também entra na conta por quilômetro",
+          "observedText": "Gmail API returned SENT; delivery, reading and editorial acceptance not confirmed",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://autopapo.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official newsroom email explicitly listed; individual automotive operating cost pitch sent. Coverage and link discretionary."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://autopapo.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "tecnoblog",
+      "name": "Tecnoblog",
+      "executionEvents": [
+        {
+          "id": "email-tecnoblog",
+          "opportunityId": "tecnoblog",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188dbcb9019916",
+          "protocol": "1a188dbcb9019916",
+          "evidence": "docs/growth/evidence/editorial-sends.json",
+          "channel": "individual_email",
+          "recipient": "imprensa@tecnoblog.net",
+          "subject": "Pauta de serviço: uma conta de R$/km correta pode omitir parte do trabalho",
+          "observedText": "Gmail API returned SENT; delivery, reading and editorial acceptance not confirmed",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://tecnoblog.net/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official pauta channel accepts releases; individual software metrics pitch sent. Coverage and link discretionary."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://tecnoblog.net/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "saasolution",
+      "name": "SaaSolution",
+      "executionEvents": [
+        {
+          "id": "saasolution-885",
+          "opportunityId": "saasolution",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://saasolution.io/submit/",
+          "protocol": "885",
+          "evidence": "docs/growth/evidence/saasolution-submitted.jpg",
+          "observedText": "Thanks, we have your submission (reference #885).",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://saasolution.io/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "Free submission accepted for original software; receipt 885. Portuguese product and Android scope described accurately."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://saasolution.io/submit/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "indexflow",
+      "name": "IndexFlow",
+      "executionEvents": [
+        {
+          "id": "indexflow-published",
+          "opportunityId": "indexflow",
+          "status": "link_confirmed",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://indexflow.tech/directory",
+          "protocol": null,
+          "evidence": "docs/growth/evidence/indexflow-dom.json",
+          "publishedUrl": "https://indexflow.tech/directory",
+          "backlinkConfirmed": true,
+          "costBRL": 0,
+          "observedText": "Submission Published for CalcMot; public directory DOM confirmed exact anchor; HTTP verification in verified-links.json"
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://indexflow.tech/submit",
+          "checkedAt": "2026-10-29",
+          "note": "Free Finance & Analytics utility category and freemium accepted; public listing confirmed."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://indexflow.tech/submit",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "appsapk",
+      "name": "AppsApk",
+      "executionEvents": [
+        {
+          "id": "email-appsapk",
+          "opportunityId": "appsapk",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188de2eede6a8b",
+          "protocol": "1a188de2eede6a8b",
+          "evidence": "docs/growth/evidence/editorial-sends.json",
+          "channel": "individual_email",
+          "recipient": "admin@appsapk.com",
+          "subject": "Submission — CalcMot (br.com.calcmot), Android ride-offer calculator for Brazil",
+          "observedText": "Gmail API returned SENT; delivery, reading and editorial acceptance not confirmed",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://www.appsapk.com/submit-app/",
+          "checkedAt": "2026-10-29",
+          "note": "Official free Android app editorial submission email. Free/Premium mix disclosed for editorial decision; sent only review request."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://www.appsapk.com/submit-app/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "olhardigital",
+      "name": "Olhar Digital",
+      "executionEvents": [
+        {
+          "id": "email-olhardigital",
+          "opportunityId": "olhardigital",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188dbfe6fd102c",
+          "protocol": "1a188dbfe6fd102c",
+          "evidence": "docs/growth/evidence/editorial-sends.json",
+          "channel": "individual_email",
+          "recipient": "redacao@olhardigital.com.br",
+          "subject": "Sugestão: Android no trabalho e a diferença entre receita da oferta e lucro",
+          "observedText": "Gmail API returned SENT; delivery, reading and editorial acceptance not confirmed",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://olhardigital.com.br/fale-conosco/",
+          "checkedAt": "2026-10-29",
+          "note": "Official newsroom invites pitches; individual Android work metrics pitch sent. Coverage and link discretionary."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://olhardigital.com.br/fale-conosco/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "revistaauto",
+      "name": "Revista Auto",
+      "executionEvents": [
+        {
+          "id": "email-revistaauto",
+          "opportunityId": "revistaauto",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://mail.google.com/mail/u/0/#sent/1a188e1a83efa4d2",
+          "protocol": "1a188e1a83efa4d2",
+          "evidence": "docs/growth/evidence/editorial-sends.json",
+          "channel": "individual_email",
+          "recipient": "revistaauto@outlook.com.br",
+          "subject": "Sugestão de matéria: consumo do carro e custo por km são contas diferentes",
+          "observedText": "Gmail API returned SENT; delivery, reading and editorial acceptance not confirmed",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://www.revistaauto.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "Official page explicitly invites matter suggestions; individual consumption versus total cost pitch sent."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://www.revistaauto.com.br/contato/",
+          "checkedAt": "2026-10-29",
+          "note": "No acquisition payment; official free submission or editorial pitch channel."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "phyco",
+      "name": "Phyco",
+      "executionEvents": [
+        {
+          "id": "phyco-confirmed",
+          "opportunityId": "phyco",
+          "status": "awaiting_review",
+          "submissionConfirmed": true,
+          "confirmationUrl": "https://phyco.org/submit/verify",
+          "protocol": null,
+          "evidence": "docs/growth/evidence/phyco-submitted.jpg",
+          "observedText": "Submission confirmed. Your listing is now in our review queue; usually within a couple of days.",
+          "publishedUrl": null,
+          "backlinkConfirmed": false,
+          "costBRL": 0,
+          "emailConfirmationMessageId": "1a188e9db2f39c1c"
+        }
+      ],
+      "points": 40,
+      "max": 100,
+      "evidence": [
+        {
+          "criterion": "relevance",
+          "weight": 30,
+          "value": true,
+          "url": "https://phyco.org/submit",
+          "checkedAt": "2026-10-29",
+          "note": "Travel & Transport category accepts website services."
+        },
+        {
+          "criterion": "free",
+          "weight": 10,
+          "value": true,
+          "url": "https://phyco.org/terms",
+          "checkedAt": "2026-10-29",
+          "note": "Listing is free; no purchase."
+        }
+      ],
+      "unknown": [
+        "audience",
+        "editorial",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "product-hunt",
+      "name": "Product Hunt",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "pitchwall",
+      "name": "PitchWall",
+      "executionEvents": [
+        {
+          "id": "pitchwall-auth",
+          "opportunityId": "pitchwall",
+          "status": "blocked_external",
+          "source": "https://pitchwall.co/auth/login?redirect=/product/submit?plan=free",
+          "reason": "Free plan exists, minimum 30-day queue. Submission requires login and acceptance of terms plus newsletters; no authenticated session available in task browser.",
+          "submissionConfirmed": false,
+          "backlinkConfirmed": false
+        }
+      ],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "peerpush",
+      "name": "PeerPush",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "peerlist",
+      "name": "Peerlist Launchpad",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "devto",
+      "name": "DEV Community",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "distrito",
+      "name": "Distrito - Cadastro de Startups",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "founders-club",
+      "name": "Founders Club Open",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "inova-simples",
+      "name": "Inova Simples - Fale Conosco",
+      "executionEvents": [
+        {
+          "id": "inova-simples-browser-block",
+          "opportunityId": "inova-simples",
+          "status": "blocked_external",
+          "submissionConfirmed": false,
+          "reason": "Browser security policy blocked the form action. No retry through another surface or channel. No success confirmation obtained.",
+          "publishedUrl": null,
+          "backlinkConfirmed": false
+        }
+      ],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "motoristas-app",
+      "name": "Motoristas de Aplicativos",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "mobilidade360",
+      "name": "Mobilidade360",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "detrans",
+      "name": "Portal Detrans do Brasil",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "carango",
+      "name": "Carango Elétrico",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "mobiletime",
+      "name": "Mobile Time",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "saashub",
+      "name": "SaaSHub",
+      "executionEvents": [
+        {
+          "id": "saashub-language",
+          "opportunityId": "saashub",
+          "status": "blocked_external",
+          "source": "https://www.saashub.com/services/submit",
+          "reason": "Official guidelines reject products not in English. Current CalcMot landing page is Portuguese.",
+          "submissionConfirmed": false,
+          "backlinkConfirmed": false
+        }
+      ],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "openstartups",
+      "name": "100 Open Startups",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    },
+    {
+      "id": "github-readme",
+      "name": "GitHub README oficial do CalcMot",
+      "executionEvents": [],
+      "points": 0,
+      "max": 100,
+      "evidence": [],
+      "unknown": [
+        "relevance",
+        "audience",
+        "editorial",
+        "free",
+        "lowEffort"
+      ]
+    }
+  ]
+}
