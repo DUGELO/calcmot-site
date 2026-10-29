@@ -22,6 +22,11 @@ assert.equal(trackedDestination('https://site-falso.com/ferramentas/corrida-vale
 assert.equal(entryFromReferrer('https://calcmot.com.br/como-funciona/?abc=private','https://calcmot.com.br/ferramentas/corrida-vale-a-pena/').sourcePage,'how_it_works');
 assert.equal(entryFromReferrer('https://instagram.com/x?session=secret','https://calcmot.com.br/ferramentas/corrida-vale-a-pena/').sourcePage,'external');
 assert.equal(entryFromReferrer('','https://calcmot.com.br/ferramentas/corrida-vale-a-pena/').entryType,'direct');
+assert.equal(pageGroup('/blog/'), 'blog_index');
+assert.equal(pageGroup('/blog/lucro-por-km/'), 'blog_article');
+assert.equal(pageGroup('/blog/categoria/custos-operacionais/'), 'blog_index');
+assert.equal(safePlacement('blog_tool'), 'blog_tool');
+assert.equal(entryFromReferrer('https://calcmot.com.br/blog/lucro-por-km/','https://calcmot.com.br/ferramentas/corrida-vale-a-pena/').sourcePage,'blog_article');
 const now = 1000000;
 assert.equal(storedCalculatorEntry(JSON.stringify({sourcePage:'home',placement:'home_hero',timestamp:now-1000}),now).sourcePage,'home');
 assert.equal(storedCalculatorEntry(JSON.stringify({sourcePage:'home',placement:'home_hero',timestamp:now-121000}),now),null);

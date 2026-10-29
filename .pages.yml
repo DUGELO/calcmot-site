@@ -1,0 +1,107 @@
+media:
+  input: public/media/blog
+  output: /media/blog
+  rename: random
+  extensions: [webp, avif, jpg, jpeg, png]
+content:
+  - name: articles
+    label: Artigos do CalcMot
+    type: collection
+    path: content/blog
+    format: yaml-frontmatter
+    filename: "{fields.slug}.md"
+    subfolders: false
+    view:
+      primary: title
+      fields: [title, status, category, publishedAt]
+      sort: [publishedAt, title]
+      default:
+        sort: publishedAt
+        order: desc
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+      - name: slug
+        label: Slug único
+        type: string
+        required: true
+        pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+        description: "URL curta, sem acentos. Não use pagina ou categoria. Ao mudar uma URL já publicada, adicione o slug antigo em Slugs anteriores."
+      - name: summary
+        label: Resumo
+        type: text
+        required: true
+      - name: cover
+        label: Imagem de capa
+        type: image
+        required: true
+        description: "Envie imagem raster com até 8 MB. O build gera versões WebP de até 1200 px."
+      - name: coverAlt
+        label: Descrição da imagem
+        type: string
+        required: true
+      - name: category
+        label: Categoria
+        type: select
+        required: true
+        options:
+          values:
+            - { name: lucro-por-quilometro, label: Lucro por quilômetro }
+            - { name: lucro-por-hora, label: Lucro por hora }
+            - { name: custos-operacionais, label: Custos operacionais }
+            - { name: combustivel-e-manutencao, label: Combustível e manutenção }
+            - { name: uber-versus-99, label: Uber versus 99 }
+            - { name: gestao-financeira, label: Gestão financeira }
+            - { name: imposto-de-renda, label: Imposto de Renda }
+            - { name: rentabilidade-de-corridas, label: Rentabilidade de corridas }
+      - name: author
+        label: Autor responsável
+        type: string
+        required: true
+      - name: publishedAt
+        label: Data de publicação
+        type: date
+        required: true
+        options: { format: yyyy-MM-dd }
+      - name: updatedAt
+        label: Última atualização real
+        type: date
+        default: ""
+        description: "Preencha apenas ao revisar o conteúdo. Não altere a data só para parecer recente."
+        options: { format: yyyy-MM-dd }
+      - name: status
+        label: Status
+        type: select
+        required: true
+        default: draft
+        options:
+          values:
+            - { name: draft, label: Rascunho }
+            - { name: published, label: Publicado }
+      - name: body
+        label: Conteúdo
+        type: rich-text
+        required: true
+        description: "Use títulos a partir de H2, sem pular níveis. HTML incorporado não é executado. Links externos devem usar HTTPS."
+      - name: seoTitle
+        label: Título SEO
+        type: string
+        description: "Opcional; usa o título do artigo quando vazio. Precisa ser único."
+      - name: seoDescription
+        label: Meta description
+        type: text
+        description: "Opcional; usa o resumo quando vazio. Precisa ser única."
+      - name: canonical
+        label: Canonical alternativo
+        type: string
+        description: "Deixe vazio normalmente. Use URL HTTPS absoluta apenas em republicação autorizada."
+      - name: aliases
+        label: Slugs anteriores
+        type: string
+        list: true
+        description: "Somente slugs antigos deste artigo, sem /blog/. Geram redirecionamento HTTP 301."
+settings:
+  content:
+    merge: true
