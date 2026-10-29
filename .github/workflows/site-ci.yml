@@ -2,7 +2,7 @@ name: Site CI (Angular + SEO)
 
 on:
   pull_request:
-    branches: [main, feat/site-ci-growth-prd]
+    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
