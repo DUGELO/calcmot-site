@@ -1,7 +1,7 @@
 /** Grupos fechados para análise sem enviar URLs, queries ou dados do motorista. */
 export type PageGroup =
   | 'home' | 'ride_calculator' | 'app_calculator' | 'how_it_works'
-  | 'privacy' | 'support' | 'other_internal' | 'external' | 'direct';
+  | 'blog_index' | 'blog_article' | 'privacy' | 'support' | 'other_internal' | 'external' | 'direct';
 
 export type TrafficEntry = 'internal' | 'external' | 'direct';
 export type TrackedDestination = 'ride_calculator' | 'play_store';
@@ -9,11 +9,13 @@ export type TrackedDestination = 'ride_calculator' | 'play_store';
 const TOOL_PATH = '/ferramentas/corrida-vale-a-pena';
 const SITE_HOSTS = new Set(['calcmot.com.br', 'www.calcmot.com.br']);
 const PLACEMENTS = new Set([
+  'blog_tool', 'blog_play',
   'header_desktop', 'header_mobile', 'header_cta', 'footer_nav', 'footer_play',
   'home_hero', 'home_hero_cta', 'home_comparison', 'app_page_hero', 'app_page_play',
   'calculator_result', 'calculator_real_offer', 'cta_band', 'how_it_works_play', 'other_link',
 ]);
 const PAGES = new Set<PageGroup>([
+  'blog_index','blog_article',
   'home','ride_calculator','app_calculator','how_it_works','privacy','support',
   'other_internal','external','direct',
 ]);
@@ -24,7 +26,11 @@ export function canonicalPath(path: string): string {
 }
 
 export function pageGroup(path: string): PageGroup {
-  switch (canonicalPath(path)) {
+  const normalized = canonicalPath(path);
+  if (/^\/blog(?:\/|$)/.test(normalized)) {
+    return /^\/blog\/(?!categoria(?:\/|$)|pagina(?:\/|$))[a-z0-9-]+$/.test(normalized) ? 'blog_article' : 'blog_index';
+  }
+  switch (normalized) {
     case '/': return 'home';
     case TOOL_PATH: return 'ride_calculator';
     case '/calculadora-ganhos-motorista-app': return 'app_calculator';

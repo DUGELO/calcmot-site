@@ -22,7 +22,18 @@
     "test:admin:edge": "node tests/admin-edge.spec.mjs",
     "build:admin:dev": "ng build --configuration production,admin-staging --output-path dist/calcmot-admin-dev",
     "build:admin:prod": "ng build --configuration production,admin-production --output-path dist/calcmot-admin-prod",
-    "test:admin:environment": "node tests/admin-build-environment.spec.mjs"
+    "test:admin:environment": "node tests/admin-build-environment.spec.mjs",
+    "content:generate": "node scripts/generate-blog.mjs && node scripts/generate-sitemap.mjs",
+    "prebuild": "npm run content:generate",
+    "prebuild:development": "npm run content:generate",
+    "prestart": "npm run content:generate",
+    "preseo:sitemap": "node scripts/generate-blog.mjs",
+    "test:blog": "node --test tests/blog.spec.mjs",
+    "qa:blog:build": "node scripts/verify-blog-build.mjs",
+    "test:blog:publication": "node scripts/test-blog-publication.mjs",
+    "prewatch": "npm run content:generate",
+    "prebuild:admin:dev": "npm run content:generate",
+    "prebuild:admin:prod": "npm run content:generate"
   },
   "dependencies": {
     "@angular/common": "^21.2.0",
@@ -49,8 +60,12 @@
     "@angular/compiler-cli": "^21.2.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.15.0",
+    "markdown-it": "15.0.3",
+    "sanitize-html": "2.18.1",
     "sass": "^1.93.0",
+    "sharp": "0.35.5",
     "typescript": "~5.9.2",
-    "wrangler": "4.149.0"
+    "wrangler": "4.149.0",
+    "yaml": "2.9.1"
   }
 }

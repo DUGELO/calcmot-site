@@ -7,6 +7,7 @@ import { PrivacidadePageComponent } from './pages/privacidade/privacidade-page.c
 import { SuportePageComponent } from './pages/suporte/suporte-page.component';
 
 export const routes: Routes = [
+  { path: 'blog', loadChildren: () => import('./blog/blog.routes').then(m => m.BLOG_ROUTES) },
   {
     path: 'admin',
     canMatch: [adminDocumentBoundary],

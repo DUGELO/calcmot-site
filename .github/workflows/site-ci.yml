@@ -63,11 +63,16 @@ jobs:
       - name: Testar atribuição de conversões sem PII
         run: npm run test:analytics
 
+      - name: Validar contrato editorial e segurança do blog
+        run: npm run test:blog
+
       - name: Build Angular SSR + prerender
         run: npm run build
 
       - name: Validar HTML indexável, canonical, Play Store e sitemap
-        run: node scripts/verify-prerender.mjs
+        run: |
+          node scripts/verify-prerender.mjs
+          npm run qa:blog:build
 
       - name: Empacotar o Worker e Assets sem publicar
         run: npx wrangler deploy --dry-run --config wrangler.jsonc --outdir .angular/worker-dryrun
@@ -86,6 +91,12 @@ jobs:
         run: |
           python -m pip install playwright==1.58.0
           python -m playwright install --with-deps chromium
+
+      - name: Homologar publicação editorial em fixtures sem deploy
+        env:
+          CALCMOT_BLOG_UI_PYTHON: python
+          WRANGLER_SEND_METRICS: "false"
+        run: npm run test:blog:publication
 
       - name: Smoke test E2E Angular mobile-first
         run: python scripts/e2e-mobile-smoke.py

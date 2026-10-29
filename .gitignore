@@ -10,3 +10,8 @@ yarn-debug.log*
 yarn-error.log*
 .DS_Store
 Thumbs.db
+
+# Generated editorial output; regenerated before build/start.
+/src/app/blog/generated/
+/cloudflare/generated/
+/public/media/blog-optimized/
