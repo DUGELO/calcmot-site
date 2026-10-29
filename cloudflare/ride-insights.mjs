@@ -1,8 +1,8 @@
-import { CALCMOT_RIDE_PROMPT, RIDE_ANALYSIS_SCHEMA, isRideAnalysis } from './ride-analysis-prompt.mjs';
+import { generateRideAnalysis } from './gemini-ride-client.mjs';
 
 const PATH = '/api/tools/ride-insights';
 const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex', 'X-Content-Type-Options': 'nosniff' };
-const reply = (status, data) => Response.json(data, { status, headers });
+const reply = (status, data, extraHeaders = {}) => Response.json(data, { status, headers: { ...headers, ...extraHeaders } });
 const fields = ['fare', 'pickupKm', 'tripKm', 'tripMinutes', 'pickupMinutes', 'costPerKm'];
 const goals = {
   general: 'Avaliar se a oferta compensa nas condições informadas.',
@@ -18,13 +18,13 @@ export function withRideInsights(handler) {
       if (url.pathname !== PATH) return handler.fetch(request, env, context);
       if (request.method !== 'POST') return reply(405, { error: 'Método não permitido.' });
       if (request.headers.get('Origin') !== url.origin) return reply(403, { error: 'Origem inválida.' });
-      if (!env.GEMINI_API_KEY || !env.RIDE_AI_LIMITER) return reply(503, { error: 'A análise com IA ainda não está disponível. Seu cálculo continua funcionando.' });
+      if (!env.GEMINI_API_KEY || !env.RIDE_AI_LIMITER) return reply(503, { code: 'AI_CONFIGURATION', error: 'A ajuda com IA precisa de um ajuste no serviço. Você pode continuar usando a calculadora.' });
       const ip = request.headers.get('CF-Connecting-IP');
       if (!ip) return reply(403, { error: 'Não foi possível validar a solicitação.' });
       let allowed;
       try { allowed = await env.RIDE_AI_LIMITER.limit({ key: ip }); }
       catch { return reply(503, { error: 'A análise está temporariamente indisponível.' }); }
-      if (!allowed.success) return reply(429, { error: 'Limite de análises atingido. Aguarde um minuto e tente novamente.' });
+      if (!allowed.success) return reply(429, { code: 'USER_RATE_LIMIT', error: 'Você fez algumas análises em sequência. Aguarde um minuto para tentar de novo.' }, { 'Retry-After': '60' });
       if (!request.headers.get('Content-Type')?.startsWith('application/json')) return reply(415, { error: 'Formato inválido.' });
       // Bound streamed bodies as well as requests declaring Content-Length.
       const reader = request.body?.getReader();
@@ -60,24 +60,9 @@ export function withRideInsights(handler) {
       const totalMeters=units(body.inputs.tripKm,3)+units(body.inputs.pickupKm,3);
       const costCents=body.inputs.costPerKm.trim()?Math.round(totalMeters*units(body.inputs.costPerKm,3)/10000):null;
       const facts = { receita: fareCents/100, kmTotal: totalMeters/1000, minutosTotal: minutes, receitaPorKm: Math.round(fareCents*1000/totalMeters)/100, receitaPorHora: Math.round(fareCents*60/minutes)/100, custo: costCents===null?null:costCents/100, saldo: costCents===null?null:(fareCents-costCents)/100 };
-      try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${env.GEMINI_MODEL || 'gemini-flash-latest'}:generateContent`, {
-          method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(30000),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: CALCMOT_RIDE_PROMPT }] },
-            contents: [{ parts: [{ text: JSON.stringify({ objetivoDaAnalise: goals[goal], fatos: facts, camposInformados: values, custoPorKmInformado: Boolean(body.inputs.costPerKm.trim()), contextoDoMotorista: body.context.trim() }) }] }],
-            generationConfig: { temperature: 0.2, maxOutputTokens: 6144, responseMimeType: 'application/json', responseSchema: RIDE_ANALYSIS_SCHEMA },
-          }),
-        });
-        if (!response.ok) return reply(502, { error: 'O Gemini está indisponível. Tente novamente mais tarde.' });
-        const data = await response.json();
-        const candidate = data.candidates?.[0];
-        if (candidate?.finishReason !== 'STOP') throw new Error('Incomplete response');
-        const result = JSON.parse(candidate.content.parts.filter(part => !part.thought).map(part => part.text || '').join(''));
-        if (!isRideAnalysis(result)) throw new Error('Invalid response');
-        const { verdict, summary, diagnosis, insights, actions, pricing, decision, questions } = result;
-        return reply(200, { verdict, summary, diagnosis, insights, actions, pricing, decision, questions });
-      } catch { return reply(502, { error: 'Não foi possível concluir a análise. Tente novamente. Seu cálculo foi preservado.' }); }
+      const result = await generateRideAnalysis(env, { objetivoDaAnalise: goals[goal], fatos: facts, camposInformados: values, custoPorKmInformado: Boolean(body.inputs.costPerKm.trim()), contextoDoMotorista: body.context.trim() }, { signal: request.signal });
+      if (result.ok) return reply(200, result.analysis);
+      return reply(result.status, { code: result.code, error: result.error }, result.retryAfter ? { 'Retry-After': String(result.retryAfter) } : {});
     },
   };
 }
