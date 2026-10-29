@@ -15,7 +15,12 @@ for (const path of routes) {
   const post = manifest.posts.find(post => path === 'blog/' + post.slug);
   assert.ok(html.includes('href="' + (post?.canonical ?? 'https://calcmot.com.br/' + path + '/') + '"'), 'Canonical: ' + path);
   if (post) {
-    assert.match(html, /"@type":"BlogPosting"/);
+    const blocks = [...html.matchAll(/<script[^>]+type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1]));
+    const schema = blocks.find(block => block['@type'] === 'BlogPosting');
+    assert.ok(schema, 'BlogPosting JSON válido ausente');
+    for (const key of ['headline','description','image','datePublished','dateModified','author','publisher','mainEntityOfPage']) assert.ok(schema[key], 'Campo schema ausente: ' + key);
+    assert.equal(schema.author['@type'], 'Person');
+    assert.ok(blocks.some(block => block['@type'] === 'BreadcrumbList'), 'BreadcrumbList ausente');
     assert.match(html, /property="og:type" content="article"/);
     assert.match(html, /name="twitter:card" content="summary_large_image"/);
     assert.ok(html.includes('property="og:image"'), 'OG image ausente');

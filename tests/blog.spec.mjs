@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import sharp from 'sharp';
 import { parse } from 'yaml';
 import { readFileSync } from 'node:fs';
-import { loadPosts, renderMarkdown, safeLink, listingPaths, canonical } from '../scripts/blog/content.mjs';
+import { loadPosts, renderMarkdown, safeLink, listingPaths, canonical, editorialToday } from '../scripts/blog/content.mjs';
 import { withBlogRouting } from '../cloudflare/blog-routing.mjs';
 
 const post = (overrides = {}, body = '## A conta\n\nExemplo verificável com [calculadora](/ferramentas/corrida-vale-a-pena/).') => {
@@ -85,4 +85,9 @@ test('Worker entrega 404, HEAD, 405, 301 e preserva rotas existentes', async () 
   assert.equal(await (await run('/blog/artigo/')).text(),'original');
   assert.equal(await (await run('/ferramentas/corrida-vale-a-pena/')).text(),'original');
   assert.equal(calls.length,2);
+});
+
+test('Datas editoriais respeitam São Paulo na virada do dia UTC', () => {
+  assert.equal(editorialToday(new Date('2026-10-30T01:00:00Z')), '2026-10-29');
+  assert.equal(editorialToday(new Date('2026-10-30T03:00:00Z')), '2026-10-30');
 });

@@ -8,6 +8,9 @@ import sharp from 'sharp';
 
 export const SITE = 'https://calcmot.com.br';
 export const PAGE_SIZE = 12;
+export const editorialToday = (instant = new Date()) => new Intl.DateTimeFormat('en-CA', {
+  timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit',
+}).format(instant);
 export const CATEGORIES = {
   'lucro-por-quilometro': 'Lucro por quilômetro',
   'lucro-por-hora': 'Lucro por hora',
@@ -97,7 +100,7 @@ async function image(source, root, output) {
   }
   return { ...variants[2], srcset: [...new Map(variants.map(v => [v.width, `${v.src} ${v.width}w`])).values()].join(', ') };
 }
-export async function loadPosts({ root, directory = resolve(root, 'content/blog'), now = new Date().toISOString().slice(0, 10), imageOutput = resolve(root, 'public/media/blog-optimized') }) {
+export async function loadPosts({ root, directory = resolve(root, 'content/blog'), now = editorialToday(), imageOutput = resolve(root, 'public/media/blog-optimized') }) {
   const posts = [], slugs = new Set(), files = (await readdir(directory)).filter(name => name.endsWith('.md')).sort();
   for (const file of files) {
     const source = await readFile(resolve(directory, file), 'utf8');
