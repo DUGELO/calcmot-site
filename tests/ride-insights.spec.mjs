@@ -43,6 +43,13 @@ try {
     return Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(fixture)}]}}]});
   };
   assert.equal((await handler.fetch(request({inputs,context:'Minha meta é R$ 30/h após custos.',goal:'hourly'}),env)).status,200);
+  globalThis.fetch=async(url,options)=>{
+    const facts=JSON.parse(JSON.parse(options.body).contents[0].parts[0].text).fatos;
+    assert.equal(facts.custo,1.01,'1,005 km × R$ 1/km deve arredondar meio centavo como o motor local');
+    assert.equal(facts.saldo,16.99);
+    return Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:JSON.stringify(fixture)}]}}]});
+  };
+  assert.equal((await handler.fetch(request({inputs:{...inputs,tripKm:'1,005',pickupKm:'0',costPerKm:'1'},context:'Quero conferir os gastos dessa corrida.'}),env)).status,200);
   globalThis.fetch=async()=>new Response('quota',{status:429});
   assert.equal((await handler.fetch(request(),env)).status,502);
   globalThis.fetch=async()=>Response.json({candidates:[{finishReason:'STOP',content:{parts:[{text:'{}'}]}}]});

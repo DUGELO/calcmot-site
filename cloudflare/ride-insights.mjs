@@ -54,8 +54,12 @@ export function withRideInsights(handler) {
       const { fare, tripKm, pickupKm, tripMinutes, pickupMinutes, costPerKm } = values;
       const km = tripKm + pickupKm, minutes = tripMinutes + pickupMinutes;
       if (fare <= 0 || fare > 10000 || tripKm <= 0 || km > 1000 || tripMinutes <= 0 || minutes > 1440 || !Number.isInteger(tripMinutes) || !Number.isInteger(pickupMinutes) || costPerKm > 100) return reply(400, { error: 'Valores fora dos limites.' });
-      const cost = body.inputs.costPerKm.trim() ? Math.round(km * costPerKm * 100) / 100 : null;
-      const facts = { receita: fare, kmTotal: km, minutosTotal: minutes, receitaPorKm: Math.round(fare / km * 100) / 100, receitaPorHora: Math.round(fare * 60 / minutes * 100) / 100, custo: cost, saldo: cost === null ? null : Math.round((fare - cost) * 100) / 100 };
+      // Match the browser calculator's integer units, including half-cent rounding.
+      const units=(raw,decimals)=>{const [whole,fraction='']=raw.trim().replace(',','.').split('.');return Number(whole||0)*10**decimals+Number(fraction.padEnd(decimals,'0'));};
+      const fareCents=units(body.inputs.fare,2);
+      const totalMeters=units(body.inputs.tripKm,3)+units(body.inputs.pickupKm,3);
+      const costCents=body.inputs.costPerKm.trim()?Math.round(totalMeters*units(body.inputs.costPerKm,3)/10000):null;
+      const facts = { receita: fareCents/100, kmTotal: totalMeters/1000, minutosTotal: minutes, receitaPorKm: Math.round(fareCents*1000/totalMeters)/100, receitaPorHora: Math.round(fareCents*60/minutes)/100, custo: costCents===null?null:costCents/100, saldo: costCents===null?null:(fareCents-costCents)/100 };
       try {
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${env.GEMINI_MODEL || 'gemini-flash-latest'}:generateContent`, {
           method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': env.GEMINI_API_KEY }, signal: AbortSignal.timeout(30000),
