@@ -1,5 +1,7 @@
 # CalcMot — Site oficial Angular SSR
 
+**Site oficial:** [calcmot.com.br](https://calcmot.com.br/) · **Android:** [CalcMot na Google Play](https://play.google.com/store/apps/details?id=br.com.calcmot)
+
 Landing page institucional do CalcMot em Angular, SSR, Standalone Components e SCSS.
 
 ## Painel administrativo
