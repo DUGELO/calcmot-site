@@ -1,0 +1,226 @@
+[
+  {
+    "id": "launching-next",
+    "name": "Launching Next",
+    "kind": "directory",
+    "submitUrl": "https://www.launchingnext.com/submit/",
+    "cost": "free",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://www.launchingnext.com/submit/",
+      "checkedAt": "2026-10-29",
+      "note": "Free form accepted; queue receipt 170739; independent working Android product with website."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://www.launchingnext.com/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "Free form accepted; queue receipt 170739; independent working Android product with website."
+      },
+      "free": {
+        "value": true,
+        "url": "https://www.launchingnext.com/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "saasolution",
+    "name": "SaaSolution",
+    "kind": "directory",
+    "submitUrl": "https://saasolution.io/submit/",
+    "cost": "free",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://saasolution.io/submit/",
+      "checkedAt": "2026-10-29",
+      "note": "Free submission accepted for original software; receipt 885. Portuguese product and Android scope described accurately."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://saasolution.io/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "Free submission accepted for original software; receipt 885. Portuguese product and Android scope described accurately."
+      },
+      "free": {
+        "value": true,
+        "url": "https://saasolution.io/submit/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "indexflow",
+    "name": "IndexFlow",
+    "kind": "directory",
+    "submitUrl": "https://indexflow.tech/submit",
+    "cost": "free",
+    "stage": "link_confirmed",
+    "qualification": {
+      "eligible": true,
+      "url": "https://indexflow.tech/submit",
+      "checkedAt": "2026-10-29",
+      "note": "Free Finance & Analytics utility category and freemium accepted; public listing confirmed."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://indexflow.tech/submit",
+        "checkedAt": "2026-10-29",
+        "note": "Free Finance & Analytics utility category and freemium accepted; public listing confirmed."
+      },
+      "free": {
+        "value": true,
+        "url": "https://indexflow.tech/submit",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "appsapk",
+    "name": "AppsApk",
+    "kind": "directory",
+    "submitUrl": "https://www.appsapk.com/submit-app/",
+    "cost": "free",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://www.appsapk.com/submit-app/",
+      "checkedAt": "2026-10-29",
+      "note": "Official free Android app editorial submission email. Free/Premium mix disclosed for editorial decision; sent only review request."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://www.appsapk.com/submit-app/",
+        "checkedAt": "2026-10-29",
+        "note": "Official free Android app editorial submission email. Free/Premium mix disclosed for editorial decision; sent only review request."
+      },
+      "free": {
+        "value": true,
+        "url": "https://www.appsapk.com/submit-app/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "autopapo",
+    "name": "AutoPapo",
+    "kind": "editorial_contact",
+    "submitUrl": "https://autopapo.com.br/contato/",
+    "cost": "free_to_pitch",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://autopapo.com.br/contato/",
+      "checkedAt": "2026-10-29",
+      "note": "Official newsroom email explicitly listed; individual automotive operating cost pitch sent. Coverage and link discretionary."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://autopapo.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official newsroom email explicitly listed; individual automotive operating cost pitch sent. Coverage and link discretionary."
+      },
+      "free": {
+        "value": true,
+        "url": "https://autopapo.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "tecnoblog",
+    "name": "Tecnoblog",
+    "kind": "editorial_contact",
+    "submitUrl": "https://tecnoblog.net/contato/",
+    "cost": "free_to_pitch",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://tecnoblog.net/contato/",
+      "checkedAt": "2026-10-29",
+      "note": "Official pauta channel accepts releases; individual software metrics pitch sent. Coverage and link discretionary."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://tecnoblog.net/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official pauta channel accepts releases; individual software metrics pitch sent. Coverage and link discretionary."
+      },
+      "free": {
+        "value": true,
+        "url": "https://tecnoblog.net/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "olhardigital",
+    "name": "Olhar Digital",
+    "kind": "editorial_contact",
+    "submitUrl": "https://olhardigital.com.br/fale-conosco/",
+    "cost": "free_to_pitch",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://olhardigital.com.br/fale-conosco/",
+      "checkedAt": "2026-10-29",
+      "note": "Official newsroom invites pitches; individual Android work metrics pitch sent. Coverage and link discretionary."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://olhardigital.com.br/fale-conosco/",
+        "checkedAt": "2026-10-29",
+        "note": "Official newsroom invites pitches; individual Android work metrics pitch sent. Coverage and link discretionary."
+      },
+      "free": {
+        "value": true,
+        "url": "https://olhardigital.com.br/fale-conosco/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  },
+  {
+    "id": "revistaauto",
+    "name": "Revista Auto",
+    "kind": "editorial_contact",
+    "submitUrl": "https://www.revistaauto.com.br/contato/",
+    "cost": "free_to_pitch",
+    "stage": "awaiting_review",
+    "qualification": {
+      "eligible": true,
+      "url": "https://www.revistaauto.com.br/contato/",
+      "checkedAt": "2026-10-29",
+      "note": "Official page explicitly invites matter suggestions; individual consumption versus total cost pitch sent."
+    },
+    "evidence": {
+      "relevance": {
+        "value": true,
+        "url": "https://www.revistaauto.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "Official page explicitly invites matter suggestions; individual consumption versus total cost pitch sent."
+      },
+      "free": {
+        "value": true,
+        "url": "https://www.revistaauto.com.br/contato/",
+        "checkedAt": "2026-10-29",
+        "note": "No acquisition payment; official free submission or editorial pitch channel."
+      }
+    }
+  }
+]

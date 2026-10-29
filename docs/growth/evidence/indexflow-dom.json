@@ -1,0 +1,22 @@
+{
+  "canonical": "https://indexflow.tech/directory",
+  "links": [
+    {
+      "href": "https://calcmot.com.br/",
+      "rel": "noopener noreferrer",
+      "text": "Visit Website"
+    }
+  ],
+  "robots": [
+    {
+      "content": "index, follow",
+      "name": "robots"
+    },
+    {
+      "content": "index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1",
+      "name": "googlebot"
+    }
+  ],
+  "title": "Startup & Digital Tool Directory — Discover Top SaaS & Utilities | IndexFlow",
+  "url": "https://indexflow.tech/directory"
+}

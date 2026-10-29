@@ -1,0 +1,61 @@
+{
+  "project": "CalcMot",
+  "targets": [
+    {
+      "id": "indexflow",
+      "name": "IndexFlow",
+      "kind": "directory",
+      "submitUrl": "https://indexflow.tech/submit",
+      "cost": "free",
+      "eligibility": "verified",
+      "submissionStatus": "published",
+      "stage": "link_confirmed",
+      "publishedUrl": "https://indexflow.tech/directory",
+      "qualification": {
+        "eligible": true,
+        "url": "https://indexflow.tech/submit",
+        "checkedAt": "2026-10-29",
+        "note": "Official free digital utility category Finance & Analytics; freemium accepted; successful submission and public CalcMot listing observed in browser."
+      },
+      "verificationMaxBytes": 8388608,
+      "verification": {
+        "linkFound": true,
+        "links": [
+          {
+            "url": "https://calcmot.com.br/",
+            "rel": [
+              "noopener",
+              "noreferrer"
+            ],
+            "followed": true
+          }
+        ],
+        "noindex": false,
+        "pageNofollow": false,
+        "canonical": "https://indexflow.tech/directory",
+        "indexation": null,
+        "outcome": "present",
+        "httpStatus": 200,
+        "finalUrl": "https://indexflow.tech/directory",
+        "referringDomain": "indexflow.tech",
+        "checkedAt": "2026-10-29T18:17:40.343Z",
+        "error": null,
+        "robots": {
+          "status": 200,
+          "requiresReview": true,
+          "note": "Crawl rules require user-agent/path review; do not prove indexation."
+        },
+        "firstSeen": "2026-10-29T18:17:40.343Z",
+        "lastSeen": "2026-10-29T18:17:40.343Z",
+        "lostAt": null,
+        "history": [
+          {
+            "at": "2026-10-29T18:17:40.343Z",
+            "outcome": "present",
+            "httpStatus": 200
+          }
+        ]
+      }
+    }
+  ]
+}

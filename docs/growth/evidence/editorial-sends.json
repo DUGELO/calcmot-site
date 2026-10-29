@@ -1,0 +1,182 @@
+[
+  {
+    "channel": "autopapo",
+    "request": {
+      "to": "redacao@autopapo.com.br",
+      "subject": "Sugestão de pauta: manutenção também entra na conta por quilômetro",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, redação do AutoPapo.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>, app independente para motoristas Android que usam Uber e 99. Pela cobertura de manutenção e da seção Seu Bolso, sugiro um serviço ao leitor: como reservar o custo de pneus e manutenção ao comparar uma corrida.</p><p>Um exemplo estritamente hipotético e reproduzível: R$ 30 de receita em 15 km ocupados equivalem a R$ 2/km. Com 5 km de busca e 4 km de retorno, o denominador passa a 24 km e a receita a R$ 1,25/km. Assumindo R$ 0,80/km de custos operacionais, o saldo ilustrativo é R$ 10,80, ou R$ 0,45/km, antes de impostos e despesas não incluídas. O custo é uma hipótese, não média de mercado.</p><p>Preparei uma metodologia original, quatro cenários sintéticos em CSV e um verificador das contas. Posso fornecer os arquivos e esclarecer as hipóteses para apuração. O CalcMot mostra estimativas da oferta; o site também oferece um <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito</a>. Nenhum dos indicadores garante lucro.</p><p>A proposta é editorial, sem pagamento ou condição de inserção de link. Obrigado pela avaliação.<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1a188db9d65b194b",
+        "thread_id": "1a188db9d65b194b",
+        "label_ids": [
+          "SENT"
+        ],
+        "snippet": null,
+        "history_id": null,
+        "internal_date": null,
+        "payload": null,
+        "size_estimate": null,
+        "classification_label_values": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "channel": "tecnoblog",
+    "request": {
+      "to": "imprensa@tecnoblog.net",
+      "subject": "Pauta de serviço: uma conta de R$/km correta pode omitir parte do trabalho",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, equipe Tecnoblog.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>. Sugiro uma pauta de leitura crítica de indicadores de apps de trabalho: o que entra no denominador de R$/km e R$/h?</p><p>Num exemplo original e totalmente hipotético, R$ 30 por 15 km ocupados são R$ 2/km; incluindo 5 km de busca e 4 km de retorno, passam a R$ 1,25/km. O número inicial não está aritmeticamente errado, mas descreve outro recorte da operação. Espera e custos desconhecidos também precisam aparecer como limites, em vez de serem tratados como zero.</p><p>Preparei quatro cenários sintéticos, CSV e fórmulas verificáveis para a redação reproduzir a conta sem instalar aplicativo. Não há pesquisa representativa, estatísticas de usuários nem alegação de aumento de renda. Posso enviar a memória de cálculo e explicar as decisões de modelagem.</p><p>Como exemplo de produto brasileiro, o CalcMot apresenta estimativas de receita por km, por hora e tempo no Android, sem aceitar ou recusar viagens. Há um <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito no site</a>. A sugestão é editorial; citação ou referência ficam a critério da equipe, sem pagamento.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1a188dbcb9019916",
+        "thread_id": "1a188dbcb9019916",
+        "label_ids": [
+          "SENT"
+        ],
+        "snippet": null,
+        "history_id": null,
+        "internal_date": null,
+        "payload": null,
+        "size_estimate": null,
+        "classification_label_values": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "channel": "olhardigital",
+    "request": {
+      "to": "redacao@olhardigital.com.br",
+      "subject": "Sugestão: Android no trabalho e a diferença entre receita da oferta e lucro",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, redação do Olhar Digital.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>, app independente para motoristas Android que usam Uber e 99. Proponho um explicador de tecnologia aplicada ao trabalho: por que a estimativa que aparece na oferta não equivale ao lucro do turno.</p><p>É possível demonstrar o limite sem expor passageiros: num cenário fictício, R$ 30 em 15 km ocupados são R$ 2/km; somando 5 km de busca e 4 km de retorno, são R$ 1,25/km de receita antes dos custos. O tempo de espera também muda o resultado por hora. Os números são hipóteses didáticas, não dados de usuários ou médias de rendimento.</p><p>Preparei metodologia, quatro cenários sintéticos e um verificador de cálculos para apoiar a apuração. Posso disponibilizá-los no formato preferido pela equipe. O exemplo de app mostra receita por km, por hora e tempo, mantendo a decisão com o motorista; não aceita ou recusa viagens nem é afiliado às plataformas. A compatibilidade varia por aparelho e versão.</p><p>O <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito do site</a> permite testar entradas próprias. A sugestão é editorial, sem solicitação de publicação paga ou link obrigatório.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1a188dbfe6fd102c",
+        "thread_id": "1a188dbfe6fd102c",
+        "label_ids": [
+          "SENT"
+        ],
+        "snippet": null,
+        "history_id": null,
+        "internal_date": null,
+        "payload": null,
+        "size_estimate": null,
+        "classification_label_values": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "channel": "appsapk",
+    "request": {
+      "to": "admin@appsapk.com",
+      "subject": "Submission — CalcMot (br.com.calcmot), Android ride-offer calculator for Brazil",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Hello AppsApk editorial team,</p><p>I am Eduardo Oliveira, responsible for CalcMot. Your submission guidelines invite original Android apps for free editorial review. Please consider CalcMot in Utilities / Calculators.</p><p><strong>App:</strong> CalcMot<br><strong>Package:</strong> br.com.calcmot<br><strong>Official Google Play:</strong> <a href=\"https://play.google.com/store/apps/details?id=br.com.calcmot\">Google Play listing</a><br><strong>Website:</strong> <a href=\"https://calcmot.com.br/\">calcmot.com.br</a></p><p>CalcMot is an independent Android app for drivers who use Uber and 99 in Brazil. It estimates a ride offer's revenue per kilometre, revenue per hour and time against the driver's own targets. The driver decides whether to accept. CalcMot does not accept or reject rides and is not affiliated with Uber or 99. The website and app information are in Brazilian Portuguese; compatibility varies by Android version, device and driver app.</p><p><strong>Pricing disclosure:</strong> the website ride simulator is free. The support page describes free daily reporting/export and Premium weekly/monthly reporting. Please assess it as a product with free and Premium features, rather than an entirely free app. Current subscription terms should be checked in the app and Play listing.</p><p><strong>Media for review:</strong> approved icon: <a href=\"https://calcmot.com.br/assets/brand/calcmot-logo-512.png\">512px logo</a>; screenshots: <a href=\"https://calcmot.com.br/assets/screenshots/offer-uber-live-cropped.jpg\">ride offer</a>, <a href=\"https://calcmot.com.br/assets/screenshots/app-settings.jpg\">settings</a>. The website displays these actual interface captures. No APK or passenger data is attached.</p><p>Please consider an editorial listing that directs users to the official store or website. I am requesting the free review route only, with no paid placement. Thank you for your consideration.</p><p>Eduardo Oliveira<br>CalcMot</p>"
+        }
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1a188de2eede6a8b",
+        "thread_id": "1a188de2eede6a8b",
+        "label_ids": [
+          "SENT"
+        ],
+        "snippet": null,
+        "history_id": null,
+        "internal_date": null,
+        "payload": null,
+        "size_estimate": null,
+        "classification_label_values": null
+      },
+      "isError": false
+    }
+  },
+  {
+    "channel": "revistaauto",
+    "request": {
+      "to": "revistaauto@outlook.com.br",
+      "subject": "Sugestão de matéria: consumo do carro e custo por km são contas diferentes",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, equipe da Revista Auto.</p><p>Vi o convite para sugestões de matérias na página de contato. Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>. Proponho um guia de serviço para quem usa o carro para trabalhar: como transformar consumo em uma parcela do custo por km, sem confundir essa parcela com o custo total.</p><p>Exemplo didático, sem pretensão de representar preço ou consumo reais: combustível hipotético a R$ 6/litro e consumo assumido de 10 km/litro dão R$ 0,60/km apenas de combustível. Em 100 km, são R$ 60; manutenção, pneus, depreciação ou aluguel e custos fixos ainda precisam de hipóteses próprias. O leitor deve substituir cada entrada por sua medição, sem somar aluguel e depreciação como se fossem automaticamente aplicáveis ao mesmo veículo.</p><p>Tenho metodologia original, quatro cenários sintéticos e memória de cálculo verificável para apoiar a redação. O CalcMot é uma ferramenta independente para Android que mostra estimativas de receita de ofertas; não promete lucro nem decide corridas. Há um <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito</a> no site.</p><p>Se o ângulo servir à revista, posso fornecer o material para apuração. É sugestão editorial, sem pedido de anúncio, compra ou link obrigatório.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "Action completed."
+        }
+      ],
+      "structuredContent": {
+        "id": "1a188e1a83efa4d2",
+        "thread_id": "1a188e1a83efa4d2",
+        "label_ids": [
+          "SENT"
+        ],
+        "snippet": null,
+        "history_id": null,
+        "internal_date": null,
+        "payload": null,
+        "size_estimate": null,
+        "classification_label_values": null
+      },
+      "isError": false
+    }
+  }
+]

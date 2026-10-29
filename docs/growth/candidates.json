@@ -1,0 +1,1466 @@
+{
+  "date": "2026-10-29",
+  "scope": "CalcMot — candidatos distintos por domínio; não são oportunidades elegíveis.",
+  "count": 162,
+  "note": "Fontes secundárias classificam sites como diretórios; domínio é uma pista da fonte, não comprova funcionamento, gratuidade, adequação, nem existência de backlink. Não realizar submissões sem revisar pertinência e regras. Sem contatos ou envios.",
+  "candidates": [
+    {
+      "name": "Product Hunt",
+      "domain": "producthunt.com",
+      "url": "https://producthunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Slashdot Software Directory",
+      "domain": "slashdot.org",
+      "url": "https://slashdot.org",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Alternative To",
+      "domain": "alternativeto.net",
+      "url": "https://alternativeto.net",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "EU-Startups",
+      "domain": "eu-startups.com",
+      "url": "https://eu-startups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "findly.tools",
+      "domain": "findly.tools",
+      "url": "https://findly.tools",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Stash",
+      "domain": "startupstash.com",
+      "url": "https://startupstash.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Alternative.me",
+      "domain": "alternative.me",
+      "url": "https://alternative.me",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "LaunchIgniter",
+      "domain": "launchigniter.com",
+      "url": "https://launchigniter.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Launching Next",
+      "domain": "launchingnext.com",
+      "url": "https://www.launchingnext.com/submit/",
+      "discovery_source": "https://www.launchingnext.com/submit/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "formulário condicional",
+      "evidence": "Formulário gratuito com nome, email, URL, descrição e tags; revisão editorial, upgrade opcional pago. Encaixe em projeto/startup a confirmar."
+    },
+    {
+      "name": "StartupRanking",
+      "domain": "startupranking.com",
+      "url": "https://startupranking.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "TinyLaunch",
+      "domain": "tinylaunch.com",
+      "url": "https://tinylaunch.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "startupfa.st",
+      "domain": "startupfa.st",
+      "url": "https://startupfa.st",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "acidtools.com",
+      "domain": "acidtools.com",
+      "url": "https://acidtools.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "NextGen Tools",
+      "domain": "nxgntools.com",
+      "url": "https://nxgntools.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Super Launch",
+      "domain": "superlaun.ch",
+      "url": "https://superlaun.ch",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Tiny Launch",
+      "domain": "tinylaun.ch",
+      "url": "https://tinylaun.ch",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "FridayHunt",
+      "domain": "fridayhunt.com",
+      "url": "https://fridayhunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Openhunts",
+      "domain": "openhunts.com",
+      "url": "https://openhunts.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Launch Llama Tools",
+      "domain": "tools.launchllama.co",
+      "url": "https://tools.launchllama.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Indiehunt",
+      "domain": "indiehunt.io",
+      "url": "https://indiehunt.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startups Lab",
+      "domain": "startupslab.site",
+      "url": "https://startupslab.site",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Toolfio",
+      "domain": "toolfio.com",
+      "url": "https://toolfio.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "promoteproject",
+      "domain": "promoteproject.com",
+      "url": "https://promoteproject.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "EarlyHunt",
+      "domain": "earlyhunt.com",
+      "url": "https://earlyhunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Open Startup List",
+      "domain": "openstartuplist.com",
+      "url": "https://openstartuplist.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "AppaList",
+      "domain": "appalist.com",
+      "url": "https://appalist.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Dope",
+      "domain": "startupdope.com",
+      "url": "https://startupdope.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Tracker",
+      "domain": "startuptracker.io",
+      "url": "https://startuptracker.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "StartupTrusted",
+      "domain": "startuptrusted.com",
+      "url": "https://startuptrusted.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Buffer",
+      "domain": "startupbuffer.com",
+      "url": "https://startupbuffer.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "We Like Tools",
+      "domain": "weliketools.com",
+      "url": "https://weliketools.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Tiny Startups",
+      "domain": "tinystartups.com",
+      "url": "https://tinystartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Awesome Tools",
+      "domain": "awesome.tools",
+      "url": "https://awesome.tools",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Launched",
+      "domain": "launched.io",
+      "url": "https://launched.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "StartupBase",
+      "domain": "startupbase.io",
+      "url": "https://startupbase.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "BigStartups",
+      "domain": "bigstartups.co",
+      "url": "https://bigstartups.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Bootstrappers",
+      "domain": "bootstrappers.io",
+      "url": "https://bootstrappers.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Maker Lead",
+      "domain": "makerlead.com",
+      "url": "https://makerlead.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Pitch",
+      "domain": "thestartuppitch.com",
+      "url": "https://thestartuppitch.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Inspire",
+      "domain": "startupinspire.com",
+      "url": "https://startupinspire.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "TinyLaunchpad",
+      "domain": "tinylaunchpad.com",
+      "url": "https://tinylaunchpad.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "ProductBurst",
+      "domain": "productburst.com",
+      "url": "https://productburst.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Insane",
+      "domain": "theinsaneapp.com",
+      "url": "https://theinsaneapp.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startups.fm",
+      "domain": "startups.fm",
+      "url": "https://startups.fm",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Snapmunk Startups",
+      "domain": "startups.snapmunk.com",
+      "url": "https://startups.snapmunk.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "launch.cab",
+      "domain": "launch.cab",
+      "url": "https://launch.cab",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Fame",
+      "domain": "startupfa.me",
+      "url": "https://startupfa.me",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Appolicious",
+      "domain": "appolicious.com",
+      "url": "https://appolicious.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Lift",
+      "domain": "startuplift.com",
+      "url": "https://startuplift.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Remote Tools",
+      "domain": "remote.tools",
+      "url": "https://remote.tools",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Beat",
+      "domain": "startupbeat.com",
+      "url": "https://startupbeat.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Builtbyindies",
+      "domain": "builtbyindies.com",
+      "url": "https://builtbyindies.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Collections",
+      "domain": "startupcollections.com",
+      "url": "https://startupcollections.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Crazy About Startups",
+      "domain": "crazyaboutstartups.com",
+      "url": "https://crazyaboutstartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "SideProjects",
+      "domain": "sideprojects.net",
+      "url": "https://sideprojects.net",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup World",
+      "domain": "startupworld.com",
+      "url": "https://startupworld.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup88",
+      "domain": "startup88.com",
+      "url": "https://startup88.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "That App Show",
+      "domain": "thatappshow.com",
+      "url": "https://thatappshow.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "WhatLaunched.Today",
+      "domain": "whatlaunched.today",
+      "url": "https://whatlaunched.today",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Wonders",
+      "domain": "startupwonders.com",
+      "url": "https://startupwonders.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "HUNT0",
+      "domain": "hunt0.com",
+      "url": "https://hunt0.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Stellar Launch",
+      "domain": "stellarlaunch.org",
+      "url": "https://stellarlaunch.org",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup-List",
+      "domain": "startups-list.com",
+      "url": "https://startups-list.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "IndieHackerStacks",
+      "domain": "indiehackerstacks.com",
+      "url": "https://indiehackerstacks.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "All Startups",
+      "domain": "allstartups.info",
+      "url": "https://allstartups.info",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "ProfitHunt",
+      "domain": "profithunt.co",
+      "url": "https://profithunt.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Tabs",
+      "domain": "startuptabs.com",
+      "url": "https://startuptabs.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "App Listo",
+      "domain": "appslisto.com",
+      "url": "https://appslisto.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Deeplaunch.io",
+      "domain": "deeplaunch.io",
+      "url": "https://deeplaunch.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Makerlist.io",
+      "domain": "makerlist.io",
+      "url": "https://makerlist.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Stage",
+      "domain": "startupstage.app",
+      "url": "https://startupstage.app",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Unboxing Startups",
+      "domain": "unboxingstartups.com",
+      "url": "https://unboxingstartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Feed My Startup",
+      "domain": "feedmystartup.com",
+      "url": "https://feedmystartup.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "New Startups",
+      "domain": "new-startups.com",
+      "url": "https://new-startups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "StartupWizz",
+      "domain": "startupwizz.com",
+      "url": "https://startupwizz.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Alternatives.co",
+      "domain": "alternatives.co",
+      "url": "https://alternatives.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Trendy Startups",
+      "domain": "trendystartups.com",
+      "url": "https://trendystartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Productivity Directory",
+      "domain": "productivity.directory",
+      "url": "https://productivity.directory",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "ProductLaunchpad",
+      "domain": "productlaunchpad.app",
+      "url": "https://productlaunchpad.app",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "FastLaunch",
+      "domain": "fastlaunch.io",
+      "url": "https://fastlaunch.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Launched Site",
+      "domain": "launched.site",
+      "url": "https://launched.site",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup benchmarks",
+      "domain": "startupbenchmarks.com",
+      "url": "https://startupbenchmarks.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Roulette",
+      "domain": "startuproulette.com",
+      "url": "https://startuproulette.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Afford Hunt",
+      "domain": "affordhunt.com",
+      "url": "https://affordhunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Emoji Launch",
+      "domain": "emojilaunch.com",
+      "url": "https://emojilaunch.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Oye Startups",
+      "domain": "oyestartups.com",
+      "url": "https://oyestartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Webspot",
+      "domain": "webspot.app",
+      "url": "https://webspot.app",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Mr. Free Tools",
+      "domain": "mrfreetools.com",
+      "url": "https://mrfreetools.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Direct2App",
+      "domain": "direct2app.com",
+      "url": "https://direct2app.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Kick Product",
+      "domain": "kickproduct.com",
+      "url": "https://kickproduct.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Tiny Startups co",
+      "domain": "tinystartups.co",
+      "url": "https://tinystartups.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Awesome Indie",
+      "domain": "awesomeindie.com",
+      "url": "https://awesomeindie.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Button",
+      "domain": "startupbutton.com",
+      "url": "https://startupbutton.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Appy Smarts",
+      "domain": "appysmarts.com",
+      "url": "https://appysmarts.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Launch Vibe",
+      "domain": "launchvibe.app",
+      "url": "https://launchvibe.app",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Project Hatch",
+      "domain": "projecthatch.co",
+      "url": "https://projecthatch.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "NickLaunches",
+      "domain": "nicklaunches.com",
+      "url": "https://nicklaunches.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startup Sea",
+      "domain": "startupsea.com",
+      "url": "https://startupsea.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "MicroStartups",
+      "domain": "microstartups.co",
+      "url": "https://microstartups.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "KillerStartups",
+      "domain": "killerstartups.com",
+      "url": "https://killerstartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "All Top Startups",
+      "domain": "alltopstartups.com",
+      "url": "https://alltopstartups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Open Launch",
+      "domain": "open-launch.com",
+      "url": "https://open-launch.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Future Startup",
+      "domain": "futurestartup.com",
+      "url": "https://futurestartup.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "editorial de tecnologia",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Indie Page",
+      "domain": "indiepa.ge",
+      "url": "https://indiepa.ge",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Web App Rater",
+      "domain": "webapprater.com",
+      "url": "https://webapprater.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "The Startup Inc",
+      "domain": "thestartupinc.com",
+      "url": "https://thestartupinc.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "startups.fyi",
+      "domain": "startups.fyi",
+      "url": "https://startups.fyi",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "AppStorm",
+      "domain": "appstorm.net",
+      "url": "https://appstorm.net",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "launchlister",
+      "domain": "launchlister.com",
+      "url": "https://launchlister.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "makerpeak",
+      "domain": "makerpeak.com",
+      "url": "https://makerpeak.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "MegaMaker",
+      "domain": "megamaker.co",
+      "url": "https://megamaker.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "toolsstory",
+      "domain": "toolsstory.net",
+      "url": "https://toolsstory.net",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "IndieHub",
+      "domain": "indiehub.best",
+      "url": "https://indiehub.best",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Tool Finder",
+      "domain": "toolfinder.co",
+      "url": "https://toolfinder.co",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Startups.com",
+      "domain": "startups.com",
+      "url": "https://startups.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "AppRadar",
+      "domain": "appradar.com",
+      "url": "https://appradar.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "SteemHunt",
+      "domain": "steemhunt.com",
+      "url": "https://steemhunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Feed My App",
+      "domain": "feedmyapp.com",
+      "url": "https://feedmyapp.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "Pineapple",
+      "domain": "pineapple.io",
+      "url": "https://pineapple.io",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "SubmitHunt",
+      "domain": "submithunt.com",
+      "url": "https://submithunt.com",
+      "discovery_source": "https://github.com/maxlibin/free-directory-submissions",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Fonte lista o domínio como diretório de produto ou publicação; página de submissão, pertinência, custo e regras pendentes."
+    },
+    {
+      "name": "AppBreakup",
+      "domain": "appbreakup.com",
+      "url": "https://appbreakup.com/submit",
+      "discovery_source": "https://appbreakup.com/submit",
+      "category": "diretório ou recurso digital",
+      "status": "regras verificadas; elegibilidade condicional",
+      "evidence": "Formulário gratuito pede site, descrição e e-mail; revisão editorial."
+    },
+    {
+      "name": "AppBrain",
+      "domain": "appbrain.com",
+      "url": "https://www.appbrain.com/product/featured",
+      "discovery_source": "https://www.appbrain.com/product/featured",
+      "category": "diretório ou recurso digital",
+      "status": "regras verificadas; elegibilidade condicional",
+      "evidence": "Gratuito; exige publicação no Google Play, conta reivindicada e avaliação razoável."
+    },
+    {
+      "name": "AppsApk",
+      "domain": "appsapk.com",
+      "url": "https://www.appsapk.com/submit-app/",
+      "discovery_source": "https://www.appsapk.com/submit-app/",
+      "category": "diretório ou recurso digital",
+      "status": "regras verificadas; elegibilidade condicional",
+      "evidence": "Android gratuito, revisão editorial; link ao site não garantido."
+    },
+    {
+      "name": "Toolsora",
+      "domain": "toolsora.com",
+      "url": "https://toolsora.com/submit",
+      "discovery_source": "https://toolsora.com/submit",
+      "category": "diretório ou recurso digital",
+      "status": "verificado condicional — formulário",
+      "evidence": "Formulário sem login aparente; aceita apps de produtividade, mas gratuidade não está explicitada na página. Encaixe sujeito a revisão."
+    },
+    {
+      "name": "Tool Alternatives",
+      "domain": "toolalternatives.com",
+      "url": "https://toolalternatives.com/submit",
+      "discovery_source": "https://toolalternatives.com/submit",
+      "category": "diretório ou recurso digital",
+      "status": "verificado condicional — formulário",
+      "evidence": "Inclusão gratuita; formulário sem login aparente, exige indicar alternativa substituída e declarar vínculo. Encaixe sujeito a revisão."
+    },
+    {
+      "name": "MeWebLink",
+      "domain": "meweblink.com",
+      "url": "https://meweblink.com/",
+      "discovery_source": "https://meweblink.com/",
+      "category": "diretório ou recurso digital",
+      "status": "verificado condicional — formulário",
+      "evidence": "Submissão gratuita sem conta, com URL, descrição e categoria; aceitação automatizada sujeita a critérios. Verificar qualidade e pertinência."
+    },
+    {
+      "name": "Zearches",
+      "domain": "zearches.com",
+      "url": "https://zearches.com/submit-website-free.php",
+      "discovery_source": "https://zearches.com/submit-website-free.php",
+      "category": "diretório ou recurso digital",
+      "status": "verificado condicional — formulário",
+      "evidence": "Grátis, sem conta ou troca de links; formulário de URL, nome, categoria e descrição, sujeito a verificações automáticas."
+    },
+    {
+      "name": "ChipJourney",
+      "domain": "chipjourney.com",
+      "url": "https://chipjourney.com/",
+      "discovery_source": "https://chipjourney.com/",
+      "category": "diretório ou recurso digital",
+      "status": "verificado condicional — formulário",
+      "evidence": "Grátis sem conta ou badge; uma listagem por domínio, sujeita a verificação. Verificar qualidade e pertinência."
+    },
+    {
+      "name": "AppRater",
+      "domain": "apprater.net",
+      "url": "https://apprater.net/#submit",
+      "discovery_source": "https://apprater.net/#submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário — condições pendentes",
+      "evidence": "Formulário visível na página; aceita Android, solicita URL, utilidade, nome e email. Gratuidade não confirmada na própria página."
+    },
+    {
+      "name": "BuildVoyage",
+      "domain": "buildvoyage.com",
+      "url": "https://buildvoyage.com/submit",
+      "discovery_source": "https://buildvoyage.com/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis sem conta; confirmação por email, logo e pelo menos duas tecnologias. Diretório de micro-SaaS: adequação do CalcMot requer avaliação."
+    },
+    {
+      "name": "IndexFlow",
+      "domain": "indexflow.tech",
+      "url": "https://indexflow.tech/submit",
+      "discovery_source": "https://indexflow.tech/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis, sem cobrança ou assinatura obrigatória; formulário público pede nome, URL, categoria, preço e email. Diz publicar link direto; qualidade e pertinência pendentes."
+    },
+    {
+      "name": "Phyco",
+      "domain": "phyco.org",
+      "url": "https://phyco.org/submit",
+      "discovery_source": "https://phyco.org/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis com revisão; formulário pede email, descrição própria de 60 palavras, 3–8 recursos, logo e 2–4 capturas. Tem categoria Android e transporte; confirmação por email deve ser verificada."
+    },
+    {
+      "name": "SaaSolution",
+      "domain": "saasolution.io",
+      "url": "https://saasolution.io/submit/",
+      "discovery_source": "https://saasolution.io/submit/",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis sem conta; URL e email, revisão editorial. Aceita apps reais; exclui sites criados apenas para campanhas de backlinks. Não garante aceitação."
+    },
+    {
+      "name": "Unloc",
+      "domain": "unloc.tools",
+      "url": "https://unloc.tools/submit",
+      "discovery_source": "https://unloc.tools/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Listagem gratuita é padrão, sem login aparente; requer nome, site, descrição, categoria, nome, email e verificação humana. Adequação da categoria deve ser avaliada."
+    },
+    {
+      "name": "TryMy.App",
+      "domain": "trymy.app",
+      "url": "https://trymy.app/submit",
+      "discovery_source": "https://trymy.app/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis sem conta; solicita URL e email e exige produto grátis para testar; revisão semanal. Link da versão grátis usa nofollow; recurso pago não necessário."
+    },
+    {
+      "name": "Joinly",
+      "domain": "joinly.xyz",
+      "url": "https://joinly.xyz/submit-startup",
+      "discovery_source": "https://joinly.xyz/submit-startup",
+      "category": "diretório ou recurso digital",
+      "status": "formulário — condições pendentes",
+      "evidence": "Formulário público pede nome, domínio, email, país, descrição e miniatura; preço não foi declarado na página aberta."
+    },
+    {
+      "name": "LaunchPedia",
+      "domain": "launchpedia.co",
+      "url": "https://launchpedia.co/submit/",
+      "discovery_source": "https://launchpedia.co/submit/",
+      "category": "diretório ou recurso digital",
+      "status": "formulário — condições pendentes",
+      "evidence": "Formulário de nome, email, produto, link e campo de afiliado; preço e natureza obrigatória do afiliado não confirmados."
+    },
+    {
+      "name": "Indiehacker Tools",
+      "domain": "indiehacker.tools",
+      "url": "https://www.indiehacker.tools/",
+      "discovery_source": "https://www.indiehacker.tools/",
+      "category": "diretório ou recurso digital",
+      "status": "pista — condições pendentes",
+      "evidence": "Diretório inclui apps Android, mas página aberta não expôs formulário, preço ou requisitos."
+    },
+    {
+      "name": "Best CSS",
+      "domain": "bestcss.in",
+      "url": "https://www.bestcss.in/",
+      "discovery_source": "https://www.bestcss.in/",
+      "category": "diretório ou recurso digital",
+      "status": "pista — condições pendentes",
+      "evidence": "Galeria de design; endpoint de submissão tentado não abriu. Não declarar elegível."
+    },
+    {
+      "name": "AllMyFaves",
+      "domain": "allmyfaves.com",
+      "url": "https://allmyfaves.com/",
+      "discovery_source": "https://allmyfaves.com/",
+      "category": "diretório ou recurso digital",
+      "status": "pista — condições pendentes",
+      "evidence": "Página oficial abriu apenas aviso de JavaScript; email e regras vistos em fonte secundária não foram confirmados oficialmente."
+    },
+    {
+      "name": "SaaSHub",
+      "domain": "saashub.com",
+      "url": "https://www.saashub.com/submit",
+      "discovery_source": "https://www.saashub.com/submit",
+      "category": "diretório ou recurso digital",
+      "status": "pista — condições pendentes",
+      "evidence": "Página expõe ferramenta de promoção gratuita, mas fluxo de cadastro e adequação do app não foram verificados."
+    },
+    {
+      "name": "AppLauncher",
+      "domain": "applauncher.dev",
+      "url": "https://applauncher.dev/submit",
+      "discovery_source": "https://applauncher.dev/submit",
+      "category": "diretório ou recurso digital",
+      "status": "formulário — condições pendentes",
+      "evidence": "Diretório declara aceitar Android e submissão gratuita; regras detalhadas e requisitos de login ainda precisam ser confirmados."
+    },
+    {
+      "name": "AppDirectory",
+      "domain": "appdirectory.org",
+      "url": "https://appdirectory.org/get-listed",
+      "discovery_source": "https://appdirectory.org/get-listed",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis para app web gratuito ou com camada gratuita; verificar se site CalcMot é ferramenta web e pesquisar duplicata antes de solicitar."
+    },
+    {
+      "name": "ProductReveal",
+      "domain": "productreveal.online",
+      "url": "https://productreveal.online/",
+      "discovery_source": "https://productreveal.online/",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Página anuncia gratuidade sem conta e revisão editorial para produtos digitais; link ao site se aprovado. Confirmar encaixe Android e formulário."
+    },
+    {
+      "name": "Ignlab Launch",
+      "domain": "launch.ignlab.net",
+      "url": "https://launch.ignlab.net/",
+      "discovery_source": "https://launch.ignlab.net/",
+      "category": "diretório ou recurso digital",
+      "status": "formulário condicional",
+      "evidence": "Grátis sem conta; aceita ferramentas web/SaaS. Confirmar se CalcMot oferece ferramenta web e consultar formulário."
+    },
+    {
+      "name": "Cloudfindr",
+      "domain": "cloudfindr.co",
+      "url": "https://cloudfindr.co",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "GreenRocket",
+      "domain": "greenrocket.app",
+      "url": "https://greenrocket.app",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Indie Hackers",
+      "domain": "indiehackers.com",
+      "url": "https://indiehackers.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Indie-Builds",
+      "domain": "indie-builds.com",
+      "url": "https://indie-builds.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "IndieLogs",
+      "domain": "indielogs.com",
+      "url": "https://indielogs.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "IndieTools",
+      "domain": "indietools.app",
+      "url": "https://indietools.app",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "LaunchBert",
+      "domain": "launchbert.com",
+      "url": "https://launchbert.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Lifto",
+      "domain": "liftoapp.com",
+      "url": "https://liftoapp.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "MadeLaunch",
+      "domain": "madelaunch.com",
+      "url": "https://madelaunch.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Make.rs",
+      "domain": "make.rs",
+      "url": "https://make.rs",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Open Makers",
+      "domain": "openmakers.io",
+      "url": "https://openmakers.io",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Shipyard HQ",
+      "domain": "shipyardhq.dev",
+      "url": "https://shipyardhq.dev",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "StarTap",
+      "domain": "startap.cc",
+      "url": "https://startap.cc",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Startup.sx",
+      "domain": "startup.sx",
+      "url": "https://startup.sx",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Tech Directory",
+      "domain": "techdirectory.io",
+      "url": "https://techdirectory.io",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "Votekicker",
+      "domain": "votekicker.com",
+      "url": "https://votekicker.com",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    },
+    {
+      "name": "WebCatalog",
+      "domain": "webcatalog.io",
+      "url": "https://webcatalog.io",
+      "discovery_source": "https://submitmystartup.com/bundles/free-directories-no-catches/",
+      "category": "diretório de startups ou produtos — classificação da fonte",
+      "status": "candidato não verificado",
+      "evidence": "Mencionado na lista de terceiros; adequação, funcionamento e regras pendentes."
+    }
+  ]
+}

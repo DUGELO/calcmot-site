@@ -1,0 +1,49 @@
+name: Free backlink outreach audit
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 11 * * 1'
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: growth-outreach-audit
+  cancel-in-progress: false
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node --test tests/growth/*.test.mjs
+      - name: Recover previous checkpoint if available
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          artifact_id="$(gh api "repos/$GH_REPO/actions/artifacts?name=growth-persistent-state&per_page=20" --jq '[.artifacts[] | select(.expired == false)] | sort_by(.created_at) | reverse | .[0].id // empty')" || artifact_id=""
+          if [ -n "$artifact_id" ]; then
+            mkdir -p /tmp/growth-checkpoint
+            gh api "repos/$GH_REPO/actions/artifacts/$artifact_id/zip" > /tmp/growth-checkpoint.zip
+            unzip -oq /tmp/growth-checkpoint.zip -d /tmp/growth-checkpoint
+            if [ -f /tmp/growth-checkpoint/growth-state.json ]; then
+              cp /tmp/growth-checkpoint/growth-state.json previous-growth-state.json
+            fi
+          fi
+      - name: Reconcile and verify (never submit or email)
+        run: node scripts/growth/persistent-cycle.mjs docs/growth/prospects.json previous-growth-state.json growth-state.json growth-outreach-report.md
+      - name: Upload persistent checkpoint and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: growth-persistent-state
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            growth-state.json
+            growth-outreach-report.md
+            growth-outreach-report.json
