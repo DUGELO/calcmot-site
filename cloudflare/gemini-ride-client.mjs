@@ -42,6 +42,7 @@ export async function generateRideAnalysis(env, input, options = {}) {
       if (wait >= deadline - now()) return last;
       try { await sleep(wait, overall); } catch { return signal?.aborted ? fail(499, 'AI_CANCELLED', 'Análise cancelada.') : timeout(); }
     }
+    if (overall.aborted || now() >= deadline) return signal?.aborted ? fail(499, 'AI_CANCELLED', 'Análise cancelada.') : timeout();
     const model = models[attempt];
     const thinking = /^gemini-3\.(8|6)-flash$/.test(model) ? { thinkingLevel: 'low' }
       : /^gemini-3\.(5|1)-flash-lite$/.test(model) ? { thinkingLevel: 'minimal' } : null;

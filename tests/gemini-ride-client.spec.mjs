@@ -72,4 +72,7 @@ run=await scenario([],{GEMINI_MODEL:'../bad-path'});assert.equal(run.result.code
 let elapsed=0,deadlineCalls=0;
 const expired=await generateRideAnalysis(env,{}, {now:()=>elapsed,log:()=>{},fetcher:async()=>{deadlineCalls++;elapsed=40001;throw new DOMException('timeout','TimeoutError');}});
 assert.equal(expired.code,'AI_TIMEOUT');assert.equal(deadlineCalls,1,'Não iniciar nova tentativa após o prazo total');
+elapsed=0;deadlineCalls=0;
+const latePause=await generateRideAnalysis(env,{}, {now:()=>elapsed,random:()=>0,log:()=>{},sleep:async()=>{elapsed=40001;},fetcher:async()=>{deadlineCalls++;return new Response('',{status:503});}});
+assert.equal(latePause.code,'AI_TIMEOUT');assert.equal(deadlineCalls,1,'Não iniciar tentativa se a espera exceder o prazo');
 console.log('Gemini resilience: bounded retry/backoff, opt-in fallback, error codes, Retry-After, invalid output, cancellation and private logs OK.');
