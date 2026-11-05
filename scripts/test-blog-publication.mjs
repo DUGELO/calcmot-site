@@ -69,6 +69,7 @@ try {
   server.stderr.on('data', chunk => process.stderr.write(chunk));
   const base = 'http://localhost:' + port;
   await ready(base);
+  run('scripts/editorial/smoke.mjs', [base]);
   for (const path of ['/blog/qa-rascunho/', '/blog/ausente/', '/blog/a/b/', '/blog/pagina/999/', '/blog/pagina/02/', '/blog/pagina/invalid/']) {
     const response = await fetch(base + path, { redirect: 'manual' });
     assert.equal(response.status, 404, path);

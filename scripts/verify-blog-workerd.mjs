@@ -19,6 +19,10 @@ try {
   const html = await (await runtime.dispatchFetch('https://calcmot.com.br/blog/')).text();
   assert.match(html, /<h1/);
   if (process.argv.includes('--fixtures')) {
+    const receipt = await runtime.dispatchFetch('https://calcmot.com.br/blog-release.json');
+    assert.equal(receipt.status,200,'Recibo aprovado precisa ser servido por Assets');
+    assert.deepEqual(await receipt.json(), JSON.parse(await readFile(resolve(config.assets.directory,'blog-release.json'),'utf8')));
+
     const article = await runtime.dispatchFetch('https://calcmot.com.br/blog/qa-artigo-1/');
     assert.equal(article.status,200);
     assert.match(await article.text(), /CALCMOT_QA_BODY_1/);
