@@ -1,0 +1,52 @@
+[
+  {
+    "opportunityId": "motor1-brasil",
+    "date": "2026-11-05",
+    "status": "awaiting_review",
+    "submissionConfirmed": true,
+    "channel": "individual_email",
+    "messageId": "1a1acd132f407fa9",
+    "labels": [
+      "SENT"
+    ],
+    "request": {
+      "to": "br.press@motor1.com",
+      "subject": "Pauta de serviço: comparar custo por km de carro próprio e alugado sem duplicar despesas",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, equipe Motor1 Brasil.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>. Proponho um guia de serviço ligado ao uso profissional do carro: como comparar custo por quilômetro de veículo próprio e alugado sem contar a mesma despesa duas vezes.</p><p>O ponto é metodológico, sem ranking de modelos ou recomendação de compra. Um aluguel deve ser dividido pelos quilômetros do mesmo período; itens incluídos no contrato precisam ser conferidos antes de somar manutenção ou seguro. Para veículo próprio, a depreciação pede hipótese explícita e não é uma saída de caixa idêntica ao combustível.</p><p>Podemos oferecer quatro cenários sintéticos com fórmulas reproduzíveis e limitações. Um exemplo adicional estritamente hipotético: R$ 600 de aluguel semanal divididos por 1.000 km são R$ 0,60/km apenas dessa parcela; não representam preço de mercado ou rendimento de motoristas. A redação pode substituir as hipóteses por contratos e medições apurados.</p><p>O <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito do CalcMot</a> permite testar entradas próprias e esclarece que receita não é lucro. Somos independentes da Uber e da 99 e não temos pesquisa representativa de usuários para esta proposta.</p><p>Se o ângulo for pertinente, posso fornecer a memória de cálculo para apuração. Sugestão editorial, sem pagamento, condição de cobertura ou link obrigatório.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "backlinkConfirmed": false,
+    "publishedUrl": null,
+    "costBRL": 0
+  },
+  {
+    "opportunityId": "portal-auto-mulher",
+    "date": "2026-11-05",
+    "status": "awaiting_review",
+    "submissionConfirmed": true,
+    "channel": "individual_email",
+    "messageId": "1a1acd18cf31bb59",
+    "labels": [
+      "SENT"
+    ],
+    "request": {
+      "to": "bete@portalautomulher.com.br",
+      "subject": "Sugestão para Quanto Custa: quanto uma corrida deixa depois dos gastos conhecidos?",
+      "payload": {
+        "mime_type": "text/html",
+        "charset": "UTF-8",
+        "body": {
+          "content": "<p>Olá, Bete e equipe do Portal Auto Mulher.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>. Ao consultar o expediente e a editoria Quanto Custa, pensei num serviço útil a leitoras que trabalham com o carro ou avaliam começar: distinguir valor recebido, gastos do veículo e remuneração do próprio tempo.</p><p>A proposta pode ser um passo a passo com hipóteses abertas, sem promessa de renda. Exemplo exclusivamente didático: R$ 18 recebidos por uma viagem de 10 km, com mais 2 km para buscar o passageiro, representam R$ 1,50/km de receita. Admitindo R$ 0,55/km de gastos conhecidos, o saldo parcial é R$ 11,40. Isso ainda não garante lucro: despesas omitidas, espera e retorno podem reduzir o resultado.</p><p>O <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito, sem cadastro</a> mostra as fórmulas e permite trocar as entradas. O uso deve acontecer com o carro parado. O app Android é opcional e não aceita ou recusa viagens pela motorista; não temos vínculo oficial com Uber ou 99.</p><p>Preparei metodologia e quatro cenários sintéticos para apoiar a apuração, sem dados pessoais de usuárias ou estatísticas inventadas. Posso fornecê-los caso o tema faça sentido para a redação. A sugestão é editorial, sem pagamento ou exigência de link.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+        }
+      }
+    },
+    "backlinkConfirmed": false,
+    "publishedUrl": null,
+    "costBRL": 0
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "retrievedAt": "2026-11-05",
+  "license": "Mozilla Public License 2.0 (notice retained in snapshot)",
+  "policy": "Pinned snapshot; update by review at most daily. Includes ICANN and PRIVATE sections. Unknown suffixes do not count as confirmed registrable domains.",
+  "sha256": "019fcc1daca33416846853ee1f3b99ea6cc6f03388ecd4ce3e5317039bcfd004",
+  "source": "https://publicsuffix.org/list/public_suffix_list.dat"
+}

@@ -411,7 +411,12 @@
           }
         ]
       },
-      "verificationMaxBytes": 8388608
+      "verificationMaxBytes": 8388608,
+      "lastAttempt": {
+        "outcome": "temporary_error",
+        "error": "HTTP 402",
+        "checkedAt": "2026-11-05T17:44:55.639Z"
+      }
     },
     {
       "submissionStatus": "submitted",
@@ -532,6 +537,57 @@
           "checkedAt": "2026-10-29",
           "note": "Listing is free; no purchase."
         }
+      }
+    },
+    {
+      "id": "fala-motorista",
+      "name": "Fala Motorista",
+      "kind": "editorial_contact",
+      "submitUrl": "https://www.falamotorista.com.br/contato",
+      "cost": "free_to_pitch",
+      "eligibility": "verified",
+      "submissionStatus": "submitted",
+      "stage": "awaiting_review",
+      "publishedUrl": null,
+      "qualification": {
+        "eligible": true,
+        "url": "https://www.falamotorista.com.br/contato",
+        "checkedAt": "2026-11-05",
+        "note": "Official editorial contact verified; individually relevant proposal sent. Coverage and link discretionary."
+      }
+    },
+    {
+      "id": "motor1-brasil",
+      "name": "Motor1 Brasil",
+      "kind": "editorial_contact",
+      "submitUrl": "https://motor1.uol.com.br/info/contact/",
+      "cost": "free_to_pitch",
+      "eligibility": "verified",
+      "submissionStatus": "submitted",
+      "stage": "awaiting_review",
+      "publishedUrl": null,
+      "qualification": {
+        "eligible": true,
+        "url": "https://motor1.uol.com.br/info/contact/",
+        "checkedAt": "2026-11-05",
+        "note": "Official editorial contact verified; individually relevant proposal sent. Coverage and link discretionary."
+      }
+    },
+    {
+      "id": "portal-auto-mulher",
+      "name": "Portal Auto Mulher",
+      "kind": "editorial_contact",
+      "submitUrl": "https://portalautomulher.com.br/expediente-contatos/",
+      "cost": "free_to_pitch",
+      "eligibility": "verified",
+      "submissionStatus": "submitted",
+      "stage": "awaiting_review",
+      "publishedUrl": null,
+      "qualification": {
+        "eligible": true,
+        "url": "https://portalautomulher.com.br/expediente-contatos/",
+        "checkedAt": "2026-11-05",
+        "note": "Official editorial contact verified; individually relevant proposal sent. Coverage and link discretionary."
       }
     }
   ]

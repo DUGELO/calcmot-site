@@ -22,13 +22,14 @@ export async function validatePublicUrl(value, resolver = lookup) {
   if (!addresses.length || addresses.some(a => !publicAddress(a.address))) throw Error('Private or reserved network destination blocked');
   return {url: u, address: addresses[0]};
 }
-export async function fetchPublic(value, {timeoutMs = 10000, maxBytes = 1024 * 1024, maxRedirects = 4, resolver = lookup} = {}) {
+export async function fetchPublic(value, {timeoutMs = 10000, maxBytes = 1024 * 1024, maxRedirects = 4, resolver = lookup, accept = 'text/html,text/plain'} = {}) {
+  if (!['text/html,text/plain','application/vnd.github+json','application/json'].includes(accept)) throw Error('Unsupported Accept header');
   let current = value;
   for (let hop = 0; hop <= maxRedirects; hop++) {
     const {url, address} = await validatePublicUrl(current, resolver);
     const page = await new Promise((resolve, reject) => {
       // DNS is resolved and checked once, then pinned at connection time to avoid rebinding.
-      const req = (url.protocol === 'https:' ? https : http).get(url, {headers: {'user-agent': 'CalcMotGrowthAudit/1.0', accept: 'text/html,text/plain', 'accept-encoding': 'identity'}, lookup: (_host, options, cb) => cb(null, options.all ? [address] : address.address, address.family)}, res => {
+      const req = (url.protocol === 'https:' ? https : http).get(url, {headers: {'user-agent': 'CalcMotGrowthAudit/1.0', accept, 'accept-encoding': 'identity'}, lookup: (_host, options, cb) => cb(null, options.all ? [address] : address.address, address.family)}, res => {
         const chunks = []; let size = 0;
         res.on('data', chunk => {size += chunk.length; if (size > maxBytes) {res.destroy(Error('Response size limit exceeded'));} else chunks.push(chunk);});
         res.on('error', reject);

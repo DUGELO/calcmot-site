@@ -1,0 +1,41 @@
+{
+  "date": "2026-11-05",
+  "goalConfirmedRegistrableDomains": 100,
+  "status": "active",
+  "acquisitionCostBRL": 0,
+  "currentConfirmedNewLinks": 0,
+  "lastKnownHistoricalLinks": 1,
+  "lastKnownHistoricalDomains": 1,
+  "currentReconfirmedLinks": 0,
+  "currentUnknownLinks": 1,
+  "manualQueue": [
+    {
+      "id": "browser-runtime",
+      "type": "environment",
+      "reason": "CUA registered runtime ownership missing",
+      "nextAction": "Restore runtime ownership in desktop; do not bypass through another browser surface."
+    },
+    {
+      "id": "shareyourstartup-qualification",
+      "url": "https://shareyourstartup.com/",
+      "stage": "discovered",
+      "blocker": "Browser inspection unavailable; terms and duplicate check required",
+      "claimedFreeByOfficialSource": true,
+      "eligibilityVerified": false
+    },
+    {
+      "id": "productreveal-preparation",
+      "url": "https://productreveal.online/submit-product",
+      "stage": "drafted",
+      "blocker": "Browser unavailable; real launch date/media/form and applicable consent required",
+      "eligibilityVerified": false
+    },
+    {
+      "id": "startupdope-qualification",
+      "url": "https://startupdope.com/submit/new",
+      "stage": "discovered",
+      "blocker": "Requirements and domain verification not completed",
+      "eligibilityVerified": false
+    }
+  ]
+}
