@@ -58,7 +58,7 @@ async function prepare() {
   if (request.operation !== 'rollback' && previous.codeRevision && !isAncestor(codeRoot, previous.codeRevision, env.SITE_REVISION)) throw new Error('Uma versão de código mais recente já foi publicada.');
   git(repository, ['worktree', 'add', '--detach', stage, expected]);
   await verifySnapshot(stage);
-  let changed = true, manifest = previous;
+  let changed = true, metadataChanged = false, manifest = previous;
   if (request.operation === 'rollback') {
     if (!/^[0-9]+-[0-9]+$/.test(env.EDITORIAL_ROLLBACK_RELEASE ?? '')) throw new Error('Escolha uma publicação válida para restaurar.');
     const tag = 'refs/tags/releases/' + env.EDITORIAL_ROLLBACK_RELEASE;
@@ -80,9 +80,20 @@ async function prepare() {
       sourceRevision: request.sourceRevision, sourceBlob: request.sourceBlob,
       readMedia: path => gitRead(repository, request.sourceRevision, path),
     });
-    changed = result.changed; manifest = result.manifest;
+    changed = result.changed; metadataChanged = result.metadataChanged; manifest = result.manifest;
   } else changed = previous.codeRevision !== env.SITE_REVISION;
-  if (!changed) { await output('changed', 'false'); return; }
+  if (!changed) {
+    if (metadataChanged) {
+      // Record approval intent even when the public bytes are unchanged. Otherwise
+      // an older queued request could overwrite this newer approval.
+      await writeFile(resolve(stage, MANIFEST), JSON.stringify(manifest, null, 2) + '\n');
+      await verifySnapshot(stage);
+      git(stage, ['add', MANIFEST]);
+      git(stage, ['-c','user.name=CalcMot Editorial','-c','user.email=editorial@users.noreply.github.com','commit','-m','Record unchanged editorial approval']);
+      promote(repository, git(stage, ['rev-parse','HEAD']).trim(), expected);
+    }
+    await output('changed', 'false'); return;
+  }
   manifest={...manifest,lastOperation:{
     type:request.operation,path:request.path ?? null,
     removedSlug:request.operation==='withdraw'?previous.entries[request.path]?.slug:null,

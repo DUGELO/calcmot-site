@@ -93,6 +93,31 @@ test('Publicação repetida sem mudança preserva datas e dispensa rebuild',()=>
   const result=await publish(root,image,{day:'2026-11-01',id:'105-1'});
   assert.equal(result.changed,false);assert.equal(await readFile(resolve(root,MANIFEST),'utf8'),before);
 }));
+test('Aprovação sem mudança registra revisão nova e rejeita publicação antiga na fila',()=>workspace(async(root,image)=>{
+  const repo=resolve(root,'editorial-source');
+  execFileSync('git',['init',repo],{stdio:'ignore'});await mkdir(resolve(repo,'articles'));
+  const save=async raw=>{
+    await writeFile(resolve(repo,'articles/conta.md'),raw);git(repo,['add','-A']);
+    git(repo,['-c','user.name=QA','-c','user.email=qa@users.noreply.github.com','commit','-m','save']);
+    const revision=git(repo,['rev-parse','HEAD']).trim();
+    return {revision,blob:git(repo,['rev-parse',revision+':articles/conta.md']).trim()};
+  };
+  const initial=await save(article());
+  const stale=await save(article('Revisão intermediária'));
+  const approved=await save(article());
+  await publish(root,image,{sourceRevision:initial.revision,sourceBlob:initial.blob});
+  const before=await verifySnapshot(root), beforeBody=await readFile(resolve(root,'articles/conta.md'),'utf8');
+  const result=await publish(root,image,{sourceRevision:approved.revision,sourceBlob:approved.blob,day:'2026-11-01'});
+  assert.equal(result.changed,false);assert.equal(result.metadataChanged,true);
+  assert.equal(result.manifest.snapshotDigest,before.snapshotDigest);
+  assert.equal(result.manifest.releaseId,before.releaseId);
+  assert.equal(result.manifest.entries['articles/conta.md'].updatedAt,'2026-10-29');
+  await writeFile(resolve(root,MANIFEST),JSON.stringify(result.manifest));
+  await verifySnapshot(root);
+  assert.equal(await readFile(resolve(root,'articles/conta.md'),'utf8'),beforeBody);
+  assert.throws(()=>verifyRequestRevision(repo,{path:'articles/conta.md',sourceRevision:stale.revision,sourceBlob:stale.blob},approved.revision,result.manifest.entries['articles/conta.md']),/mais recente/);
+}));
+
 test('Retirada remove artigo e mídia sem uso preservando registro e histórico',()=>workspace(async(root,image)=>{
   await publish(root,image);
   const result=await updateSnapshot({root,path:'articles/conta.md',sourceRevision:SHA,sourceBlob:BLOB,operation:'withdraw'});

@@ -130,7 +130,13 @@ export async function updateSnapshot({ root, path, raw, sourceRevision, sourceBl
       aliases: [...new Set([...(old?.aliases ?? []), ...(advanced.aliases ?? data.aliases ?? []), ...(old?.slug && old.slug !== slug ? [old.slug] : [])])],
     };
     const semanticDigest = digest(JSON.stringify({ metadata, body: body.trim(), mediaHashes }));
-    if (old && !old.withdrawn && old.semanticDigest === semanticDigest) return { changed: false, manifest: previous };
+    if (old && !old.withdrawn && old.semanticDigest === semanticDigest) {
+      const metadataChanged = old.sourceRevision !== sourceRevision || old.sourceBlob !== sourceBlob;
+      const manifest = metadataChanged ? {
+        ...previous, entries: { ...previous.entries, [path]: { ...old, sourceRevision, sourceBlob } },
+      } : previous;
+      return { changed: false, metadataChanged, manifest };
+    }
     metadata.status = 'published';
     metadata.publishedAt = old?.publishedAt || day;
     metadata.updatedAt = day;

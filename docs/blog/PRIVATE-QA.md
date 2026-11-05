@@ -1,7 +1,7 @@
 # Evidências da integração privada — 05/11/2026
 
 ## Passou localmente
-- 18 testes da infraestrutura: separação entre salvar/publicar, atualização individual, isolamento de imagens compartilhadas, metadados derivados, aliases, retirada, integridade, adulteração, falhas de entrega, CAS de Git, revisão antiga, recuperação real de texto/mídia, rollback e contrato Cloudflare.
+- 19 testes da infraestrutura: separação entre salvar/publicar, atualização individual, isolamento de imagens compartilhadas, metadados derivados, aliases, retirada, integridade, adulteração, falhas de entrega, CAS de Git, revisão antiga após aprovação sem mudança, recuperação real de texto/mídia, rollback e contrato Cloudflare.
 - 7 testes do blog existente, adaptados para não depender de configuração editorial pública.
 - qa:static e build Angular: 7 rotas estáticas no catálogo real vazio.
 - Homologação com 13 artigos temporários em snapshot externo e draft em área de trabalho separada: 23 rotas totais, 17 editoriais, HTML integral sem JavaScript, metadados, sitemap, 404 e aliases.
