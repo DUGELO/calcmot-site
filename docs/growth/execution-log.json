@@ -119,15 +119,16 @@
     {
       "id": "saasolution-885",
       "opportunityId": "saasolution",
-      "status": "awaiting_review",
+      "status": "published",
       "submissionConfirmed": true,
       "confirmationUrl": "https://saasolution.io/submit/",
       "protocol": "885",
       "evidence": "docs/growth/evidence/saasolution-submitted.jpg",
       "observedText": "Thanks, we have your submission (reference #885).",
-      "publishedUrl": null,
+      "publishedUrl": "https://saasolution.io/tool/calcmot/",
       "backlinkConfirmed": false,
-      "costBRL": 0
+      "costBRL": 0,
+      "publicationVerifiedAt": "2026-11-05T18:59:49.263Z"
     },
     {
       "id": "email-revistaauto",

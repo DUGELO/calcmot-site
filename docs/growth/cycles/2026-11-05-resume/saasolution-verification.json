@@ -1,0 +1,51 @@
+{
+  "linkFound": true,
+  "links": [
+    {
+      "url": "https://calcmot.com.br/",
+      "rel": [
+        "noopener"
+      ],
+      "followed": true
+    },
+    {
+      "url": "https://calcmot.com.br/",
+      "rel": [
+        "noopener"
+      ],
+      "followed": true
+    },
+    {
+      "url": "https://calcmot.com.br/",
+      "rel": [
+        "noopener"
+      ],
+      "followed": true
+    }
+  ],
+  "noindex": false,
+  "pageNofollow": false,
+  "canonical": "https://saasolution.io/tool/calcmot/",
+  "indexation": null,
+  "outcome": "present",
+  "httpStatus": 200,
+  "finalUrl": "https://saasolution.io/tool/calcmot/",
+  "referringDomain": "saasolution.io",
+  "checkedAt": "2026-11-05T18:59:49.263Z",
+  "error": null,
+  "robots": {
+    "status": 200,
+    "requiresReview": true,
+    "note": "Crawl rules require user-agent/path review; do not prove indexation."
+  },
+  "firstSeen": "2026-11-05T18:59:49.263Z",
+  "lastSeen": "2026-11-05T18:59:49.263Z",
+  "lostAt": null,
+  "history": [
+    {
+      "at": "2026-11-05T18:59:49.263Z",
+      "outcome": "present",
+      "httpStatus": 200
+    }
+  ]
+}

@@ -315,14 +315,14 @@
       "lastChecked": "2026-10-29"
     },
     {
-      "submissionStatus": "submitted",
-      "publishedUrl": null,
+      "submissionStatus": "published",
+      "publishedUrl": "https://saasolution.io/tool/calcmot/",
       "id": "saasolution",
       "name": "SaaSolution",
       "kind": "directory",
       "submitUrl": "https://saasolution.io/submit/",
       "cost": "free",
-      "stage": "awaiting_review",
+      "stage": "link_confirmed",
       "qualification": {
         "eligible": true,
         "url": "https://saasolution.io/submit/",
@@ -342,7 +342,64 @@
           "checkedAt": "2026-10-29",
           "note": "No acquisition payment; official free submission or editorial pitch channel."
         }
-      }
+      },
+      "verification": {
+        "linkFound": true,
+        "links": [
+          {
+            "url": "https://calcmot.com.br/",
+            "rel": [
+              "noopener"
+            ],
+            "followed": true
+          },
+          {
+            "url": "https://calcmot.com.br/",
+            "rel": [
+              "noopener"
+            ],
+            "followed": true
+          },
+          {
+            "url": "https://calcmot.com.br/",
+            "rel": [
+              "noopener"
+            ],
+            "followed": true
+          }
+        ],
+        "noindex": false,
+        "pageNofollow": false,
+        "canonical": "https://saasolution.io/tool/calcmot/",
+        "indexation": null,
+        "outcome": "present",
+        "httpStatus": 200,
+        "finalUrl": "https://saasolution.io/tool/calcmot/",
+        "referringDomain": "saasolution.io",
+        "checkedAt": "2026-11-05T18:59:49.263Z",
+        "error": null,
+        "robots": {
+          "status": 200,
+          "requiresReview": true,
+          "note": "Crawl rules require user-agent/path review; do not prove indexation."
+        },
+        "firstSeen": "2026-11-05T18:59:49.263Z",
+        "lastSeen": "2026-11-05T18:59:49.263Z",
+        "lostAt": null,
+        "history": [
+          {
+            "at": "2026-11-05T18:59:49.263Z",
+            "outcome": "present",
+            "httpStatus": 200
+          }
+        ]
+      },
+      "lastAttempt": {
+        "outcome": "present",
+        "checkedAt": "2026-11-05T18:59:49.263Z",
+        "error": null
+      },
+      "lastChecked": "2026-11-05"
     },
     {
       "submissionStatus": "published",
