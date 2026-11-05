@@ -26,6 +26,7 @@ Se o fluxo real exigir passos técnicos ou não mostrar retorno compreensível, 
 - Tags privadas releases/<id>: candidatos aprovados por revisão, para histórico, rollback e reconciliação.
 - Artigo é selecionado por caminho, commit e blob salvos fornecidos pela ação do CMS.
 - Cada promoção modifica só o artigo solicitado; outros artigos permanecem iguais.
+- Mídia aprovada recebe nome derivado do hash dos bytes; substituir um original não altera a imagem de outro artigo já publicado.
 - Mídia vem da mesma revisão do artigo. Apenas imagens referenciadas são incluídas; originais nunca são copiados à pasta pública.
 - Hashes selam cada arquivo e o manifesto. Arquivo extra, symlink, mídia sem uso, draft ou adulteração bloqueiam o build.
 - Formulário principal: título, conteúdo, categoria, capa e resumo opcional. Slug, autor, canonical, SEO e datas são derivados quando omitidos; opções adicionais ficam agrupadas.

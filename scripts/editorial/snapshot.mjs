@@ -100,7 +100,9 @@ export async function updateSnapshot({ root, path, raw, sourceRevision, sourceBl
     entry = { ...old, withdrawn: true, sourceRevision, sourceBlob };
   } else {
     if (operation !== 'publish') throw new Error('Operação inválida.');
-    const { data, body } = parseArticle(raw);
+    const parsed = parseArticle(raw);
+    const data = parsed.data;
+    let body = parsed.body;
     const advanced = data.advanced ?? {};
     const slug = advanced.slug || data.slug || old?.slug || path.slice(9, -3);
     const mediaPaths = mediaReferences(data, body);
@@ -108,9 +110,15 @@ export async function updateSnapshot({ root, path, raw, sourceRevision, sourceBl
     for (const mediaPath of mediaPaths) {
       const bytes = await readMedia(mediaPath);
       if (!Buffer.isBuffer(bytes) || bytes.length > 8 * 1024 * 1024) throw new Error('Imagem inválida ou maior que 8 MB.');
-      mediaHashes.push([mediaPath, digest(bytes)]);
-      await mkdir(dirname(resolve(root, mediaPath)), { recursive: true });
-      await writeFile(resolve(root, mediaPath), bytes);
+      const hash = digest(bytes);
+      const approvedPath = 'media/approved-' + hash + '.' + mediaPath.split('.').at(-1);
+      const sourceUrl = '/media/blog/' + mediaPath.slice(6);
+      const approvedUrl = '/media/blog/' + approvedPath.slice(6);
+      if (data.cover === sourceUrl) data.cover = approvedUrl;
+      body = body.replaceAll(sourceUrl, approvedUrl);
+      mediaHashes.push([approvedPath, hash]);
+      await mkdir(dirname(resolve(root, approvedPath)), { recursive: true });
+      await writeFile(resolve(root, approvedPath), bytes);
     }
     const metadata = {
       title: data.title, slug, summary: data.summary?.trim() || summaryFrom(body), category: data.category,

@@ -62,6 +62,24 @@ test('Publicação individual preserva outros artigos e deriva metadados',()=>wo
   assert.equal(manifest.files.filter(file=>file.path.startsWith('articles/')).length,2);
   assert.equal(manifest.files.filter(file=>file.path.startsWith('media/')).length,1);
 }));
+test('Substituir uma imagem compartilhada publica apenas a revisão do artigo selecionado',()=>workspace(async(root,image)=>{
+  await publish(root,image);
+  await publish(root,image,{path:'articles/segundo.md',raw:article('Segundo artigo',{summary:'Explicação específica sobre o segundo artigo e sua imagem.'}),id:'102-1'});
+  const firstBefore=await readFile(resolve(root,'articles/conta.md'),'utf8');
+  const oldCover=parseArticle(firstBefore).data.cover;
+  const otherImage=await sharp({create:{width:1280,height:720,channels:3,background:'#ff5500'}}).png().toBuffer();
+  const raw=article('Segundo artigo revisado',{},'## Exemplo\n\nTexto suficiente para explicar a nova imagem.\n\n![Imagem](/media/blog/cover.png)');
+  await publish(root,otherImage,{path:'articles/segundo.md',raw,id:'103-1'});
+  const second=parseArticle(await readFile(resolve(root,'articles/segundo.md'),'utf8'));
+  assert.equal(await readFile(resolve(root,'articles/conta.md'),'utf8'),firstBefore);
+  assert.notEqual(second.data.cover,oldCover);
+  assert.ok(second.body.includes(second.data.cover));
+  assert.deepEqual(await readFile(resolve(root,'media/'+oldCover.slice('/media/blog/'.length))),image);
+  assert.deepEqual(await readFile(resolve(root,'media/'+second.data.cover.slice('/media/blog/'.length))),otherImage);
+  assert.equal((await verifySnapshot(root)).files.filter(file=>file.path.startsWith('media/')).length,2);
+  assert.equal((await publish(root,otherImage,{path:'articles/segundo.md',raw,id:'104-1'})).changed,false);
+}));
+
 test('Atualização preserva primeira publicação e todos os aliases anteriores',()=>workspace(async(root,image)=>{
   await publish(root,image);
   await publish(root,image,{raw:article('Conta revisada',{advanced:{slug:'conta-nova'}}),day:'2026-10-30',id:'103-1'});
