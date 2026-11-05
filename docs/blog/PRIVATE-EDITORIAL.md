@@ -48,7 +48,7 @@ O recibo público blog-release.json contém apenas ID e hashes do código/conte�
 Mudanças do código só pedem publicação integrada após o job técnico passar em main. Um GitHub App com Actions write apenas no repo privado faz o dispatch; nenhum conteúdo privado volta ao CI público.
 
 ## Proteção durante a migração
-Nenhuma autoridade de produção foi transferida. Nenhum segredo foi criado por este trabalho. Nenhum merge ou deploy de produção foi executado.
+O bootstrap privado foi integrado no [PR #1](https://github.com/DUGELO/calcmot-content/pull/1), em 05/11/2026, com autorização explícita do proprietário e CI privado aprovado. A configuração do CMS e os workflows estão na main privada. Nenhuma autoridade de produção foi transferida, segredo de serviço criado, merge do site ou deploy de produção executado.
 
 O build de produção legado do Workers Builds é bloqueado pelo novo código, evitando um deploy sem artigos. A branch main que está em produção permanece intacta até aprovação do PR. Previews do código e CI público continuam sem acesso a conteúdo privado.
 

@@ -26,9 +26,9 @@ Os dados usados são sintéticos e temporários. Não há artigo real nem imagem
 | Mudança do código | Snapshot e datas preservados em teste | Dispatch entre contas pendente de configuração |
 | Rollback | Código, conteúdo e contrato de restauração testados | Rollback remoto não executado |
 
-A automação do navegador falhou na retomada com registered runtime ownership is missing; reinicializar a conexão não resolveu. Não foi possível observar o editor funcionando nem executar os cenários autenticados. O CI, isoladamente, não homologa esse requisito.
+A automação do navegador falhou na retomada com registered runtime ownership is missing; reinicializar a conexão não resolveu. O mesmo erro persistiu na nova tentativa após o bootstrap privado. Não foi possível observar o editor funcionando nem executar os cenários autenticados. O CI, isoladamente, não homologa esse requisito.
 
 Não medir SLA usando durações desta sessão: a máquina interrompeu execuções locais por períodos longos. O objetivo de até cinco minutos e a meta de duas ações precisam de medição real após a ativação.
 
 ## Pré-requisitos de release
-Revisar os dois PRs, autorizar bootstrap privado, conferir GitHub App/atores/permissões, configurar credenciais de serviço, testar a interface, autorizar e drenar a transição do Workers Builds e então habilitar o coordenador. Nenhuma dessas etapas deve ser presumida concluída.
+Bootstrap privado aprovado e integrado no PR #1; sua validação remota passou. O PR #15 continua sem merge. Antes de ativar produção: conferir GitHub App/atores/permissões, configurar credenciais de serviço, testar a interface, autorizar e drenar a transição do Workers Builds e então habilitar o coordenador. Nenhuma dessas etapas deve ser presumida concluída.
