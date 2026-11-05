@@ -4,8 +4,7 @@ import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import sharp from 'sharp';
-import { parse } from 'yaml';
-import { readFileSync } from 'node:fs';
+import { existsSync } from 'node:fs';
 import { loadPosts, renderMarkdown, safeLink, listingPaths, canonical, editorialToday } from '../scripts/blog/content.mjs';
 import { withBlogRouting } from '../cloudflare/blog-routing.mjs';
 
@@ -21,13 +20,9 @@ async function workspace(fn) {
   try { await fn(root, (name, content) => writeFile(resolve(root, 'content/blog', name), content)); }
   finally { await rm(root, { recursive: true, force: true }); }
 }
-test('CMS cobre campos editoriais e defaults seguros', () => {
-  const config = parse(readFileSync('.pages.yml', 'utf8'));
-  const fields = config.content[0].fields;
-  for (const name of ['title','slug','summary','cover','coverAlt','category','author','publishedAt','updatedAt','status','body','seoTitle','seoDescription','canonical','aliases']) assert.ok(fields.some(f => f.name === name), name);
-  assert.equal(fields.find(f => f.name === 'status').default, 'draft');
-  assert.equal(config.media.output, '/media/blog');
-  assert.equal(config.content[0].filename, '{fields.slug}.md');
+test('Código público não inclui configuração editorial ou diretório de artigos reais', () => {
+  assert.equal(existsSync('.pages.yml'), false);
+  assert.equal(existsSync('content/blog/.gitkeep'), false);
 });
 test('Markdown seguro, sem H1 duplicado ou salto de hierarquia', () => {
   const html = renderMarkdown('## Conta\n\n<script>alert(1)</script>\n\n[abrir](javascript:alert(1))\n\n**Exemplo**');

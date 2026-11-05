@@ -62,8 +62,8 @@ export class BlogPageComponent {
           structuredData: [
             { '@context': 'https://schema.org', '@type': 'BlogPosting', '@id': url + '#article', url,
               headline: post.title, description: post.summary, image: [BRAND_TOKENS.site.url + post.cover.src],
-              datePublished: post.publishedAt + 'T12:00:00-03:00', dateModified: post.updatedAt + 'T12:00:00-03:00',
-              author: { '@type': 'Person', name: post.author }, publisher: { '@type': 'Organization', name: 'CalcMot', url: BRAND_TOKENS.site.url },
+              datePublished: post.publishedAt, dateModified: post.updatedAt,
+              author: { '@type': post.author === 'CalcMot' ? 'Organization' : 'Person', name: post.author }, publisher: { '@type': 'Organization', name: 'CalcMot', url: BRAND_TOKENS.site.url },
               mainEntityOfPage: post.canonical, articleSection: post.categoryLabel, inLanguage: 'pt-BR',
             },
             { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [

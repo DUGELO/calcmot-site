@@ -1,4 +1,4 @@
-import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, mkdir, writeFile, realpath, lstat } from 'node:fs/promises';
 import { resolve, relative } from 'node:path';
 import { createHash } from 'node:crypto';
 import { parseDocument } from 'yaml';
@@ -81,10 +81,18 @@ export function renderMarkdown(body) {
     },
   });
 }
-async function image(source, root, output) {
+async function image(source, mediaDirectory, output) {
   if (!/^\/media\/blog\/[a-zA-Z0-9/_-]+\.(?:webp|avif|png|jpe?g)$/.test(source ?? '')) fail('Capa deve ser uma imagem raster em /media/blog/.');
-  const path = resolve(root, 'public', source.slice(1));
-  if (relative(resolve(root, 'public/media/blog'), path).startsWith('..')) fail('Imagem fora da pasta editorial.');
+  const path = resolve(mediaDirectory, source.slice('/media/blog/'.length));
+  const base = await realpath(mediaDirectory), actual = await realpath(path);
+  if (relative(base, actual).startsWith('..') || (await lstat(path)).isSymbolicLink()) fail('Imagem fora da pasta editorial.');
+  let parent = resolve(path, '..');
+  while (parent !== base) {
+    if ((await lstat(parent)).isSymbolicLink()) fail('Pasta de imagem insegura.');
+    const next = resolve(parent, '..');
+    if (next === parent) fail('Imagem fora da pasta editorial.');
+    parent = next;
+  }
   const input = await readFile(path);
   if (input.length > 8 * 1024 * 1024) fail('Imagem maior que 8 MB.');
   const meta = await sharp(input, { limitInputPixels: 40_000_000 }).metadata();
@@ -100,8 +108,8 @@ async function image(source, root, output) {
   }
   return { ...variants[2], srcset: [...new Map(variants.map(v => [v.width, `${v.src} ${v.width}w`])).values()].join(', ') };
 }
-export async function loadPosts({ root, directory = resolve(root, 'content/blog'), now = editorialToday(), imageOutput = resolve(root, 'public/media/blog-optimized') }) {
-  const posts = [], slugs = new Set(), files = (await readdir(directory)).filter(name => name.endsWith('.md')).sort();
+export async function loadPosts({ root, directory = resolve(root, 'content/blog'), now = editorialToday(), mediaDirectory = resolve(root, 'public/media/blog'), imageOutput = resolve(root, 'public/media/blog-optimized') }) {
+  const posts = [], slugs = new Set(), files = (await readdir(directory).catch(error => { if (error.code === 'ENOENT') return []; throw error; })).filter(name => name.endsWith('.md')).sort();
   for (const file of files) {
     const source = await readFile(resolve(directory, file), 'utf8');
     const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -129,14 +137,14 @@ export async function loadPosts({ root, directory = resolve(root, 'content/blog'
     // Toda imagem incorporada também é decodificada e otimizada, sem fetch remoto.
     let safeHtml = html;
     for (const source of new Set([...html.matchAll(/<img[^>]+src="([^"]+)"/g)].map(m => m[1]))) {
-      const optimized = await image(source, root, imageOutput);
+      const optimized = await image(source, mediaDirectory, imageOutput);
       safeHtml = safeHtml.replaceAll(`src="${source}"`, `src="${optimized.src}" width="${optimized.width}" height="${optimized.height}"`);
     }
     posts.push({
       slug, title: text(data.title, 'título', 120), summary: text(data.summary, 'resumo', 300),
       category: data.category, categoryLabel: CATEGORIES[data.category],
       author: text(data.author, 'autor', 100), publishedAt, updatedAt,
-      cover: await image(data.cover, root, imageOutput), coverAlt: text(data.coverAlt, 'texto alternativo', 200),
+      cover: await image(data.cover, mediaDirectory, imageOutput), coverAlt: text(data.coverAlt, 'texto alternativo', 200),
       seoTitle: text(data.seoTitle || data.title, 'título SEO', 120),
       seoDescription: text(data.seoDescription || data.summary, 'descrição SEO', 300),
       canonical: canonical(data.canonical, slug), aliases,

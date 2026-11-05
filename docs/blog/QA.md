@@ -1,3 +1,5 @@
+> Evidência histórica de 29/10/2026; não substitui a homologação editorial privada descrita em PRIVATE-EDITORIAL.md.
+
 # QA local — blog CalcMot
 
 Executado em 29/10/2026 na branch codex/calcmot-blog, integrada à main 0b8408e. Nenhum deploy de produção.

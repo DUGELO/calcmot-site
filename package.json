@@ -33,7 +33,8 @@
     "test:blog:publication": "node scripts/test-blog-publication.mjs",
     "prewatch": "npm run content:generate",
     "prebuild:admin:dev": "npm run content:generate",
-    "prebuild:admin:prod": "npm run content:generate"
+    "prebuild:admin:prod": "npm run content:generate",
+    "test:editorial": "node --test tests/editorial.spec.mjs"
   },
   "dependencies": {
     "@angular/common": "^21.2.0",

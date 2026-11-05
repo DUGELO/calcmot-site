@@ -15,3 +15,5 @@ Thumbs.db
 /src/app/blog/generated/
 /cloudflare/generated/
 /public/media/blog-optimized/
+
+/public/blog-release.json

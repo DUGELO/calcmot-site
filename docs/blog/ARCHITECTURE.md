@@ -1,3 +1,5 @@
+> Registro da implementação de 29/10/2026. A arquitetura vigente está em [PRIVATE-EDITORIAL.md](PRIVATE-EDITORIAL.md).
+
 # CalcMot Blog — diagnóstico e decisão
 
 Data da auditoria: 29/10/2026. Base auditada inicialmente: main, d7a99109; integrada à main 0b8408e antes da entrega. Branch: codex/calcmot-blog.

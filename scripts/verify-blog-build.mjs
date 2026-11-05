@@ -19,7 +19,7 @@ for (const path of routes) {
     const schema = blocks.find(block => block['@type'] === 'BlogPosting');
     assert.ok(schema, 'BlogPosting JSON válido ausente');
     for (const key of ['headline','description','image','datePublished','dateModified','author','publisher','mainEntityOfPage']) assert.ok(schema[key], 'Campo schema ausente: ' + key);
-    assert.equal(schema.author['@type'], 'Person');
+    assert.ok(['Person', 'Organization'].includes(schema.author['@type']));
     assert.ok(blocks.some(block => block['@type'] === 'BreadcrumbList'), 'BreadcrumbList ausente');
     assert.match(html, /property="og:type" content="article"/);
     assert.match(html, /name="twitter:card" content="summary_large_image"/);

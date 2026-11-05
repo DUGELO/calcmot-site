@@ -11,6 +11,8 @@ import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import { adminBuildEnvironment } from "./admin-build-environment.mjs";
 
+import { cloudflareBuildGate } from './editorial/request.mjs';
+cloudflareBuildGate(process.env);
 const adminBuild = adminBuildEnvironment();
 // Also prepare editorial output when invoked directly by Wrangler's custom build.
 for (const script of ['scripts/generate-blog.mjs', 'scripts/generate-sitemap.mjs']) {

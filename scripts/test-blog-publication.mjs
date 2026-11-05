@@ -6,11 +6,14 @@ import { existsSync } from 'node:fs';
 import { spawn, execFileSync } from 'node:child_process';
 import sharp from 'sharp';
 import { stringify } from 'yaml';
+import { emptySnapshot, sealSnapshot } from './editorial/snapshot.mjs';
 const root = resolve(import.meta.dirname, '..');
 process.chdir(root);
 const fixtureRoot = resolve(root, '.angular/blog-publication');
 const output = resolve(fixtureRoot, 'node');
 const ownedFiles = [];
+const originalSource = process.env.CALCMOT_CONTENT_ROOT;
+const source = resolve(fixtureRoot, 'content');
 let server;
 const run = (script, args = []) => execFileSync(process.execPath, [script, ...args], { stdio: 'inherit', env: process.env });
 const ready = async base => {
@@ -26,20 +29,29 @@ const create = async (path, contents) => {
 };
 try {
   await mkdir(fixtureRoot, { recursive: true });
+  await mkdir(resolve(source,'articles'),{recursive:true});
+  await mkdir(resolve(source,'media'),{recursive:true});
+  const snapshot = await emptySnapshot(source);
+  process.env.CALCMOT_CONTENT_ROOT = source;
+  process.env.CALCMOT_ALLOW_EMPTY_CONTENT = '1';
   const cover = await sharp({ create: { width: 1600, height: 900, channels: 3, background: '#1768f9' } }).png().toBuffer();
-  await create(resolve(root, 'public/media/blog/qa-publication.png'), cover);
+  await create(resolve(source, 'media/qa-publication.png'), cover);
   for (let i = 1; i <= 13; i++) {
     const metadata = {
       title: 'Teste editorial ' + i, slug: 'qa-artigo-' + i,
       summary: 'Resumo específico para homologação editorial ' + i + '.',
-      category: 'lucro-por-quilometro', author: 'Equipe QA',
+      category: 'lucro-por-quilometro', author: i === 1 ? 'CalcMot' : 'Equipe QA',
       publishedAt: '2026-01-10', updatedAt: '2026-02-12', status: 'published',
       cover: '/media/blog/qa-publication.png', coverAlt: 'Ilustração temporária de homologação',
       aliases: i === 1 ? ['qa-antigo'] : [],
     };
-    await create(resolve(root, 'content/blog/qa-publication-' + i + '.md'), '---\n' + stringify(metadata) + '---\n## A conta do teste\n\nCALCMOT_QA_BODY_' + i + '\n\n[Calculadora](/ferramentas/corrida-vale-a-pena/).\n\n### Exemplo verificável\n\n**Fim integral do artigo ' + i + '.**');
+    await create(resolve(source, 'articles/qa-publication-' + i + '.md'), '---\n' + stringify(metadata) + '---\n## A conta do teste\n\nCALCMOT_QA_BODY_' + i + '\n\n[Calculadora](/ferramentas/corrida-vale-a-pena/).\n\n### Exemplo verificável\n\n**Fim integral do artigo ' + i + '.**');
   }
-  await create(resolve(root, 'content/blog/qa-publication-draft.md'), '---\nstatus: draft\nslug: qa-rascunho\ntitle: CALCMOT_DRAFT_SECRET\n---\nCALCMOT_DRAFT_BODY');
+  for (let i=1;i<=13;i++) snapshot.entries['articles/qa-publication-' + i + '.md'] = {
+    sourceRevision:'a'.repeat(40), sourceBlob:'b'.repeat(40), slug:'qa-artigo-' + i, withdrawn:false,
+  };
+  await sealSnapshot({root:source,manifest:snapshot,releaseId:'999001-1',codeRevision:'c'.repeat(40)});
+  await create(resolve(fixtureRoot, 'working-draft.md'), '---\nstatus: draft\nslug: qa-rascunho\ntitle: CALCMOT_DRAFT_SECRET\n---\nCALCMOT_DRAFT_BODY');
   run('scripts/generate-blog.mjs'); run('scripts/generate-sitemap.mjs');
   run('node_modules/@angular/cli/bin/ng.js', ['build', '--output-path', output]);
   run('scripts/verify-blog-build.mjs', [resolve(output, 'browser')]);
@@ -73,6 +85,8 @@ try {
   if (server) { server.kill(); await new Promise(resolve => server.once('close', resolve)); }
   // Only exact files owned by this run; never remove the real editorial collection.
   for (const file of ownedFiles) await rm(file, { force: true });
+  if (originalSource === undefined) delete process.env.CALCMOT_CONTENT_ROOT;
+  else process.env.CALCMOT_CONTENT_ROOT = originalSource;
   run('scripts/generate-blog.mjs'); run('scripts/generate-sitemap.mjs');
   run('scripts/build-cloudflare.mjs');
   assert.ok(!existsSync(resolve(root, 'dist/calcmot-cloudflare/browser/blog/qa-artigo-1/index.html')), 'Artigo retirado permaneceu no artefato');

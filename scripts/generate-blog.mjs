@@ -1,12 +1,29 @@
-import { mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdir, writeFile, rm, readdir } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { loadPosts, listingPaths, CATEGORIES, PAGE_SIZE } from './blog/content.mjs';
+import { verifySnapshot } from './editorial/snapshot.mjs';
 const root = resolve(import.meta.dirname, '..');
 const output = resolve(root, 'src/app/blog/generated');
 await mkdir(output, { recursive: true });
 // Remove obsolete optimized files so unpublished images are not retained.
 await rm(resolve(root, 'public/media/blog-optimized'), { recursive: true, force: true });
-const posts = await loadPosts({ root });
+const originals = await readdir(resolve(root, 'public/media/blog')).catch(error => {
+  if (error.code === 'ENOENT') return []; throw error;
+});
+if (originals.some(name => name !== '.gitkeep')) throw new Error('Originais editoriais não podem permanecer na pasta pública.');
+let posts = [];
+const source = process.env.CALCMOT_CONTENT_ROOT;
+if (source) {
+  const contentRoot = resolve(source);
+  if (contentRoot === root || contentRoot.startsWith(resolve(root, 'public'))) throw new Error('Conteúdo privado fora da pasta pública é obrigatório.');
+  const snapshot = await verifySnapshot(contentRoot);
+  posts = await loadPosts({ root, directory: resolve(contentRoot, 'articles'), mediaDirectory: resolve(contentRoot, 'media') });
+  await writeFile(resolve(root, 'public/blog-release.json'), JSON.stringify({
+    releaseId: snapshot.releaseId, codeRevision: snapshot.codeRevision, snapshotDigest: snapshot.snapshotDigest,
+  }) + '\n');
+} else {
+  await rm(resolve(root, 'public/blog-release.json'), { force: true });
+}
 const paths = listingPaths(posts);
 const manifest = { paths, slugs: posts.map(p => p.slug), redirects: Object.fromEntries(posts.flatMap(p => p.aliases.map(alias => [alias, p.slug]))) };
 await rm(resolve(output, 'articles'), { recursive: true, force: true });
