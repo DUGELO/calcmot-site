@@ -646,6 +646,32 @@
         "checkedAt": "2026-11-05",
         "note": "Official editorial contact verified; individually relevant proposal sent. Coverage and link discretionary."
       }
+    },
+    {
+      "id": "techtools-launchpad",
+      "name": "TechTools.cz Launchpad",
+      "kind": "directory",
+      "submitUrl": "https://techtools.cz/tools/launchpad/",
+      "cost": "free",
+      "priority": "A",
+      "eligibility": "verified",
+      "notes": "Catálogo gratuito com submissão aceita por agentes; conteúdo dinâmico; ficha ?tool=7696.",
+      "submissionStatus": "published",
+      "publishedUrl": "https://techtools.cz/tools/launchpad/?tool=7696",
+      "lastChecked": "2026-11-05",
+      "stage": "published",
+      "qualification": {
+        "eligible": true,
+        "url": "https://techtools.cz/tools/launchpad/",
+        "checkedAt": "2026-11-05",
+        "note": "Submissão gratuita aceita; ficha pública acessada por navegador com link para CalcMot."
+      },
+      "publicationEvidence": {
+        "browserRunUrl": "https://agent.tinyfish.ai/runs/99c91c3b-9a2a-48d8-b981-cdd9adb2a4fe",
+        "observedName": "CalcMot",
+        "observedTarget": "https://calcmot.com.br/",
+        "verificationCaveat": "Renderização dinâmica; verificador HTML estático ainda não reproduziu o link."
+      }
     }
   ]
 }
