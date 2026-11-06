@@ -15,9 +15,9 @@ try {
   await writeFile(resolve(root,'.angular/seo-negative-gate.log'),log);
   assert.notEqual(result.status,0,'Uma página com SEO abaixo de 100 foi aceita.');
   const reportRoot=log.match(/Relatórios SEO: ([^\r\n]+)/)?.[1];assert.ok(reportRoot,'Lighthouse não chegou a auditar a página negativa.');
-  const files=(await readdir(resolve(reportRoot,'.lighthouseci'))).filter(file=>file.startsWith('lhr-')&&file.endsWith('.json'));
+  const files=(await readdir(resolve(reportRoot,'part-1','.lighthouseci'))).filter(file=>file.startsWith('lhr-')&&file.endsWith('.json'));
   assert.equal(files.length,1);
-  const lhr=JSON.parse(await readFile(resolve(reportRoot,'.lighthouseci',files[0]),'utf8'));
+  const lhr=JSON.parse(await readFile(resolve(reportRoot,'part-1','.lighthouseci',files[0]),'utf8'));
   assert.equal(lhr.audits['meta-description'].score,0,'O erro SEO esperado não foi identificado.');
   assert.ok(lhr.categories.seo.score<1);
   console.log('Gate SEO: Lighthouse detectou a descrição ausente e bloqueou a nota abaixo de 100.');
