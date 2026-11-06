@@ -299,6 +299,20 @@
       "publishedUrl": null,
       "backlinkConfirmed": false,
       "costBRL": 0
+    },
+    {
+      "id": "canopy-submitted-20261105",
+      "opportunityId": "canopy-launches",
+      "status": "published",
+      "submissionConfirmed": true,
+      "confirmationUrl": "https://canopystack.dev/launches/1c2o6h0h5u",
+      "protocol": "1c2o6h0h5u",
+      "evidence": "https://agent.tinyfish.ai/runs/83160ba1-cba2-4929-809c-3a2e7b6361ab",
+      "observedText": "You're listed — thanks for adding CalcMot. Public page opened with a visit link to https://calcmot.com.br/.",
+      "publishedUrl": "https://canopystack.dev/launches/1c2o6h0h5u",
+      "backlinkConfirmed": true,
+      "backlinkEvidence": "Rendered browser, not yet confirmed by static HTTP auditor",
+      "costBRL": 0
     }
   ]
 }
