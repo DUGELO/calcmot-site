@@ -72,15 +72,30 @@ try {
   const reportRoot=resolve(root,'.angular/blog-lighthouse'),runRoot=resolve(reportRoot,Date.now()+'-'+randomUUID());
   await mkdir(runRoot,{recursive:true});
   console.log('Relatórios SEO: '+runRoot);
-  const config={ci:{collect:{url:urls,numberOfRuns:1,settings:{chromeFlags:'--headless --no-sandbox --disable-dev-shm-usage',onlyCategories:['seo'],throttlingMethod:'provided',pauseAfterFcpMs:1000,pauseAfterLoadMs:1000,networkQuietThresholdMs:1000,cpuQuietThresholdMs:1000,maxWaitForLoad:20000,blockedUrlPatterns:['*google-analytics.com/*','*googletagmanager.com/*','*clarity.ms/*','*doubleclick.net/*']}},assert:{assertions:{'categories:seo':['error',{minScore:1,aggregationMethod:'pessimistic'}]}},upload:{target:'filesystem',outputDir:resolve(runRoot,'reports')}}};
-  const configPath=resolve(runRoot,'lighthouserc.json');await writeFile(configPath,JSON.stringify(config));
-  await new Promise((resolveRun,reject)=>{
-    const child=spawn(process.execPath,[resolve(root,'node_modules/@lhci/cli/src/cli.js'),'autorun','--config='+configPath],{cwd:runRoot,env:safeEnv,stdio:'inherit'});
-    child.once('error',reject);child.once('close',code=>code===0?resolveRun():reject(new Error('Lighthouse bloqueou a publicação: SEO 100/100 é obrigatório.')));
-  });
-  const reports=await readdir(resolve(runRoot,'.lighthouseci')),scores=new Map();
-  for(const file of reports.filter(file=>file.startsWith('lhr-')&&file.endsWith('.json'))) {
-    const lhr=JSON.parse(await readFile(resolve(runRoot,'.lighthouseci',file),'utf8'));
+  // Independent browser processes overlap navigation waits. Every URL still has
+  // its own real Lighthouse report and every assertion remains mandatory.
+  const shards=Array.from({length:Math.min(3,urls.length)},()=>[]);
+  urls.forEach((url,index)=>shards[index%shards.length].push(url));
+  const results=await Promise.allSettled(shards.map(async(shard,index)=>{
+    const shardRoot=resolve(runRoot,'part-'+(index+1));await mkdir(shardRoot);
+    const config={ci:{collect:{url:shard,numberOfRuns:1,settings:{chromeFlags:'--headless --no-sandbox --disable-dev-shm-usage',onlyCategories:['seo'],throttlingMethod:'provided',pauseAfterFcpMs:1000,pauseAfterLoadMs:1000,networkQuietThresholdMs:1000,cpuQuietThresholdMs:1000,maxWaitForLoad:20000,blockedUrlPatterns:['*google-analytics.com/*','*googletagmanager.com/*','*clarity.ms/*','*doubleclick.net/*']}},assert:{assertions:{'categories:seo':['error',{minScore:1,aggregationMethod:'pessimistic'}]}},upload:{target:'filesystem',outputDir:resolve(shardRoot,'reports')}}};
+    const configPath=resolve(shardRoot,'lighthouserc.json');await writeFile(configPath,JSON.stringify(config));
+    await new Promise((resolveRun,reject)=>{
+      const child=spawn(process.execPath,[resolve(root,'node_modules/@lhci/cli/src/cli.js'),'autorun','--config='+configPath],{cwd:shardRoot,env:safeEnv,stdio:'inherit'});
+      child.once('error',reject);child.once('close',code=>code===0?resolveRun():reject(new Error('Lighthouse bloqueou a publicação: SEO 100/100 é obrigatório.')));
+    });
+    return resolve(shardRoot,'.lighthouseci');
+  }));
+  const failed=results.find(result=>result.status==='rejected');
+  if(failed)throw failed.reason;
+  const reports=[];
+  for(const result of results){
+    const folder=result.value;
+    for(const file of await readdir(folder))if(file.startsWith('lhr-')&&file.endsWith('.json'))reports.push(resolve(folder,file));
+  }
+  const scores=new Map();
+  for(const file of reports) {
+    const lhr=JSON.parse(await readFile(file,'utf8'));
     assert.ok(!lhr.runtimeError,'Lighthouse não concluiu uma rota.');
     const requested=new URL(lhr.requestedUrl).href;
     assert.ok(urls.includes(requested),'Relatório para URL inesperada.');
@@ -89,10 +104,11 @@ try {
     assert.equal(finalUrl.origin,new URL(requested).origin,'URL auditada mudou de domínio.');
     assert.equal(route(finalUrl.pathname),route(new URL(requested).pathname),'URL auditada redirecionou para outra página.');
     assert.equal(lhr.categories?.seo?.score,1,'SEO abaixo de 100: '+new URL(requested).pathname);
+    assert.ok(!scores.has(requested),'Relatório duplicado para a mesma URL.');
     scores.set(requested,100);
   }
   assert.equal(scores.size,urls.length,'Todas as URLs públicas precisam de relatório SEO 100.');
-  const summary={auditedAt:new Date().toISOString(),origin,codeRevision:process.env.SITE_REVISION??null,minimumScore:100,tool:'@lhci/cli@0.15.1',routes:[...scores].map(([url,score])=>({path:new URL(url).pathname,score}))};
+  const summary={auditedAt:new Date().toISOString(),origin,codeRevision:process.env.SITE_REVISION??null,minimumScore:100,concurrency:shards.length,tool:'@lhci/cli@0.15.1',routes:[...scores].map(([url,score])=>({path:new URL(url).pathname,score}))};
   await writeFile(resolve(reportRoot,'summary-latest.json'),JSON.stringify(summary,null,2)+'\n');
   console.log(`SEO obrigatório: ${scores.size} páginas públicas, todas com 100/100.`);
 } finally {
