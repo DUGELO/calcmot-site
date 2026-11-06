@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { renderMarkdown } from '../blog/content.mjs';
+import { verifySnapshot, parseArticle } from './snapshot.mjs';
+const origin = process.argv[2] ?? 'http://localhost:4000';
+const snapshot = await verifySnapshot(resolve(process.env.CALCMOT_CONTENT_ROOT ?? ''));
+const fetchPage = path => fetch(origin + path, { redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+const index = await fetchPage('/blog/');
+assert.equal(index.status,200);
+const sitemapResponse = await fetchPage('/sitemap.xml');
+assert.equal(sitemapResponse.status,200);
+const sitemap = await sitemapResponse.text();
+const articles=snapshot.files.filter(file=>file.path.startsWith('articles/'));
+const selected=articles.filter((file,index)=>index<3 || file.path===snapshot.lastOperation?.path);
+for (const file of selected) {
+  const { data, body } = parseArticle(await readFile(resolve(process.env.CALCMOT_CONTENT_ROOT,file.path),'utf8'));
+  const response = await fetchPage('/blog/' + data.slug + '/');
+  assert.equal(response.status,200);
+  const html = await response.text();
+  assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length,1);
+  assert.ok(html.includes('BlogPosting') && html.includes(data.title.replaceAll('&','&amp;')));
+  const prose=html.match(/<div[^>]+class="blog-prose"[^>]*>([\s\S]*?)<\/div>/)?.[1];
+  assert.ok(prose, 'Corpo do artigo ausente');
+  const plain=value=>value.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+  assert.equal(plain(prose),plain(renderMarkdown(body)),'Conteúdo incompleto na resposta inicial');
+  if (!data.canonical || data.canonical === 'https://calcmot.com.br/blog/' + data.slug + '/') assert.ok(sitemap.includes('/blog/' + data.slug + '/'));
+  assert.ok(body.trim().length > 0);
+}
+if(snapshot.lastOperation?.removedSlug)assert.equal((await fetchPage('/blog/'+snapshot.lastOperation.removedSlug+'/')).status,404);
+assert.equal((await fetchPage('/blog/calcmot-missing-' + snapshot.snapshotDigest.slice(0,16) + '/')).status,404);
+console.log('Smoke editorial: HTML, metadados, sitemap e 404 confirmados.');

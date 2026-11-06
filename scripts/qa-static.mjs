@@ -129,6 +129,7 @@ const packageJson = read('package.json');
 const siteCopy = read('src/app/core/constants/site-copy.ts');
 
 const EXPECTED_ROUTES = [
+  'blog',
   '',
   'como-funciona',
   'calculadora-ganhos-motorista-app',

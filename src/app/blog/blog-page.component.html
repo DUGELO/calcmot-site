@@ -1,0 +1,51 @@
+@if (missing()) {
+  <section class="container blog blog--empty">
+    <p class="eyebrow">404</p><h1>Conteúdo não encontrado</h1>
+    <p>Este conteúdo não está disponível.</p><a class="blog-link" href="/blog/">Explorar o blog</a>
+  </section>
+} @else if (post(); as article) {
+  <article class="container blog blog--article">
+    <nav class="blog-breadcrumb" aria-label="Breadcrumb"><a href="/">Início</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a><span aria-hidden="true">/</span><span aria-current="page">{{ article.title }}</span></nav>
+    <header class="blog-article-header">
+      <a class="eyebrow" [href]="'/blog/categoria/' + article.category + '/'">{{ article.categoryLabel }}</a>
+      <h1>{{ article.title }}</h1><p class="blog-summary">{{ article.summary }}</p>
+      <p class="blog-meta">Por {{ article.author }} · <time [attr.datetime]="article.publishedAt">{{ article.publishedAt | date:'dd/MM/yyyy':'UTC' }}</time> · {{ article.readingMinutes }} min de leitura</p>
+      @if (article.updatedAt !== article.publishedAt) { <p class="blog-meta">Atualizado em <time [attr.datetime]="article.updatedAt">{{ article.updatedAt | date:'dd/MM/yyyy':'UTC' }}</time></p> }
+    </header>
+    <img class="blog-cover" [src]="article.cover.src" [attr.srcset]="article.cover.srcset" sizes="(max-width: 800px) 100vw, 800px" [width]="article.cover.width" [height]="article.cover.height" [alt]="article.coverAlt" fetchpriority="high" loading="eager" />
+    <div class="blog-prose" [innerHTML]="article.html"></div>
+    <aside class="blog-cta" aria-label="Ferramentas CalcMot">
+      <p class="eyebrow">Coloque a conta em prática</p><h2>Quanto essa corrida deixa para você?</h2>
+      <p>Compare valor, distância, tempo e custos na calculadora. No Android, conheça o CalcMot para acompanhar os números da oferta.</p>
+      <div class="blog-actions"><a class="blog-button" href="/ferramentas/corrida-vale-a-pena/" data-analytics-placement="blog_tool">Simular uma corrida</a>
+      <a class="blog-link" [href]="playStore" data-analytics-placement="blog_play" target="_blank" rel="noopener noreferrer">Baixar o CalcMot na Play Store ↗</a></div>
+    </aside>
+    @if (related().length) {
+      <section class="blog-related" aria-labelledby="related-title"><h2 id="related-title">Continue a leitura</h2>
+      <div class="blog-grid">@for (item of related(); track item.slug) { <a class="blog-card" [href]="'/blog/' + item.slug + '/'"><p class="eyebrow">{{ item.categoryLabel }}</p><h3>{{ item.title }}</h3><p>{{ item.summary }}</p></a> }</div></section>
+    }
+  </article>
+} @else {
+  <section class="container blog">
+    <header class="blog-heading"><p class="eyebrow">Na ponta do lápis</p><h1>{{ listingTitle() }}</h1><p class="blog-summary">Entenda seus custos. Compare as corridas. Decida com os números na mão.</p></header>
+    <nav class="blog-categories" aria-label="Categorias do blog"><a href="/blog/" [attr.aria-current]="!category() ? 'page' : null">Todos os temas</a>
+    @for (item of categories; track item[0]) { <a [href]="'/blog/categoria/' + item[0] + '/'" [attr.aria-current]="category() === item[0] ? 'page' : null">{{ item[1] }}</a> }</nav>
+    @if (!posts().length) {
+      <div class="blog--empty"><h2>Os próximos guias estão em preparação</h2><p>Enquanto isso, use a calculadora para analisar uma corrida com os seus próprios custos.</p><a class="blog-button" href="/ferramentas/corrida-vale-a-pena/" data-analytics-placement="blog_tool">Simular uma corrida</a></div>
+    } @else {
+      <div class="blog-grid">@for (item of posts(); track item.slug; let first = $first) {
+        <article class="blog-card" [class.blog-card--featured]="first && page() === 1 && !category()">
+          <a [href]="'/blog/' + item.slug + '/'" tabindex="-1" aria-hidden="true"><img [src]="item.cover.src" [attr.srcset]="item.cover.srcset" sizes="(max-width: 700px) 100vw, 550px" [width]="item.cover.width" [height]="item.cover.height" alt="" [attr.loading]="first ? 'eager' : 'lazy'" [attr.fetchpriority]="first ? 'high' : 'auto'" /></a>
+          <div class="blog-card__body"><p class="eyebrow">{{ item.categoryLabel }} @if (first && page() === 1 && !category()) { <span>· Em destaque</span> }</p>
+          <h2><a [href]="'/blog/' + item.slug + '/'">{{ item.title }}</a></h2><p>{{ item.summary }}</p><p class="blog-meta"><time [attr.datetime]="item.publishedAt">{{ item.publishedAt | date:'dd/MM/yyyy':'UTC' }}</time> · {{ item.readingMinutes }} min de leitura</p></div>
+        </article>
+      }</div>
+      @if (totalPages() > 1) { <nav class="blog-pagination" aria-label="Paginação do blog">
+        @if (page() > 1) { <a [href]="listUrl(page() - 1)" rel="prev">← Anterior</a> }
+        <span>Página {{ page() }} de {{ totalPages() }}</span>
+        @if (page() < totalPages()) { <a [href]="listUrl(page() + 1)" rel="next">Próxima →</a> }
+      </nav> }
+    }
+    <aside class="blog-cta"><h2>Uma decisão melhor começa pela conta</h2><p>Informe os números da oferta e veja o resultado com seus custos.</p><a class="blog-link" href="/ferramentas/corrida-vale-a-pena/" data-analytics-placement="blog_tool">Abrir a calculadora de corrida →</a></aside>
+  </section>
+}
