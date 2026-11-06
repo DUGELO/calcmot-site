@@ -697,6 +697,32 @@
         "observedText": "Thanks! Your tool is in the queue.",
         "approvalPending": true
       }
+    },
+    {
+      "id": "canopy-launches",
+      "name": "Canopy Launch Directory",
+      "kind": "directory",
+      "submitUrl": "https://canopystack.dev/launches",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "verified",
+      "submissionStatus": "published",
+      "stage": "published",
+      "publishedUrl": "https://canopystack.dev/launches/1c2o6h0h5u",
+      "lastChecked": "2026-11-05",
+      "notes": "Submissão permitida e realizada via formulário público; página específica publicada imediatamente.",
+      "qualification": {
+        "eligible": true,
+        "url": "https://canopystack.dev/launches",
+        "checkedAt": "2026-11-05",
+        "note": "Sem conta, pagamento ou badge; anúncio foi aceito e publicado com link direto."
+      },
+      "publicationEvidence": {
+        "browserRunUrl": "https://agent.tinyfish.ai/runs/83160ba1-cba2-4929-809c-3a2e7b6361ab",
+        "observedName": "CalcMot",
+        "observedTarget": "https://calcmot.com.br/",
+        "note": "Navegador confirmou página pública e link; ferramentas de busca externa não conseguiram abrir a página diretamente."
+      }
     }
   ]
 }
