@@ -60,6 +60,7 @@ try:
         # Primeiro acesso: visita direta deve gerar um único evento, com origem direta.
         page.goto(ORIGIN + "/ferramentas/corrida-vale-a-pena/", wait_until="networkidle")
         expect(page.locator("app-root h1")).to_contain_text("Essa corrida vale a pena?")
+        page.wait_for_function("() => (window.dataLayer || []).some(item => item[0] === 'event' && item[1] === 'web_calculator_viewed')")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Visualização direta: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "direct", viewed
@@ -82,10 +83,13 @@ try:
         # Entrada originada na home: a ponte de navegação deve transportar apenas
         # categorias, sem referrer bruto nem dados financeiros.
         page.goto(ORIGIN + "/", wait_until="networkidle")
+        # SSR exposes links before hydration installs the capture listener.
+        page.wait_for_function("() => typeof window.gtag === 'function' && document.getElementById('calcmot-ga4')")
         home_link = page.locator("a[data-analytics-placement='home_hero']")
         expect(home_link).to_have_count(1)
         home_link.click()
         expect(page.locator("app-root h1")).to_contain_text("Essa corrida vale a pena?")
+        page.wait_for_function("() => (window.dataLayer || []).some(item => item[0] === 'event' && item[1] === 'web_calculator_viewed')")
         viewed = events(page, "web_calculator_viewed")
         assert len(viewed) == 1, f"Entrada home: esperado 1, encontrado {viewed}"
         assert viewed[0]["source_page"] == "home", viewed
