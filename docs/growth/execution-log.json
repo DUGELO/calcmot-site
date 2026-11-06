@@ -262,6 +262,30 @@
       "backlinkConfirmed": false,
       "costBRL": 0,
       "submittedAt": "2026-11-05"
+    },
+    {
+      "id": "techtools-submitted-20261105",
+      "opportunityId": "techtools-launchpad",
+      "status": "published",
+      "submissionConfirmed": true,
+      "confirmationUrl": "https://techtools.cz/tools/launchpad/?tool=7696",
+      "protocol": "7696",
+      "evidence": "https://agent.tinyfish.ai/runs/99c91c3b-9a2a-48d8-b981-cdd9adb2a4fe",
+      "observedText": "Submissão executada uma vez; página pública aberta no navegador com nome CalcMot, categoria Business & Finance, link https://calcmot.com.br/.",
+      "publishedUrl": "https://techtools.cz/tools/launchpad/?tool=7696",
+      "backlinkConfirmed": true,
+      "backlinkEvidence": "Navegador com JS; extração HTML não confirmou",
+      "costBRL": 0
+    },
+    {
+      "id": "shareyourstartup-captcha-20261105",
+      "opportunityId": "shareyourstartup",
+      "status": "blocked_external",
+      "submissionConfirmed": false,
+      "backlinkConfirmed": false,
+      "reason": "Campos preparados; Cloudflare Turnstile exige ação humana; sem envio.",
+      "source": "https://shareyourstartup.com/submit.html",
+      "evidence": "https://agent.tinyfish.ai/runs/c464f158-e0d5-4d37-9b2d-5ea1c34d7da7"
     }
   ]
 }
