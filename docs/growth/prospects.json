@@ -672,6 +672,31 @@
         "observedTarget": "https://calcmot.com.br/",
         "verificationCaveat": "Renderização dinâmica; verificador HTML estático ainda não reproduziu o link."
       }
+    },
+    {
+      "id": "ignlab-launch",
+      "name": "Ignlab Launch",
+      "kind": "directory",
+      "submitUrl": "https://launch.ignlab.net/",
+      "cost": "free",
+      "priority": "B",
+      "eligibility": "verified",
+      "submissionStatus": "submitted",
+      "stage": "awaiting_review",
+      "publishedUrl": null,
+      "lastChecked": "2026-11-05",
+      "notes": "Submissão gratuita aceita; na fila editorial. Não versionar token privado de edição.",
+      "qualification": {
+        "eligible": true,
+        "url": "https://launch.ignlab.net/",
+        "checkedAt": "2026-11-05",
+        "note": "Formulário aceitou CalcMot, categoria Finance, sem pagamento, badge ou login; confirmação em navegador."
+      },
+      "submissionEvidence": {
+        "runUrl": "https://agent.tinyfish.ai/runs/855ece3d-1682-42e1-933c-eb42228fc8a7",
+        "observedText": "Thanks! Your tool is in the queue.",
+        "approvalPending": true
+      }
     }
   ]
 }
