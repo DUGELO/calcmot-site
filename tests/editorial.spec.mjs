@@ -238,3 +238,21 @@ test('Cliente Cloudflare valida resposta e transmite apenas o contrato da distri
   assert.equal(JSON.parse(calls[1].body).strategy,'percentage');
   assert.ok(calls[0].url.endsWith('/workers/scripts/calcmot-site/deployments'));
 });
+
+
+test('Recibo Cloudflare com somente ID permite distribuir e restaurar pesos confirmados por GET',async()=>{
+  const original='11111111-1111-4111-8111-111111111111',candidate='22222222-2222-4222-8222-222222222222';
+  const initial='33333333-3333-4333-8333-333333333333',created='44444444-4444-4444-8444-444444444444',restored='55555555-5555-4555-8555-555555555555';
+  let state={id:initial,versions:[{version_id:original,percentage:100}]},mutations=0;
+  const client=cloudflareClient({CLOUDFLARE_ACCOUNT_ID:'a'.repeat(32),CLOUDFLARE_API_TOKEN:'synthetic-test-value'},async(url,options)=>{
+    if(options.method==='GET')return{ok:true,json:async()=>({success:true,result:{deployments:[{...state,created_on:'2026-11-05T20:00:00Z'}]}})};
+    state={id:mutations++===0?created:restored,versions:JSON.parse(options.body).versions};
+    return{ok:true,json:async()=>({success:true,result:{id:state.id}})};
+  });
+  const previous=await client.current();
+  assert.equal((await client.switch([{version_id:candidate,percentage:100}],'Publish')).id,created);
+  assert.deepEqual((await client.current()).versions,[{version_id:candidate,percentage:100}]);
+  await restoreIfOwned(client,previous,candidate);
+  assert.equal((await client.current()).id,restored);
+  assert.deepEqual((await client.current()).versions,previous.versions);
+});
