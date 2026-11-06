@@ -26,8 +26,9 @@ export function cloudflareClient(env, fetcher = fetch) {
     },
     async switch(versions, message) {
       const result=await call('POST',{strategy:'percentage',versions:weights(versions),annotations:{'workers/message':message}});
-      if(!uuid.test(result.id ?? '')) throw new Error('A distribuição foi enviada, mas seu ID não foi confirmado.');
-      return {id:result.id,versions:weights(result.versions)};
+      if(!uuid.test(result?.id ?? '')) throw new Error('A distribuição foi enviada, mas seu ID não foi confirmado.');
+      // Creation acknowledges the deployment ID. GET and public smoke verify the delivered state.
+      return {id:result.id};
     },
   };
 }

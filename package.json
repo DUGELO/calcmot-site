@@ -34,7 +34,9 @@
     "prewatch": "npm run content:generate",
     "prebuild:admin:dev": "npm run content:generate",
     "prebuild:admin:prod": "npm run content:generate",
-    "test:editorial": "node --test tests/editorial.spec.mjs"
+    "test:editorial": "node --test tests/editorial.spec.mjs",
+    "qa:seo": "node scripts/audit-public-seo.mjs",
+    "test:seo": "node scripts/test-seo-gate.mjs"
   },
   "dependencies": {
     "@angular/common": "^21.2.0",
@@ -59,6 +61,7 @@
     "@angular/build": "^21.2.0",
     "@angular/cli": "^21.2.0",
     "@angular/compiler-cli": "^21.2.0",
+    "@lhci/cli": "0.15.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.15.0",
     "markdown-it": "15.0.3",

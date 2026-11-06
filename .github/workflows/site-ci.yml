@@ -99,7 +99,12 @@ jobs:
         env:
           CALCMOT_BLOG_UI_PYTHON: python
           WRANGLER_SEND_METRICS: "false"
-        run: npm run test:blog:publication
+        run: |
+          npm run test:seo
+          npm run test:blog:publication
+
+      - name: Exigir SEO 100 em todas as páginas públicas do artefato
+        run: npm run qa:seo -- dist/calcmot-cloudflare/browser
 
       - name: Smoke test E2E Angular mobile-first
         run: python scripts/e2e-mobile-smoke.py
@@ -120,8 +125,8 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-      # Production deploy remains exclusively GitHub main -> existing
-      # Cloudflare Worker Builds. No parallel Pages deployment from this workflow.
+      # Production is coordinated by the private editorial workflow.
+      # This public job can only request a release after technical validation.
 
   request-editorial-release:
     name: Solicitar publicação integrada após aprovação técnica
