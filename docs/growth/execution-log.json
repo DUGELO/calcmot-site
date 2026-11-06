@@ -286,6 +286,19 @@
       "reason": "Campos preparados; Cloudflare Turnstile exige ação humana; sem envio.",
       "source": "https://shareyourstartup.com/submit.html",
       "evidence": "https://agent.tinyfish.ai/runs/c464f158-e0d5-4d37-9b2d-5ea1c34d7da7"
+    },
+    {
+      "id": "ignlab-submitted-20261105",
+      "opportunityId": "ignlab-launch",
+      "status": "awaiting_review",
+      "submissionConfirmed": true,
+      "confirmationUrl": "https://launch.ignlab.net/",
+      "protocol": null,
+      "evidence": "https://agent.tinyfish.ai/runs/855ece3d-1682-42e1-933c-eb42228fc8a7",
+      "observedText": "Thanks! Your tool is in the queue. We review every submission before it goes live.",
+      "publishedUrl": null,
+      "backlinkConfirmed": false,
+      "costBRL": 0
     }
   ]
 }
