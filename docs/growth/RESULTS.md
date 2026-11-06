@@ -66,3 +66,19 @@ Validação detalhada em `QA.md`; comandos: `node --test tests/growth/*.test.mjs
 5. Publicar o ativo metodológico somente após homologação de produção; ele já pode ser fornecido individualmente às redações que demonstrarem interesse. Não anunciar uma URL de conteúdo ainda inexistente.
 
 Os arquivos visuais com e-mail pessoal ficam somente no workspace e estão ignorados pelo Git. Tokens de confirmação e links privados de edição não integram o repositório.
+
+
+## Ciclo complementar — 05/11/2026
+
+**Execução externa real neste ciclo:**
+
+| Canal | Estado | URL pública | Evidência |
+| --- | --- | --- | --- |
+| TechTools.cz Launchpad | Publicado; link observado em navegador | https://techtools.cz/tools/launchpad/?tool=7696 | https://agent.tinyfish.ai/runs/99c91c3b-9a2a-48d8-b981-cdd9adb2a4fe |
+| Canopy Launch Directory | Publicado; link para CalcMot confirmado também por extração independente de links | https://canopystack.dev/launches/1c2o6h0h5u | https://agent.tinyfish.ai/runs/83160ba1-cba2-4929-809c-3a2e7b6361ab |
+| Ignlab Launch | Submissão concluída, aguardando revisão | Ainda sem publicação | https://agent.tinyfish.ai/runs/855ece3d-1682-42e1-933c-eb42228fc8a7 |
+| Share Your Startup | Formulário preparado; CAPTCHA humano bloqueou envio | Ainda sem publicação | https://agent.tinyfish.ai/runs/c464f158-e0d5-4d37-9b2d-5ea1c34d7da7 |
+
+**Totais acumulados observados:** 3 domínios com publicação/link observado em navegador (IndexFlow, TechTools.cz e Canopy); 2 novos neste ciclo. Confirmados por HTML/outbound extraction independente neste ciclo: Canopy; TechTools apresenta conteúdo dinâmico não retornado na extração HTML. Não foi comprovada indexação Google, tráfego, aumento de DA ou DR. Nenhum custo de publicação pago.
+
+**Nota de auditoria:** o workflow existente pode continuar contabilizando apenas IndexFlow até que as novas verificações sejam conciliadas. A métrica do relatório automático não deve ser adulterada para fazer parecer que o auditor HTTP detectou conteúdo dinâmico. Também não se deve versionar o token privado de edição retornado por Ignlab.
