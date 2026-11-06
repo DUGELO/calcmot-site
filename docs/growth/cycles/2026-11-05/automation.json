@@ -1,0 +1,12 @@
+{
+  "asOf":"2026-11-05",
+  "automationId":"calcmot-aquisi-o-org-nica-e-verifica-o",
+  "kind":"heartbeat",
+  "status":"ACTIVE",
+  "scheduleLocal":"Diariamente às 10:00, America/Sao_Paulo",
+  "limits":{"minutesPerCycle":20,"opportunitiesPerCycle":10,"newIndividualEditorialContactsPerCycle":3},
+  "notificationPolicy":"Notify only a new backlink, completed submission, significant operational failure or specific necessary intervention; quiet otherwise.",
+  "githubSchedule":"Workflow in draft PR #18 is not active as a scheduled default-branch workflow before merge. Desktop heartbeat provides the current scheduled resumption.",
+  "cost":"No paid publication, upgrades, new paid tools or additional credits authorized; preserve checkpoint at quota limit.",
+  "browserBlock":"CUA runtime ownership unavailable; browser submissions require runtime recovery, no bypass."
+}

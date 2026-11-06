@@ -1,0 +1,23 @@
+{
+  "project": "CalcMot",
+  "targets": [
+    {
+      "id": "indexflow",
+      "name": "IndexFlow",
+      "kind": "directory",
+      "submitUrl": "https://indexflow.tech/submit",
+      "cost": "free",
+      "eligibility": "verified",
+      "submissionStatus": "published",
+      "stage": "published",
+      "publishedUrl": "https://indexflow.tech/directory",
+      "qualification": {
+        "eligible": true,
+        "url": "https://indexflow.tech/submit",
+        "checkedAt": "2026-10-29",
+        "note": "Official free digital utility category Finance & Analytics; freemium accepted; successful submission and public CalcMot listing observed in browser."
+      },
+      "verificationMaxBytes": 8388608
+    }
+  ]
+}

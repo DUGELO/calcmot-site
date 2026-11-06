@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-05",
+  "events": [
+    {
+      "id": "2026-11-05-falamotorista-intent",
+      "opportunityId": "fala-motorista",
+      "channel": "individual_email",
+      "status": "awaiting_review",
+      "submissionConfirmed": true,
+      "recipient": "contato@falamotorista.com.br",
+      "source": "https://www.falamotorista.com.br/contato",
+      "evidence": "docs/growth/cycles/2026-11-05/fala-motorista-sent.json",
+      "messageId": "1a1accf35dfed2d7"
+    }
+  ],
+  "runtimeBlock": "CUA unavailable: registered runtime ownership missing; no browser submissions attempted this cycle."
+}
