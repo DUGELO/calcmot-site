@@ -55,6 +55,7 @@ try {
   run('scripts/generate-blog.mjs'); run('scripts/generate-sitemap.mjs');
   run('node_modules/@angular/cli/bin/ng.js', ['build', '--output-path', output]);
   run('scripts/verify-blog-build.mjs', [resolve(output, 'browser')]);
+  run('scripts/audit-public-seo.mjs', [resolve(output, 'browser')]);
   for (const name of await readdir(resolve(output, 'browser'))) if (name.endsWith('.js')) {
     assert.ok(!(await readFile(resolve(output, 'browser', name), 'utf8')).includes('CALCMOT_DRAFT'), 'Rascunho vazou no bundle');
   }

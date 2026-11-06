@@ -16,6 +16,7 @@ const codeRoot = resolve(import.meta.dirname, '../..');
 const planFile = resolve(codeRoot, '.angular/editorial-plan.json');
 const run = (script, args = []) => execFileSync(process.execPath, [resolve(codeRoot, script), ...args], { cwd: codeRoot, stdio: 'inherit', env });
 const output = async (key, value) => { if (env.GITHUB_OUTPUT) await writeFile(env.GITHUB_OUTPUT, key + '=' + value + '\n', { flag: 'a' }); };
+const auditSeo = (args, contentRoot = stage) => execFileSync(process.execPath, [resolve(codeRoot, 'scripts/audit-public-seo.mjs'), ...args], { cwd: codeRoot, stdio: 'inherit', env: { ...Object.fromEntries(Object.entries(env).filter(([key]) => !/TOKEN|SECRET|PRIVATE_KEY|PASSWORD/i.test(key))), CALCMOT_CONTENT_ROOT: contentRoot } });
 const releaseMatches = (a, b) => a?.releaseId === b?.releaseId && a?.snapshotDigest === b?.snapshotDigest && a?.codeRevision === b?.codeRevision;
 async function remoteReceipt() {
   const response = await fetch('https://calcmot.com.br/blog-release.json', { cache: 'no-store', signal: AbortSignal.timeout(15_000) });
@@ -39,6 +40,7 @@ async function reconcile(expected, previous) {
     execFileSync(process.execPath,[resolve(codeRoot,'scripts/editorial/smoke.mjs'),'https://calcmot.com.br'],{
       cwd:codeRoot,stdio:'inherit',env:{...env,CALCMOT_CONTENT_ROOT:recoveredRoot},
     });
+    auditSeo(['--origin=https://calcmot.com.br'], recoveredRoot);
     promote(repository,candidate,expected);
   } finally { git(repository,['worktree','remove',recoveredRoot]); }
   return candidate;
@@ -123,6 +125,7 @@ async function deploy() {
   productionGate(env);
   const plan=JSON.parse(await readFile(planFile,'utf8')), manifest=await verifySnapshot(stage);
   if(manifest.releaseId!==plan.releaseId || manifest.codeRevision!==env.SITE_REVISION)throw new Error('Artefato de publicação divergente.');
+  auditSeo([resolve(codeRoot, 'dist/calcmot-cloudflare/browser')]);
   const client=cloudflareClient(env), previous=await client.current();
   let candidateId;
   await distribute({
@@ -155,6 +158,7 @@ async function deploy() {
       }
       if(!confirmed)throw new Error('Distribuição não confirmada. A publicação não foi marcada como concluída.');
       run('scripts/editorial/smoke.mjs',['https://calcmot.com.br']);
+      auditSeo(['--origin=https://calcmot.com.br']);
     },
     rollback:async()=>{await restoreIfOwned(client,previous,candidateId);},
     commit:async()=>{promote(repository,plan.candidate,plan.expected);},
