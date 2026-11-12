@@ -10,7 +10,7 @@ import { emptySnapshot, updateSnapshot, sealSnapshot, verifySnapshot, parseArtic
 import { parseRequest, productionGate, cloudflareBuildGate } from '../scripts/editorial/request.mjs';
 import { git, promote, isAncestor, verifyRequestRevision } from '../scripts/editorial/git.mjs';
 import { cloudflareClient, weights, restoreIfOwned } from '../scripts/editorial/cloudflare.mjs';
-import { distribute } from '../scripts/editorial/distribute.mjs';
+import { distribute, verifyDelivery } from '../scripts/editorial/distribute.mjs';
 const SHA = 'a'.repeat(40), BLOB = 'b'.repeat(40), CODE = 'c'.repeat(40);
 const article = (title='Conta por km', extra={}, body='## A conta\n\nTexto útil e específico para explicar o custo por quilômetro.') => '---\n' + stringify({title,category:'lucro-por-quilometro',cover:'/media/blog/cover.png',...extra}) + '---\n' + body;
 const payload = (extra={}) => JSON.stringify({source:'pages-cms',repository:{owner:'DUGELO',repo:'calcmot-content',ref:'main',sha:SHA},action:{name:'publish'},context:{type:'entry',name:'articles',path:'articles/conta.md',data:{sha:BLOB}},...extra});
@@ -255,4 +255,28 @@ test('Recibo Cloudflare com somente ID permite distribuir e restaurar pesos conf
   await restoreIfOwned(client,previous,candidate);
   assert.equal((await client.current()).id,restored);
   assert.deepEqual((await client.current()).versions,previous.versions);
+});
+
+test('Recibo novo com HTML antigo aguarda conteúdo antes de confirmar', async () => {
+  let reads = 0, waits = 0;
+  await verifyDelivery({
+    receiptMatches: async () => true,
+    verifyContent: async () => { if (++reads < 3) throw new Error('old HTML'); },
+    attempts: 3, wait: async () => { waits++; },
+  });
+  assert.equal(reads, 3); assert.equal(waits, 2);
+});
+test('HTML que não converge mantém reversão e não registra publicação', async () => {
+  const events = [];
+  await assert.rejects(() => distribute({
+    assertCurrent: async () => {}, persistCandidate: async () => {}, deploy: async () => {},
+    verify: () => verifyDelivery({ receiptMatches: async () => true,
+      verifyContent: async () => { throw new Error('old HTML'); }, attempts: 2, wait: async () => {} }),
+    rollback: async () => events.push('rollback'), commit: async () => events.push('commit'),
+  }), /conteúdo não confirmados/);
+  assert.deepEqual(events, ['rollback']);
+});
+test('Conteúdo não é validado com recibo de outra versão', async () => {
+  await assert.rejects(() => verifyDelivery({ receiptMatches: async () => false,
+    verifyContent: async () => assert.fail('wrong release'), attempts: 2, wait: async () => {} }), /não confirmados/);
 });
