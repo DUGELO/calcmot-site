@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { cloudflareClient, restoreIfOwned } from './cloudflare.mjs';
-import { distribute } from './distribute.mjs';
+import { distribute, verifyDelivery } from './distribute.mjs';
 import { stringify } from 'yaml';
 import { createHash } from 'node:crypto';
 import { parseRequest, productionGate } from './request.mjs';
@@ -150,14 +150,10 @@ async function deploy() {
       await client.switch([{version_id:candidateId,percentage:100}],'CalcMot editorial '+plan.releaseId);
     },
     verify:async()=>{
-      let confirmed=false;
-      for(let attempt=0;attempt<12;attempt++){
-        try{confirmed=releaseMatches(await remoteReceipt(),manifest);}catch{}
-        if(confirmed)break;
-        await new Promise(resolve=>setTimeout(resolve,5000));
-      }
-      if(!confirmed)throw new Error('Distribuição não confirmada. A publicação não foi marcada como concluída.');
-      run('scripts/editorial/smoke.mjs',['https://calcmot.com.br']);
+      await verifyDelivery({
+        receiptMatches: async () => releaseMatches(await remoteReceipt(), manifest),
+        verifyContent: async () => run('scripts/editorial/smoke.mjs', ['https://calcmot.com.br']),
+      });
       auditSeo(['--origin=https://calcmot.com.br']);
     },
     rollback:async()=>{await restoreIfOwned(client,previous,candidateId);},
