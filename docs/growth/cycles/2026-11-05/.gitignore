@@ -1,0 +1,7 @@
+# Local detailed reports; validated compact checkpoint is versioned at docs/growth/seed-checkpoint.json.
+backlink-report.json
+backlink-report.md
+backlink-state.json
+operational-report.json
+operational-report.md
+operational-state.json

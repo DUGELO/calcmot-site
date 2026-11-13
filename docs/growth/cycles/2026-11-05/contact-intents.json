@@ -1,0 +1,24 @@
+[
+  {
+    "id": "2026-11-05-motor1-intent",
+    "opportunityId": "motor1-brasil",
+    "channel": "individual_email",
+    "status": "awaiting_review",
+    "submissionConfirmed": true,
+    "recipient": "br.press@motor1.com",
+    "source": "https://motor1.uol.com.br/info/contact/",
+    "note": "Official Brazil media/press contact; Gmail duplicate search returned no prior CalcMot send.",
+    "messageId": "1a1acd132f407fa9"
+  },
+  {
+    "id": "2026-11-05-auto-mulher-intent",
+    "opportunityId": "portal-auto-mulher",
+    "channel": "individual_email",
+    "status": "awaiting_review",
+    "submissionConfirmed": true,
+    "recipient": "bete@portalautomulher.com.br",
+    "source": "https://portalautomulher.com.br/expediente-contatos/",
+    "note": "Official editor contact and Quanto Custa editorial category; Gmail duplicate search returned no prior CalcMot send.",
+    "messageId": "1a1acd18cf31bb59"
+  }
+]

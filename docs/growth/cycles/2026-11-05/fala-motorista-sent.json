@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-05",
+  "opportunityId": "fala-motorista",
+  "status": "awaiting_review",
+  "submissionConfirmed": true,
+  "channel": "individual_email",
+  "recipient": "contato@falamotorista.com.br",
+  "messageId": "1a1accf35dfed2d7",
+  "labels": [
+    "SENT"
+  ],
+  "source": "https://www.falamotorista.com.br/contato",
+  "subject": "Sugestão de pauta: quando uma corrida cobre o carro, mas não remunera o tempo",
+  "payload": {
+    "mime_type": "text/html",
+    "charset": "UTF-8",
+    "body": {
+      "content": "<p>Olá, equipe Fala Motorista.</p><p>Sou Eduardo Oliveira, responsável pelo <a href=\"https://calcmot.com.br/\">CalcMot</a>. Vi o canal de pautas e a política de priorizar utilidade e fontes verificáveis. Sugiro um guia de serviço sobre a diferença entre pagar os custos do carro e remunerar o tempo de trabalho.</p><p>Exemplo exclusivamente hipotético: um serviço particular com 40 km totais a R$ 0,75/km gera R$ 30 de custos considerados. Com R$ 10 de pedágio por conta do motorista, cobrar R$ 40 cobre apenas esses gastos. Para obter R$ 30/h após esses custos em duas horas comprometidas, o valor do cenário seria R$ 100. Não é tabela de preço nem média de mercado: cada entrada precisa ser medida pelo motorista, incluindo busca, espera e retorno.</p><p>O leitor pode conferir as fórmulas e testar os próprios números no <a href=\"https://calcmot.com.br/ferramentas/corrida-vale-a-pena/\">simulador gratuito, sem cadastro</a>. Temos também metodologia e quatro cenários sintéticos reproduzíveis para apoiar a apuração. Não coletamos depoimentos ou dados representativos para esta pauta, nem prometemos aumento de renda.</p><p>Se o tema servir à redação, posso fornecer a memória de cálculo e esclarecer os limites. A sugestão é editorial, sem pagamento ou exigência de link.</p><p>Obrigado,<br>Eduardo Oliveira<br>Responsável pelo CalcMot</p>"
+    }
+  },
+  "backlinkConfirmed": false,
+  "publishedUrl": null,
+  "costBRL": 0,
+  "note": "SENT confirms sending only, not delivery, response, approval or publication."
+}

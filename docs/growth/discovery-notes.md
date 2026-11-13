@@ -1,0 +1,9 @@
+# Pesquisa de oportunidades — CalcMot
+
+Consulta em 29/10/2026. O JSON registra resultados reais de busca, não oportunidades confirmadas. Consultas pertencem ao lote de buscas e não necessariamente à consulta individual. Há candidatos editoriais, diretórios e recursos; verifique pertinência, regras, preço, possibilidade de link e contato antes de qualquer ação.
+
+Cinco fontes oficiais foram abertas e possuem condições resumidas no JSON. Todas permanecem condicionais: AppDirectory aceita somente apps web gratuitos; AppBrain exige publicação no Google Play, conta reivindicada e avaliação razoável. Não foi demonstrado que qualquer fonte produzirá backlink para calcmot.com.br. Os resultados de baixa prioridade incluem fóruns, vídeos, PDFs, lojas e alguns concorrentes identificáveis; outros devem ser filtrados manualmente. Não há 150 oportunidades nem 60 elegíveis verificadas nesta pesquisa. Nenhuma submissão ou contato foi realizado.
+
+Pesquisa complementar: nove páginas oficiais adicionais foram abertas e incluídas no JSON. Os diretórios sem conta continuam condicionados a adequação e aprovação. Android Blip, Hype Star, Startup Project e DevToolsDaily foram excluídos pelos requisitos registrados. A meta de 150 oportunidades plausíveis e 60 elegíveis não foi alcançada; os demais resultados ainda exigem triagem por domínio, contato e regras.
+
+Em triagem posterior foram abertos mais de 30 domínios oficiais e adicionados os endpoints, datas, condições observadas e exclusões ao JSON. As categorias de formulário condicional indicam que as condições públicas foram observadas; não garantem adequação nem aprovação. O total de URLs inclui resultados brutos, fontes fora do escopo e exclusões e não é número de oportunidades. Diretórios genéricos com foco em links ou sem revisão editorial merecem cuidado adicional para evitar divulgação em massa de baixa qualidade.

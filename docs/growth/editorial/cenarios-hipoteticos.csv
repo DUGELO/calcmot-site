@@ -1,0 +1,5 @@
+cenario,receita_centavos,busca_km,viagem_km,retorno_km,busca_min,viagem_min,espera_min,retorno_min,custo_reais_km,extras_centavos,meta_reais_h,custo_esperado_centavos,saldo_esperado_centavos,minimo_esperado_centavos
+A,3000,3,15,6,8,30,4,18,0.80,300,20,2220,780,4220
+B,3000,3,15,0,8,30,4,0,0.80,300,20,1740,1260,3140
+C,1400,1,4,0,3,9,0,0,0.80,0,20,400,1000,800
+D,1000,2,10,4,5,25,5,15,0.80,0,20,1280,-280,2947
